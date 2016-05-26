@@ -5,7 +5,7 @@ package com.dream.muke.entity;
  * @author dream
  *
  */
-public class Ctype {
+public class CType {
     private String ctNo;
     private String ctName;
     private String ctDirname;

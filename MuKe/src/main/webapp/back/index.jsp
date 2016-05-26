@@ -20,7 +20,6 @@
 	<script type="text/javascript" src="../easyui/js/index.js"></script>
 	<script type="text/javascript" src="../js/showpic.js"></script>
 	<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
-	
 	<!-- 编辑器 -->
 	<script type="text/javascript" src="../ueditor/ueditor.config.js"></script>
 	<script type="text/javascript" src="../ueditor/ueditor.all.min.js"></script>
