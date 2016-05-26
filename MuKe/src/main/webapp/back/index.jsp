@@ -72,7 +72,6 @@
 
 							</li>
 
-							</li>
 							<li id="course_easydegree"> 
 								<span>课程难易信息管理</span> 
 							</li> 
@@ -89,10 +88,8 @@
 							</li> 
 						</ul> 
 
-							</li> 
-						</ul> 
-
-					</li>
+					</li> 
+					
 					<li data-options="state:'open'">
 					<span>社区管理</span>
 						<ul>
@@ -101,8 +98,7 @@
 							</li>
 						</ul>
 					</li>
-					
-				</ul>
+				</ul> 	
 			</li>
 		</ul>
 	</div>

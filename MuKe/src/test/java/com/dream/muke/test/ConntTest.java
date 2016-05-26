@@ -24,7 +24,7 @@ public class ConntTest {
 		Connection con=null;
 		SqlSession session=sqlSessionFactory.openSession();
 		con=session.getConnection();
-		System.out.println("我就进来测试一下......");
+		//System.out.println("我就进来测试一下......");
 		assertNotNull("数据库连接失败",con);
 	}
 
