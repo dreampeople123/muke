@@ -14,8 +14,7 @@
 		var op;
 		var flag;
 		datagrid=$('#ask_manager').datagrid({
-			url:'../communityServlet',
-			queryParams:{op:"getAskInfo"},
+			url:'ask_getAskInfo.action',
 			fitColumns:true,
 			striped:true,
 			loadMsg:"数据加载中...",
@@ -44,13 +43,12 @@
 	});
 	
 	setTimeout("findAllCourseType()",1000);
-	
 	function findAllCourseType(){
-		$.post("../communityServlet",{op:"findAllCourseType"},function(data){
+		$.post("cType_findAllCourseType",function(data){
 			var obj=$("#askType");
 			var opt;
-			$.each(data.askTypes,function(index,item){ //将所有的课程名称赋值给select
-				opt="<option value='"+item.ctypeno+"'>"+item.ctypename+"</option>";
+			$.each(data,function(index,item){ //将所有的课程名称赋值给select
+				opt="<option value='"+item.ctNo+"'>"+item.ctName+"</option>";
 				obj.append($(opt));
 			});
 		},"json");
