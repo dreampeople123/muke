@@ -95,7 +95,7 @@
 		<!-- 每个人的坐标可能不一样，注意修改 -->
 		<dependency>
 			<groupId>com.oracle</groupId>
-			<artifactId>oracle_driver</artifactId>
+			<artifactId>oracle-driver</artifactId>
 			<version>oracle11g</version>
 		</dependency>
 
