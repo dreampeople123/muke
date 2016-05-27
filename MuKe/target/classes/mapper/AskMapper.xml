@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dream.muke.mapper.AskMapper" >
-	<select id="getAskInfo" resultMap="BackAskBeanMap">
+	<!-- BackAskBean的resultMap -->
+	<resultMap type="BackAskBean" id="BackAskBeanMap">
+		<id column="aNo" property="aNo"/>
+		<association property="cType" column="ctNo" select="findTypeByNo"/>
+		<association property="user" column="uNo" select="findUserByNo" />
+	</resultMap>
+	<select id="findTypeByNo" parameterType="string" resultType="CType">
+		select * from ctype where ctNo=#{ctNo}
+	</select>
+	<select id="findUserByNo" parameterType="string" resultType="Users">
+		select * from users where uNo=#{uNo}
+	</select>
 	
+	<!-- 获取问答信息(后台) -->
+	<select id="getAskInfo" resultMap="BackAskBeanMap">
+		select * from ask
 	</select>
 </mapper>

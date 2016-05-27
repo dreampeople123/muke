@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dream.muke.mapper.CTypeMapper" >
+	<!-- 找到所有的课程类别 -->
 	<select id="findAllCourseType" resultType="CType">
 		select * from ctype
 	</select>

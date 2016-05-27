@@ -22,6 +22,14 @@
 			<result name="findAllCourseType" type="json">
 				<param name="root">cTypes</param>
 			</result>
+			
+			<result name="getAskInfo" type="json">
+				<param name="root">asks</param>
+			</result>
+			
+			<result name="getAskAnswer" type="json">
+				<param name="root">jsonAnswer</param>
+			</result>
 		</action>
     </package>
 </struts>

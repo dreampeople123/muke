@@ -1,0 +1,14 @@
+.alabel{
+	font-weight: bold;
+	margin-right: 10px;
+	font-size: 14px;
+}
+
+#ask_content{
+	margin-left: 20px;
+	margin-top:10px;
+	width: 300px;
+	display:block;
+	word-break: break-all;
+	word-wrap: break-word;
+}

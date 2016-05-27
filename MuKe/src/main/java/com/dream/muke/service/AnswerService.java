@@ -1,17 +1,14 @@
-package com.dream.muke.mapper;
+package com.dream.muke.service;
 
 import com.dream.muke.entity.Answer;
 
-/**
- * 问题表映射接口
- * @author dream
- *
- */
-public interface AnswerMapper {
+
+public interface AnswerService {
 	/**
 	 * 获取问题下的回答
 	 * @param getaNo
 	 * @return
 	 */
 	public Answer getAskAnswerByNo(String aNo);
+
 }

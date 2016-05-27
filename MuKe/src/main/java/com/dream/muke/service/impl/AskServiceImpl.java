@@ -17,5 +17,4 @@ public class AskServiceImpl implements AskService {
 	public List<BackAskBean> getAskInfo() {
 		return askMapper.getAskInfo();
 	}
-
 }
