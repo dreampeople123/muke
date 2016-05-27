@@ -49,34 +49,34 @@ var editRow=undefined;
 var op;
 $(function(){
 datagrid=$('#user_info').datagrid({
-			url:'../userServlet',
-			queryParams:{op:"getPageUserInfo"},
+			url:'user_getPageUserInfo',
+			/* queryParams:{op:"getPageUserInfo"}, */
 			fitColumns:true,
 			striped:true,
 			loading:"数据加载中",
 			pagination:true,
 			rownumbers:true,
 			columns:[[
-				{field:'unos',title:'选择',width:100,align:'center',checkbox:true},
-				{field:'uno',title:'用户编号',width:100,align:'center',sortable:true},
-				{field:'uname',title:'姓名',width:100,align:'center'},
-				{field:'email',title:'邮箱',width:100,align:'center'},
-				{field:'isTeacher',title:'身份',width:100,align:'center', 
+				{field:'uNos',title:'选择',width:100,align:'center',checkbox:true},
+				{field:'uNo',title:'用户编号',width:100,align:'center',sortable:true},
+				{field:'uName',title:'姓名',width:100,align:'center'},
+				{field:'uTel',title:'手机',width:100,align:'center'},
+				{field:'uIsTeacher',title:'身份',width:100,align:'center', 
 					formatter:function(value,row,index){
 						 if (value == 0){
                             return  '会员';
                         } else if (value ==1){
                             return  '教师';
                         }else if(value ==2){
-                        	console.info(row.uno);
-                           return '<select id="isTeacher'+row.uno+'" class="easyui-combobox" name="dept"  style="width:100%; height:100%; display:block;  text-align:center;" ><option value="2">待审核</option><option value="0">审核不通过</option><option value="1">审核通过</option></select>';
+                        	console.info(row.uNo);
+                           return '<select id="isTeacher'+row.uNo+'" class="easyui-combobox" name="dept"  style="width:100%; height:100%; display:block;  text-align:center;" ><option value="2">待审核</option><option value="0">审核不通过</option><option value="1">审核通过</option></select>';
                         }
 						return value;
 					}
 				},
 				{field:'_operate',title:'操作',width:100,align:'center',
 					formatter: function(value,rowData,index){
-						return '<a id="xiangxi" href="javascript:showUserDetail(\''+rowData.uno+'\')">详细</a>';
+						return '<a id="xiangxi" href="javascript:showUserDetail(\''+rowData.uNo+'\')">详细</a>';
 					}
 				}
 			]],
@@ -131,7 +131,7 @@ datagrid=$('#user_info').datagrid({
 						showPosition:'slide'
 					});
 			}else {
-				if($("#isTeacher"+rows[0].uno).val()==""||$("#isTeacher"+rows[0].uno).val()==null){
+				if($("#isTeacher"+rows[0].uNo).val()==""||$("#isTeacher"+rows[0].uNo).val()==null){
 					$.messager.show({
 						title:'温馨提示',
 						msg:'此数据不需要提交....',
@@ -139,8 +139,8 @@ datagrid=$('#user_info').datagrid({
 						showPosition:'slide'
 					});
 				}else{
-					var unos=rows[0].uno;
-					var isTeacher=$("#isTeacher"+rows[0].uno).val();
+					var unos=rows[0].uNo;
+					var isTeacher=$("#isTeacher"+rows[0].uNo).val();
 					if(isTeacher=="2"){
 						datagrid.datagrid("rejectChanges");
 					}else{
@@ -177,9 +177,9 @@ datagrid=$('#user_info').datagrid({
 				if(r){
 					var unos="";
 					for(var i=0;i<rows.length-1;i++){
-						unos+=rows[i].uno+",";
+						unos+=rows[i].uNo+",";
 					}
-					unos+=rows[i].uno;
+					unos+=rows[i].uNo;
 					$.post("../userServlet",{op:"delUserInfo",unos:unos},function(data){
 						data=parseInt($.trim(data));
 						if(data==1){

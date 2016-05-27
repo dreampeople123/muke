@@ -1,259 +1,259 @@
---´´½¨ÓÃ»§ÒÔ¼°¸³È¨ÏŞ
+--åˆ›å»ºç”¨æˆ·ä»¥åŠèµ‹æƒé™
 create user muke identified by a;
 grant resource,connect to vote;
 
---¹ÜÀíÔ±±í
+--ç®¡ç†å‘˜è¡¨
 drop table admin;
 drop sequence seq_admin_aId;
 
 create table admin(
-       aId varchar2(20) primary key,          --¹ÜÀíÔ±±àºÅ
-       aName varchar2(20) not null,           --¹ÜÀíÔ±Ãû×Ö
-       aPwd varchar2(20) not null,            --¹ÜÀíÔ±ÃÜÂë
-       aRetain1 varchar2(100),                --±£Áô×Ö¶Î 
-       aRetain2 varchar2(100),                --±£Áô×Ö¶Î
-       aRetain3 varchar2(100),                --±£Áô×Ö¶Î
-       aStatus int                            --É¾³ı±ê¼Ç  0ÒÑ±»É¾³ı 1Îª´æÔÚ
-                constraint CK_admin_aStatus check(aStatus in(1,2))
+       aId varchar2(20) primary key,          --ç®¡ç†å‘˜ç¼–å·
+       aName varchar2(20) not null,           --ç®¡ç†å‘˜åå­—
+       aPwd varchar2(20) not null,            --ç®¡ç†å‘˜å¯†ç 
+       aRetain1 varchar2(100),                --ä¿ç•™å­—æ®µ 
+       aRetain2 varchar2(100),                --ä¿ç•™å­—æ®µ
+       aRetain3 varchar2(100),                --ä¿ç•™å­—æ®µ
+       aStatus int                            --åˆ é™¤æ ‡è®°  0å·²è¢«åˆ é™¤ 1ä¸ºå­˜åœ¨
+                constraint CK_admin_aStatus check(aStatus in(1,0))
 )
 
 create sequence seq_admin_aId
-       START WITH 1000    -- ´Ó1000¿ªÊ¼¼ÆÊı 
-       INCREMENT BY 1     -- Ã¿´Î¼Ó1¸ö
+       START WITH 1000    -- ä»1000å¼€å§‹è®¡æ•° 
+       INCREMENT BY 1     -- æ¯æ¬¡åŠ 1ä¸ª
 
-insert into admin values(0,'a','a','','','',1);
+insert into admin values(seq_admin_aId,'a','a','','','',1);
 select * from  admin;
 select * from admin where aName='a' and aPwd='a'
 
 
---ÓÃ»§ĞÅÏ¢±í
+--ç”¨æˆ·ä¿¡æ¯è¡¨
 drop table users;
 drop sequence seq_users_uNo;
 
 create table users(
-       uNo varchar(20) primary key,         --ÓÃ»§±àºÅ
-       uName varchar2(20) not null,         --ÓÃ»§Ãû
-       uPwd varchar2(20) not null,          --ÓÃ»§ÃÜÂë
-       uAddress_prov varchar2(50),          --Ê¡
-       uAddress_city varchar2(50),          --ÊĞ
-       uAddress_county varchar2(50),        --ÏØ
-       uSex varchar2(20) default 'ÄĞ'       --ĞÔ±ğ
-              constraint CK_users_uSex check(uSex in('ÄĞ','Å®')),
-       uUsign varchar2(200),                --¸öĞÔÇ©Ãû
-       uPic varchar2(200),                  --Í·Ïñ
-       uTel varchar2(20),                   --ÊÖ»ú
-       uIsTeacher int,                      --0±íÊ¾²»ÊÇ½ÌÊ¦ 1±íÊ¾ÎªÊÇ½ÌÊ¦
-       uStudytime int,                      --Ñ§Ï°Ê±¼ä
-       uRetain1 varchar2(100),              --±£Áô×Ö¶Î 
-       uRetain2 varchar2(100),              --±£Áô×Ö¶Î
-       uRetain3 varchar2(100),              --±£Áô×Ö¶Î
-       uStatus int                          --É¾³ı±ê¼Ç  0ÒÑ±»É¾³ı 1Îª´æÔÚ
-               constraint CK_users_uStatus check(uStatus in(1,2))
+       uNo varchar(20) primary key,         --ç”¨æˆ·ç¼–å·
+       uName varchar2(20) not null,         --ç”¨æˆ·å
+       uPwd varchar2(20) not null,          --ç”¨æˆ·å¯†ç 
+       uAddress_prov varchar2(50),          --çœ
+       uAddress_city varchar2(50),          --å¸‚
+       uAddress_county varchar2(50),        --å¿
+       uSex varchar2(20) default 'ç”·'       --æ€§åˆ«
+              constraint CK_users_uSex check(uSex in('ç”·','å¥³')),
+       uUsign varchar2(200),                --ä¸ªæ€§ç­¾å
+       uPic varchar2(200),                  --å¤´åƒ
+       uTel varchar2(20),                   --æ‰‹æœº
+       uIsTeacher int,                      --0è¡¨ç¤ºä¸æ˜¯æ•™å¸ˆ 1è¡¨ç¤ºä¸ºæ˜¯æ•™å¸ˆ
+       uStudytime int,                      --å­¦ä¹ æ—¶é—´
+       uRetain1 varchar2(100),              --ä¿ç•™å­—æ®µ 
+       uRetain2 varchar2(100),              --ä¿ç•™å­—æ®µ
+       uRetain3 varchar2(100),              --ä¿ç•™å­—æ®µ
+       uStatus int                          --åˆ é™¤æ ‡è®°  0å·²è¢«åˆ é™¤ 1ä¸ºå­˜åœ¨
+               constraint CK_users_uStatus check(uStatus in(1,0))
 )
 
 create sequence seq_users_uNo
-       START WITH 1000    -- ´Ó1000¿ªÊ¼¼ÆÊı 
-       INCREMENT BY 1     -- Ã¿´Î¼Ó1¸ö
+       START WITH 1000    -- ä»1000å¼€å§‹è®¡æ•° 
+       INCREMENT BY 1     -- æ¯æ¬¡åŠ 1ä¸ª
 
 select * from users;
 
 
---¿Î³ÌÀà±ğ±í
+--è¯¾ç¨‹ç±»åˆ«è¡¨
 drop table ctype;
 drop sequence seq_ctype_ctNo;
 
 create table ctype(
-       ctNo varchar2(20) primary key,   --Àà±ğ±àºÅ
-       ctName varchar2(20) not null,    --Àà±ğÃû
-       ctDirname varchar2(20) not null, --·½ÏòÃû³Æ
-       ctRetain1 varchar2(100),         --±£Áô×Ö¶Î 
-       ctRetain2 varchar2(100),         --±£Áô×Ö¶Î
-       ctRetain3 varchar2(100),         --±£Áô×Ö¶Î
-       ctStatus int                     --É¾³ı±ê¼Ç  0ÒÑ±»É¾³ı 1Îª´æÔÚ
+       ctNo varchar2(20) primary key,   --ç±»åˆ«ç¼–å·
+       ctName varchar2(20) not null,    --ç±»åˆ«å
+       ctDirname varchar2(20) not null, --æ–¹å‘åç§°
+       ctRetain1 varchar2(100),         --ä¿ç•™å­—æ®µ 
+       ctRetain2 varchar2(100),         --ä¿ç•™å­—æ®µ
+       ctRetain3 varchar2(100),         --ä¿ç•™å­—æ®µ
+       ctStatus int                     --åˆ é™¤æ ‡è®°  0å·²è¢«åˆ é™¤ 1ä¸ºå­˜åœ¨
               constraint CK_ctype_ctStatus check(ctStatus in(1,2))
 )
 
 create sequence seq_ctype_ctNo
-       START WITH 1000    -- ´Ó1000¿ªÊ¼¼ÆÊı 
-       INCREMENT BY 1     -- Ã¿´Î¼Ó1¸ö
+       START WITH 1000    -- ä»1000å¼€å§‹è®¡æ•° 
+       INCREMENT BY 1     -- æ¯æ¬¡åŠ 1ä¸ª
 
 select * from ctype;
 
 
---¿Î³ÌÄÑÒ×±í
+--è¯¾ç¨‹éš¾æ˜“è¡¨
 drop table deeply;
 drop sequence seq_deeply_dNo;
 
 create table deeply(
-       dNo varchar2(20) primary key,       --ÄÑÒ×¶È±àºÅ
-       dName varchar2(15) not null unique, --ÄÑÒ×¶ÈÃû³Æ
-       dRetain1 varchar2(100),             --±£Áô×Ö¶Î 
-       dRetain2 varchar2(100),             --±£Áô×Ö¶Î
-       dRetain3 varchar2(100),             --±£Áô×Ö¶Î
-       dStatus int                         --É¾³ı±ê¼Ç  0ÒÑ±»É¾³ı 1Îª´æÔÚ
+       dNo varchar2(20) primary key,       --éš¾æ˜“åº¦ç¼–å·
+       dName varchar2(15) not null unique, --éš¾æ˜“åº¦åç§°
+       dRetain1 varchar2(100),             --ä¿ç•™å­—æ®µ 
+       dRetain2 varchar2(100),             --ä¿ç•™å­—æ®µ
+       dRetain3 varchar2(100),             --ä¿ç•™å­—æ®µ
+       dStatus int                         --åˆ é™¤æ ‡è®°  0å·²è¢«åˆ é™¤ 1ä¸ºå­˜åœ¨
               constraint CK_deeply_dStatus check(dStatus in(1,2))
 )
 
 create sequence seq_deeply_dNo
-       START WITH 1000    -- ´Ó1000¿ªÊ¼¼ÆÊı 
-       INCREMENT BY 1    -- Ã¿´Î¼Ó1¸ö
+       START WITH 1000    -- ä»1000å¼€å§‹è®¡æ•° 
+       INCREMENT BY 1    -- æ¯æ¬¡åŠ 1ä¸ª
        
 select * from deeply;
 
 
---¿Î³ÌĞÅÏ¢±í(course)
+--è¯¾ç¨‹ä¿¡æ¯è¡¨(course)
 drop table course;
 drop sequence seq_course_cNo;
 
 create table course(
-      cNo varchar2(20) primary key,       --¿Î³Ì±àºÅ
-      cName varchar2(25) not null unique, --¿Î³ÌÃû
-      dNo varchar2(20)                    --ÄÑÒ×¶È
+      cNo varchar2(20) primary key,       --è¯¾ç¨‹ç¼–å·
+      cName varchar2(25) not null unique, --è¯¾ç¨‹å
+      dNo varchar2(20)                    --éš¾æ˜“åº¦
                 constraint FK_course_dNo references deeply(dNo),
-      ctNo varchar2(20)                   --Àà±ğ
+      ctNo varchar2(20)                   --ç±»åˆ«
                 constraint FK_course_ctNo references ctype(ctNo),
-      cUpdatetime varchar2(20),           --¸üĞÂÊ±¼ä
-      cUpstatus int                      --ÊÇ·ñ¸üÍê 0¸üÍê 1Î´¸üÍê
+      cUpdatetime varchar2(20),           --æ›´æ–°æ—¶é—´
+      cUpstatus int                      --æ˜¯å¦æ›´å®Œ 0æ›´å®Œ 1æœªæ›´å®Œ
                 constraint CK_course_cUpstatus check(cUpstatus in(1,2)),
-      cPic varchar2(100),                 --¿Î³ÌÍ¼Æ¬µÄÂ·¾¶
-      cRetain1 varchar2(100),             --±£Áô×Ö¶Î 
-      cRetain2 varchar2(100),             --±£Áô×Ö¶Î
-      cRetain3 varchar2(100),             --±£Áô×Ö¶Î
-      cStatus int                         --É¾³ı±ê¼Ç  0ÒÑ±»É¾³ı 1Îª´æÔÚ
+      cPic varchar2(100),                 --è¯¾ç¨‹å›¾ç‰‡çš„è·¯å¾„
+      cRetain1 varchar2(100),             --ä¿ç•™å­—æ®µ 
+      cRetain2 varchar2(100),             --ä¿ç•™å­—æ®µ
+      cRetain3 varchar2(100),             --ä¿ç•™å­—æ®µ
+      cStatus int                         --åˆ é™¤æ ‡è®°  0å·²è¢«åˆ é™¤ 1ä¸ºå­˜åœ¨
                 constraint CK_course_cStatus check(cStatus in(1,2))
 )
 
 create sequence seq_course_cNo
-       START WITH 1000    -- ´Ó1000¿ªÊ¼¼ÆÊı 
-       INCREMENT BY 1     -- Ã¿´Î¼Ó1¸ö
+       START WITH 1000    -- ä»1000å¼€å§‹è®¡æ•° 
+       INCREMENT BY 1     -- æ¯æ¬¡åŠ 1ä¸ª
 
 select * from course;
 
 
---ÓÃ»§Ñ§Ï°µÄ¿Î³Ì±í
+--ç”¨æˆ·å­¦ä¹ çš„è¯¾ç¨‹è¡¨
 drop table ucourse;
 
 create table ucourse(
-       uNo varchar2(20)                      --ÓÃ»§
+       uNo varchar2(20)                      --ç”¨æˆ·
                 constraint FK_ucourse_uno references users(uNo),
-       cNo varchar2(20)                      --¿Î³Ì
+       cNo varchar2(20)                      --è¯¾ç¨‹
                 constraint FK_ucourse_cno references course(cNo),
-       ucAttention int                     --1±íÊ¾ÒÑ¹Ø×¢£¬0±íÊ¾Î´¹Ø×¢
+       ucAttention int                     --1è¡¨ç¤ºå·²å…³æ³¨ï¼Œ0è¡¨ç¤ºæœªå…³æ³¨
                 constraint CK_ucourse_ucAttention check(ucAttention in(1,2)),
-       ucLearnstatus int                    --Ñ§Ï°×´Ì¬ 1ÕıÔÚÑ§ 0ÒÑÑ§Íê
+       ucLearnstatus int                    --å­¦ä¹ çŠ¶æ€ 1æ­£åœ¨å­¦ 0å·²å­¦å®Œ
                 constraint CK_ucourse_ucLearnstatus check(ucLearnstatus in(1,2)),
-       ucNowChNo varchar2(100),        --ÏÖÔÚÑ§Ï°µ½µÄÕÂ½ÚÊı
-       ucRetain1 varchar2(100),              --±£Áô×Ö¶Î 
-       ucRetain2 varchar2(100),              --±£Áô×Ö¶Î
-       ucRetain3 varchar2(100),              --±£Áô×Ö¶Î
-       ucStatus int                          --É¾³ı±ê¼Ç  0ÒÑ±»É¾³ı 1Îª´æÔÚ
+       ucNowChNo varchar2(100),        --ç°åœ¨å­¦ä¹ åˆ°çš„ç« èŠ‚æ•°
+       ucRetain1 varchar2(100),              --ä¿ç•™å­—æ®µ 
+       ucRetain2 varchar2(100),              --ä¿ç•™å­—æ®µ
+       ucRetain3 varchar2(100),              --ä¿ç•™å­—æ®µ
+       ucStatus int                          --åˆ é™¤æ ‡è®°  0å·²è¢«åˆ é™¤ 1ä¸ºå­˜åœ¨
                 constraint CK_ucourse_ucStatus check(ucStatus in(1,2))
 )
 
 select * from (select a.*,rownum rn from (select r.*,uname,cname,cpic,updatetime from ucourse r, course d,users e where r.status!=0 and r.uno=e.uno and r.cno=d.cno and r.attention=1 and r.uno=1000 order by r.uno) a where rownum<=5) b where rn>0;
 select * from ucourse;
 
---ÕÂ½ÚÀàĞÍ±í
+--ç« èŠ‚ç±»å‹è¡¨
 drop table chapter;
 drop sequence seq_chapter_chapterno;
 
 create table chapter(
-       chNo varchar2(20) primary key,            --ÕÂ½Ú±àºÅ
-       chName varchar2(200) not null,            --ÕÂ½ÚÃû
-       cNo varchar2(20)                          --¿Î³Ì
+       chNo varchar2(20) primary key,            --ç« èŠ‚ç¼–å·
+       chName varchar2(200) not null,            --ç« èŠ‚å
+       cNo varchar2(20)                          --è¯¾ç¨‹
               constraint FK_chapter_cNo references course(cNo),
-       chContent varchar(200),                   --ÕÂ½ÚÄÚÈİ
-       chOrder int,                              --ÕÂ½ÚµÄË³Ğò
-       chRetain1 varchar2(100),                  --±£Áô×Ö¶Î 
-       chRetain2 varchar2(100),                  --±£Áô×Ö¶Î
-       chRetain3 varchar2(100),                  --±£Áô×Ö¶Î
-       chStatus int                              --É¾³ı±ê¼Ç  0ÒÑ±»É¾³ı 1Îª´æÔÚ
+       chContent varchar(200),                   --ç« èŠ‚å†…å®¹
+       chOrder int,                              --ç« èŠ‚çš„é¡ºåº
+       chRetain1 varchar2(100),                  --ä¿ç•™å­—æ®µ 
+       chRetain2 varchar2(100),                  --ä¿ç•™å­—æ®µ
+       chRetain3 varchar2(100),                  --ä¿ç•™å­—æ®µ
+       chStatus int                              --åˆ é™¤æ ‡è®°  0å·²è¢«åˆ é™¤ 1ä¸ºå­˜åœ¨
               constraint CK_chapter_chStatus check(chStatus in(1,2))
 )
 
 create sequence seq_chapter_chNo
-       START WITH 1000    -- ´Ó1000¿ªÊ¼¼ÆÊı 
-       INCREMENT BY 1     -- Ã¿´Î¼Ó1¸ö
+       START WITH 1000    -- ä»1000å¼€å§‹è®¡æ•° 
+       INCREMENT BY 1     -- æ¯æ¬¡åŠ 1ä¸ª
 
 select * from chapter;
 
 
---ÆÀÂÛ±í
+--è¯„è®ºè¡¨
 drop table comments;
 drop sequence seq_comments_coNo;
 
 create table comments(
-       coNo varchar2(20) primary key,        --ÆÀÂÛ±àºÅ
-       uNo varchar2(20)                      --ÓÃ»§
+       coNo varchar2(20) primary key,        --è¯„è®ºç¼–å·
+       uNo varchar2(20)                      --ç”¨æˆ·
            constraint FK_comments_uNo references users(uNo),
-       chNo varchar2(20)                     --ÕÂ½Ú
+       chNo varchar2(20)                     --ç« èŠ‚
            constraint FK_comments_chNo references chapter(chNo),
-       coContent clob,                       --ÆÀÂÛÄÚÈİ
-       coTime varchar2(200),                          --ÆÀÂÛÊ±¼ä
-       coDianzannum int,                     --µãÔŞÊı
-       coPic varchar2(200),                  --ÆÀÂÛ½ØÍ¼
-       coRetain1 varchar2(100),              --±£Áô×Ö¶Î 
-       coRetain2 varchar2(100),              --±£Áô×Ö¶Î
-       coRetain3 varchar2(100),              --±£Áô×Ö¶Î
-       coStatus int                          --É¾³ı±ê¼Ç  0ÒÑ±»É¾³ı 1Îª´æÔÚ
+       coContent clob,                       --è¯„è®ºå†…å®¹
+       coTime varchar2(200),                          --è¯„è®ºæ—¶é—´
+       coDianzannum int,                     --ç‚¹èµæ•°
+       coPic varchar2(200),                  --è¯„è®ºæˆªå›¾
+       coRetain1 varchar2(100),              --ä¿ç•™å­—æ®µ 
+       coRetain2 varchar2(100),              --ä¿ç•™å­—æ®µ
+       coRetain3 varchar2(100),              --ä¿ç•™å­—æ®µ
+       coStatus int                          --åˆ é™¤æ ‡è®°  0å·²è¢«åˆ é™¤ 1ä¸ºå­˜åœ¨
            constraint CK_comments_coStatus check(coStatus in(1,2))
 )
 
 create sequence seq_comments_coNo
-       START WITH 1000    -- ´Ó1000¿ªÊ¼¼ÆÊı 
-       INCREMENT BY 1    -- Ã¿´Î¼Ó1¸ö
+       START WITH 1000    -- ä»1000å¼€å§‹è®¡æ•° 
+       INCREMENT BY 1    -- æ¯æ¬¡åŠ 1ä¸ª
        
 select * from comments;
 
---ÎÊÌâ±í
+--é—®é¢˜è¡¨
 drop table ask;
 drop sequence seq_ask_aNo;
 
 create table ask(
-       aNo varchar2(20) primary key,       --ÎÊ´ğ±àºÅ
-       ctNo varchar2(50)                   --ÀàĞÍ
+       aNo varchar2(20) primary key,       --é—®ç­”ç¼–å·
+       ctNo varchar2(50)                   --ç±»å‹
            constraint FK_ask_ctNo references ctype(ctNo),
-       uNo varchar2(20)                    --ÌáÎÊÕß
+       uNo varchar2(20)                    --æé—®è€…
            constraint FK_ask_uNo references users(uNo),
-       aTitle varchar2(50),                 --ÎÊÌâ±êÌâ
-       aContent clob,                       --ÎÊÌâÄÚÈİ
-       aTime varchar2(200),              --ÌáÎÊÊ±¼ä
-       aRetain1 varchar2(100),              --±£Áô×Ö¶Î 
-       aRetain2 varchar2(100),              --±£Áô×Ö¶Î
-       aRetain3 varchar2(100),              --±£Áô×Ö¶Î
-       aStatus int                          --É¾³ı±ê¼Ç  0ÒÑ±»É¾³ı 1Îª´æÔÚ
+       aTitle varchar2(50),                 --é—®é¢˜æ ‡é¢˜
+       aContent clob,                       --é—®é¢˜å†…å®¹
+       aTime varchar2(200),              --æé—®æ—¶é—´
+       aRetain1 varchar2(100),              --ä¿ç•™å­—æ®µ 
+       aRetain2 varchar2(100),              --ä¿ç•™å­—æ®µ
+       aRetain3 varchar2(100),              --ä¿ç•™å­—æ®µ
+       aStatus int                          --åˆ é™¤æ ‡è®°  0å·²è¢«åˆ é™¤ 1ä¸ºå­˜åœ¨
            constraint CK_ask_aStatus check(aStatus in(1,2))   
 )
 
 create sequence seq_ask_aNo
-       START WITH 1000    -- ´Ó1000¿ªÊ¼¼ÆÊı 
-       INCREMENT BY 1    -- Ã¿´Î¼Ó1¸ö
+       START WITH 1000    -- ä»1000å¼€å§‹è®¡æ•° 
+       INCREMENT BY 1    -- æ¯æ¬¡åŠ 1ä¸ª
        
 select * from ask;
 
 
---»Ø´ğ±í
+--å›ç­”è¡¨
 drop table answer;
 drop sequence seq_ask_aNo;
 
 create table answer(
-       anNo varchar2(20) primary key,              --»Ø´ğ±àºÅ
-       aNo varchar2(20)                          --ÎÊÌâ
+       anNo varchar2(20) primary key,              --å›ç­”ç¼–å·
+       aNo varchar2(20)                          --é—®é¢˜
            constraint FK_answer_aNo references ask(aNo),
-       anContent clob,                         --»Ø´ğÄÚÈİ
-       uNo varchar2(20)                            --»Ø´ğÕß
+       anContent clob,                         --å›ç­”å†…å®¹
+       uNo varchar2(20)                            --å›ç­”è€…
            constraint FK_answer_uno references users(uNo),
-       anTime varchar2(200),                   --»Ø´ğÊ±¼ä
-       anRetain1 varchar2(100),                    --±£Áô×Ö¶Î 
-       anRetain2 varchar2(100),                    --±£Áô×Ö¶Î
-       anRetain3 varchar2(100),                    --±£Áô×Ö¶Î
-       anStatus int                                --É¾³ı±ê¼Ç  0ÒÑ±»É¾³ı 1Îª´æÔÚ
+       anTime varchar2(200),                   --å›ç­”æ—¶é—´
+       anRetain1 varchar2(100),                    --ä¿ç•™å­—æ®µ 
+       anRetain2 varchar2(100),                    --ä¿ç•™å­—æ®µ
+       anRetain3 varchar2(100),                    --ä¿ç•™å­—æ®µ
+       anStatus int                                --åˆ é™¤æ ‡è®°  0å·²è¢«åˆ é™¤ 1ä¸ºå­˜åœ¨
            constraint CK_ask_anStatus check(anStatus in(1,2))      
 )
 
 create sequence seq_ask_aNo
-       START WITH 1000    -- ´Ó1000¿ªÊ¼¼ÆÊı 
-       INCREMENT BY 1     -- Ã¿´Î¼Ó1¸ö
+       START WITH 1000    -- ä»1000å¼€å§‹è®¡æ•° 
+       INCREMENT BY 1     -- æ¯æ¬¡åŠ 1ä¸ª
        
 select * from answer;
 

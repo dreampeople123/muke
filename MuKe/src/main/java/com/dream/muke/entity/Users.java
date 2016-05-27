@@ -23,6 +23,9 @@ public class Users {
 	public String getuNo() {
 		return uNo;
 	}
+	public String getuNos() {
+		return uNo;
+	}
 	public void setuNo(String uNo) {
 		this.uNo = uNo;
 	}

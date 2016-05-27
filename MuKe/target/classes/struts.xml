@@ -22,6 +22,15 @@
 			<result name="findAllCourseType" type="json">
 				<param name="root">cTypes</param>
 			</result>
+			<!-- 查询所有的管理员返回的json -->
+			<result name="admininfo" type="json">
+				<param name="root">admins</param>
+			</result>
+			<!-- 增删改管理员返回的json（int :1或0） -->
+			<result name="admin_result" type="json">
+				<param name="root">admin_result</param>
+			</result>
+			
 		</action>
     </package>
 </struts>
