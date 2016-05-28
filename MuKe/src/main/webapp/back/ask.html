@@ -79,7 +79,6 @@
 					}
 					anos+=rows[i].aNo;
  					$.post("ask_delAskInfo",{askNos:anos},function(data){
- 						console.info(data);
 						data=parseInt($.trim(data));
 						if(data==1){
 							$.messager.show({

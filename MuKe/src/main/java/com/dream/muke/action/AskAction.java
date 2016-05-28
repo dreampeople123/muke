@@ -1,7 +1,6 @@
 package com.dream.muke.action;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -68,7 +67,6 @@ public class AskAction implements ModelDriven<BackAskBean>{
 	 * @return
 	 */
 	public String delAskInfo(){
-		System.out.println(askNos);
 		try {
 			askService.delAskInfo(askNos);
 			result=1;
