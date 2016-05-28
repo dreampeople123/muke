@@ -1,5 +1,8 @@
 package com.dream.muke.action;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.dream.muke.entity.Answer;
@@ -9,8 +12,9 @@ import com.opensymphony.xwork2.ModelDriven;
 @Controller("answerAction")
 public class AnswerAction implements ModelDriven<Answer>{
 	private Answer answer;
-	private Answer jsonAnswer; //传到后台的json
+	private List<Answer> answers; //传到后台的json数据
 	
+	@Autowired
 	private AnswerService answerService;
 
 	public Answer getModel() {
@@ -18,8 +22,8 @@ public class AnswerAction implements ModelDriven<Answer>{
 		return answer;
 	}
 	
-	public Answer getJsonAnswer() {
-		return jsonAnswer;
+	public List<Answer> getAnswers() {
+		return answers;
 	}
 
 	/**
@@ -27,8 +31,7 @@ public class AnswerAction implements ModelDriven<Answer>{
 	 * @return
 	 */
 	public String getAskAnswer(){
-		System.out.println(answer);
-		answerService.getAskAnswerByNo(answer.getaNo());
+		answers=answerService.getAskAnswerByNo(answer.getaNo());
 		return "getAskAnswer";
 	}
 

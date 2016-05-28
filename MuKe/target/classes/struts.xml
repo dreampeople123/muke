@@ -28,7 +28,11 @@
 			</result>
 			
 			<result name="getAskAnswer" type="json">
-				<param name="root">jsonAnswer</param>
+				<param name="root">answers</param>
+			</result>
+			
+			<result name="delAskInfo" type="json">
+				<param name="root">result</param>
 			</result>
 		</action>
     </package>

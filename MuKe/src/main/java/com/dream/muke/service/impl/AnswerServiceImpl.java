@@ -1,5 +1,7 @@
 package com.dream.muke.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,7 @@ public class AnswerServiceImpl implements AnswerService {
 	@Autowired
 	private AnswerMapper answerMapper;
 
-	public Answer getAskAnswerByNo(String aNo) {
+	public List<Answer> getAskAnswerByNo(String aNo) {
 		return answerMapper.getAskAnswerByNo(aNo);
 	}
 

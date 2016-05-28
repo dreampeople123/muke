@@ -5,7 +5,7 @@
 	<span>类型:</span><select id="askType">
 		<option value="0">全部</option>
 	</select>
-	<a href="javascript:findAskByInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+	<a href="javascript:findAskByType()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
 </div>
 <script>
 	var datagrid;
@@ -72,23 +72,25 @@
 		} else{
 			$.messager.confirm('信息确认','您确定要删除选中的数据吗?',function(r){
 				if(r){
-					var asknos="";
+					var anos="";
+					//获取所选中的问题编号，以逗号分隔
 					for(var i=0;i<rows.length-1;i++){
-						asknos+=rows[i].askno+",";
+						anos+=rows[i].aNo+",";
 					}
-					asknos+=rows[i].askno;
-					$.post("../communityServlet",{op:"delAskInfo",asknos:asknos},function(data){
+					anos+=rows[i].aNo;
+ 					$.post("ask_delAskInfo",{askNos:anos},function(data){
+ 						console.info(data);
 						data=parseInt($.trim(data));
 						if(data==1){
 							$.messager.show({
 								title:'成功提示',
-								msg:'章节删除成功',
+								msg:'问题删除成功',
 								timeout:2000,
 								showType:'slide'
 							});
 							datagrid.datagrid("reload");
 						} else{
-							$.messager.alert('失败提示','章节删除失败','error');
+							$.messager.alert('失败提示','问题删除失败','error');
 						}
 					});
 				}
@@ -105,26 +107,24 @@
 		$("#ask_content").html(row.aContent);
 		
  		$.post("answer_getAskAnswer",{aNo:row.aNo},function(data){
- 			console.info(data);
-/* 			var obj=$("#ask_list");
+ 			var obj=$("#ask_list");
 			var cont;
-			$.each(data.answers,function(index,item){
+			$.each(data,function(index,item){
 				obj.accordion('add', {
-					title: item.uname+" "+item.answertimes,
-					content: item.answercontent,
+					title: item.user.uName+" "+item.anTime,
+					content: item.anContent,
 					selected: false
 				});
-				console.info(item.uname+" "+item.answercontent);
 				obj.accordion('resize');
-			}); */
+			});
 		},"json");
 	}
 	
-	function findAskByInfo(){
+	function findAskByType(){
 		var typeNo=$("#askType").val();
-		datagrid.datagrid({   
-		    url:'../communityServlet',
-		    queryParams:{op:"findAskByInfo",typeNo:typeNo}
+ 		datagrid.datagrid({   
+		    url:'ask_findAskByType',
+		    queryParams:{typeNo:typeNo}
 		});
 	}
 </script>

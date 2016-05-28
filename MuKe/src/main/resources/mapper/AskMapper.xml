@@ -15,7 +15,25 @@
 	</select>
 	
 	<!-- 获取问答信息(后台) -->
-	<select id="getAskInfo" resultMap="BackAskBeanMap">
-		select * from ask
+	<select id="getAskInfo" parameterType="BackAskBean" resultMap="BackAskBeanMap">
+		select * from (select a.*,rownum rn from (select a.* from ask a where  a.aStatus!=1 order by aTime) a where #{pagea}>=rownum) b where rn>#{pageb}
 	</select>
+	
+	<!-- 获取当前的问题的总数量 -->
+	<select id="getAskTotal" parameterType="BackAskBean" resultType="int">
+		select count(1) from ask where aStatus!=1
+		<if test="typeNo != null and typeNo != '0' and typeNo != ''">
+			and ctNo=#{typeNo}
+		</if>
+	</select>
+	
+	<!-- 根据类型找到问题信息 -->
+	<select id="findAskByType" parameterType="BackAskBean" resultMap="BackAskBeanMap">
+		select * from (select a.*,rownum rn from (select a.* from ask a where ctNo=#{typeNo} and a.aStatus!=1 order by aTime) a where #{pagea}>=rownum) b where rn>#{pageb}
+	</select>
+	
+	<!-- 删除ask信息 -->
+	<update id="delAskInfoByNo" parameterType="string">
+		update ask set aStatus=1 where aNo=#{aNo}
+	</update>
 </mapper>

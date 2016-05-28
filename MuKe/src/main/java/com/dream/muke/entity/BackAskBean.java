@@ -1,5 +1,10 @@
 package com.dream.muke.entity;
 
+/**
+ * ask的bean,将外键写成类
+ * @author Administrator
+ *
+ */
 public class BackAskBean {
     private String aNo;
     private CType cType;
@@ -9,6 +14,36 @@ public class BackAskBean {
     private int aStatus;
     private String aContent;
     
+    private String typeNo;
+    
+    private int page;
+    private int rows;
+    
+    public int getPagea(){
+    	return page*rows;
+    }
+    public int getPageb(){
+    	return (page-1)*rows;
+    }
+    
+	public String getTypeNo() {
+		return typeNo;
+	}
+	public void setTypeNo(String typeNo) {
+		this.typeNo = typeNo;
+	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getRows() {
+		return rows;
+	}
+	public void setRows(int rows) {
+		this.rows = rows;
+	}
 	public String getaNo() {
 		return aNo;
 	}

@@ -1,5 +1,7 @@
 package com.dream.muke.service;
 
+import java.util.List;
+
 import com.dream.muke.entity.Answer;
 
 
@@ -9,6 +11,6 @@ public interface AnswerService {
 	 * @param getaNo
 	 * @return
 	 */
-	public Answer getAskAnswerByNo(String aNo);
+	public List<Answer> getAskAnswerByNo(String aNo);
 
 }
