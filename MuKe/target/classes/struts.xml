@@ -19,20 +19,29 @@
 	
 	<package name="mukeJson" namespace="/back" extends="json-default">
 		<action name="*_*" class="{1}Action" method="{2}">
+			<!-- 找到所有的课程类别 -->
 			<result name="findAllCourseType" type="json">
 				<param name="root">cTypes</param>
 			</result>
-			
+			<!-- 找到所有的ask信息 -->
 			<result name="getAskInfo" type="json">
 				<param name="root">asks</param>
 			</result>
-			
+			<!-- 找到问题的回答 -->
 			<result name="getAskAnswer" type="json">
 				<param name="root">answers</param>
 			</result>
-			
+			<!-- 删除回答的返回结果1:成功 0:失败 -->
 			<result name="delAskInfo" type="json">
 				<param name="root">result</param>
+			</result>
+			<!-- 查询所有的管理员返回的json -->
+			<result name="admininfo" type="json">
+				<param name="root">admins</param>
+			</result>
+			<!-- 增删改管理员返回的json（int :1或0） -->
+			<result name="admin_result" type="json">
+				<param name="root">admin_result</param>
 			</result>
 		</action>
     </package>

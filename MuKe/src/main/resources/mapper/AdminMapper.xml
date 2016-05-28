@@ -8,6 +8,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 管理员登录 -->
 	<select id="adminLogin" parameterType="Admin" resultType="Admin">
-		select * from admin where aName=#{aName} and aPwd=#{aPwd}
+		select* from admin where aName=#{aName} and aPwd=#{aPwd}
 	</select>
+	<!-- 查询所有的管理员信息 -->
+	<select id="findAllAdmin" parameterType="Map"
+		resultType="com.dream.muke.entity.Admin">
+		select * from (select a.*,rownum rn from (select * from admin where
+		aStatus!=0 order by aId) a where rownum<![CDATA[<]]>=(${page}*${rows}))
+		b where rn<![CDATA[
+>]]>((${page}-1)*${rows})
+	</select>
+	<!-- 添加管理员信息 -->
+	<insert id="addAdmin" parameterType="Admin">
+		insert into admin values(seq_admin_aId.nextval,#{aName},#{aPwd},'','','',1)
+	</insert>
+	<!-- 修改管理员信息 -->
+	<update id="updateAdmin" parameterType="Admin">
+		update admin set aName=#{aName},aPwd=#{aPwd} where aId=#{aId}
+	</update>
+	<!-- 删除管理员信息 -->
+	<delete id="delAdmin" parameterType="String">
+		delete from admin where aId=#{aId}
+	</delete>
 </mapper>

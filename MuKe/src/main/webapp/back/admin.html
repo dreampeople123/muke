@@ -4,28 +4,30 @@
 	var datagrid;
 	var editRow=undefined;
 	var op;
+	var urls;//全局变量设置要执行的操作替代servlet中op操作
 	var flag;
 	datagrid=$('#admin_info').datagrid({
-		url:'../adminServlet',
-		queryParams:{op:"getPageAdminInfo"},
+		url:'admin_info',
+		/* queryParams:{op:"getPageAdminInfo"}, */
 		fitColumns:true,
 		striped:true,
 		loadMsg:"数据加载中...",
 		pagination:true,
 		rownumbers:true,
-		sortName:'aid',
+		sortName:'aId',
 		remoteSort:false,
 		columns:[[
-			{field:'aids',title:'管理员编号',width:100,align:'center',checkbox:true},
-			{field:'aid',title:'管理员编号',width:100,align:'center',sortable:true},
-			{field:'aname',title:'管理员姓名',width:100,align:'center',editor:{type:"text",option:{required:true}}},
-			{field:'pwd',title:'管理员密码',width:100,align:'center',editor:{type:"text",option:{required:true}}}
+			{field:'aIds',title:'管理员编号',width:100,align:'center',checkbox:true},
+			{field:'aId',title:'管理员编号',width:100,align:'center',sortable:true},
+			{field:'aName',title:'管理员姓名',width:100,align:'center',editor:{type:"text",option:{required:true}}},
+			{field:'aPwd',title:'管理员密码',width:100,align:'center',editor:{type:"text",option:{required:true}}}
 		]],
 		toolbar:[{
 			text:"添加",
 			iconCls:'icon-add',
 			handler:function(){
-				op="addAdminInfo";//当前的操作
+				urls="admin_addAdminInfo";//当前的操作
+				/* op="addAdminInfo";//当前的操作 */
 				//先判断有没有正在编辑的行
 				flag="添加";
 				if(editRow!=undefined){//说明有行正在被编辑，则还原当前的修改
@@ -55,7 +57,8 @@
 						showType:'slide'
 					});
 				}else{
-					op="updateAdminInfo";//当前的操作
+					urls="admin_updateAdminInfo";//当前的操作
+					/* op="updateAdminInfo";//当前的操作 */
 					//先判断有没有正在编辑的行
 					flag="修改";
 					if(editRow!=undefined){//说明有行正在被编辑，则还原当前的修改
@@ -90,12 +93,11 @@
 						if(r){
 							var aids="";
 							for(var i=0;i<rows.length-1;i++){
-								aids+=rows[i].aid+",";
+								aids+=rows[i].aId+",";
 							}
-							aids+=rows[i].aid;
-							
+							aids+=rows[i].aId;
 							//将要删除的aid发送到服务器
-							$.post("../adminServlet",{op:"delAdminInfo",aids:aids},function(data){
+							$.post("admin_delAdminInfo",{aId:aids},function(data){
 								if(data==1){
 									$.messager.show({
 										title:'删除提示',
@@ -124,9 +126,9 @@
 					datagrid.datagrid("unselectAll");
 					editRow=undefined;
 				}else{
-					rows["op"]=op;
+					/* rows["op"]=op; */
 					
-					$.post("../adminServlet",rows,function(data){
+					$.post(urls,rows,function(data){
 						data=parseInt($.trim(data));
 						if(data==1){
 							$.messager.show({
