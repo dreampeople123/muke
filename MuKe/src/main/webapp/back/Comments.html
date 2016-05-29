@@ -16,11 +16,11 @@
 	var editRow=undefined;
 	var op;
 	var flag;
-	var datagrid;
+	var commentDatagrid;
 	var editRow=undefined;
 	$(function(){
 		var statusObj1=[{sid1:0,sname1:'不可用'},{sid1:1,sname1:'可用'}];
-		datagrid=$('#comments_manager').datagrid({
+		commentDatagrid=$('#comments_manager').datagrid({
 			url:'comment_getAllComment',
 			fitColumns:true,
 			striped:true,
@@ -34,12 +34,20 @@
 				{field:'coNo',title:'评论编号',width:100,align:'center',sortable:true},
 				{field:'uName',title:'用户姓名',width:100,align:'center',
 					formatter: function(value,row,index){
-						return row.user.uName;
+						if(row.user){
+							return row.user.uName;
+						} else{
+							return value;
+						}
 					}	
 				},
 				{field:'chName',title:'章节名',width:100,align:'center',
 					formatter: function(value,row,index){
-						return row.chapter.chName;
+						if(row.chapter){
+							return row.chapter.chName;
+						} else{
+							return value;
+						}
 					}
 				},
 				{field:'coTime',title:'评论的时间',width:100,align:'center'},
@@ -70,7 +78,7 @@
 	}
 	
 	function delCommentsInfo(){
-		var rows=datagrid.datagrid("getChecked");
+		var rows=commentDatagrid.datagrid("getChecked");
 		if(rows.length<=0){
 			$.messager.show({
 				title:'温馨提示',
@@ -95,7 +103,7 @@
 								timeout:2000,
 								showType:'slide'
 							});
-							datagrid.datagrid("reload");
+							commentDatagrid.datagrid("reload");
 						} else{
 							$.messager.alert('失败提示','章节删除失败','error');
 						} 
@@ -107,7 +115,7 @@
 	
 	function findCommentsByInfo(){
 		var chNo=$("#chaptername").val();
-		datagrid.datagrid({
+		commentDatagrid.datagrid({
 		    url:'comment_findCommentsByInfo.action',
 		    queryParams:{chNo:chNo}
 		});

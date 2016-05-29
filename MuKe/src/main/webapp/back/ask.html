@@ -8,13 +8,13 @@
 	<a href="javascript:findAskByType()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
 </div>
 <script>
-	var datagrid;
+	var askDatagrid;
 	var editRow=undefined;
 	
 	$(function(){
 		var op;
 		var flag;
-		datagrid=$('#ask_manager').datagrid({
+		askDatagrid=$('#ask_manager').datagrid({
 			url:'ask_getAskInfo.action',
 			fitColumns:true,
 			striped:true,
@@ -28,12 +28,20 @@
 				{field:'aNo',title:'问题编号',width:100,align:'center',sortable:true},
 				{field:'cType',title:'课程类型',width:100,align:'center',
 					formatter: function(value,row,index){
-						return row.cType.ctName;
+						if(row.cType){
+							return row.cType.ctName;
+						} else{
+							return value;
+						}
 					}
 				},
 				{field:'user',title:'用户',width:100,align:'center',
 					formatter: function(value,row,index){
-						return row.user.uName;
+						if(row.user){
+							return row.user.uName;
+						} else{
+							return value;
+						}
 					}
 				},
 				{field:'aTitle',title:'问题标题',width:100,align:'center',editor:{type:"text",option:{required:true}}},
@@ -61,7 +69,7 @@
 	}
 	
 	function delAskInfo(){
-		var rows=datagrid.datagrid("getChecked");
+		var rows=askDatagrid.datagrid("getChecked");
 		if(rows.length<=0){
 			$.messager.show({
 				title:'温馨提示',
@@ -87,7 +95,7 @@
 								timeout:2000,
 								showType:'slide'
 							});
-							datagrid.datagrid("reload");
+							askDatagrid.datagrid("reload");
 						} else{
 							$.messager.alert('失败提示','问题删除失败','error');
 						}
@@ -121,7 +129,7 @@
 	
 	function findAskByType(){
 		var typeNo=$("#askType").val();
- 		datagrid.datagrid({   
+		askDatagrid.datagrid({   
 		    url:'ask_findAskByType',
 		    queryParams:{typeNo:typeNo}
 		});
