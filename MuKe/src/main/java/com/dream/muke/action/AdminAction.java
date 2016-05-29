@@ -22,28 +22,18 @@ public class AdminAction implements ModelDriven<Admin> {
 	private Admin admin;//进行增删改的临时的admin
 	private int admin_result;//进行增删改的的结果int类型
 
-
-
-
 	public int getAdmin_result() {
 		return admin_result;
 	}
-
-
 	public void setPage(String page) {
 		this.page = page;
 	}
-
-
 	public void setRows(String rows) {
 		this.rows = rows;
 	}
-
-
 	public List<Admin> getAdmins() {
 		return admins;
 	}
-
 
 	/**
 	 * 查询所有管理员的信息
@@ -89,9 +79,8 @@ public class AdminAction implements ModelDriven<Admin> {
 			return "admin_result";
 		}
 	} 
-	@Override
+	
 	public Admin getModel() {
 		return admin;
 	}
-
 }
