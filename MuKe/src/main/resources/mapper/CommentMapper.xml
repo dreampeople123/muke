@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.muke.mapper.CommentMapper" >
+	<!-- CommentBean的resultMap -->
+	<resultMap type="CommentBean" id="CommentBeanMap">
+		<id property="coNo" column="coNo"/>
+		<association property="user" column="uNo" select="findUserByNo"/>
+		<association property="chapter" column="chNo" select="findChapterByNo"></association>
+	</resultMap>
+	<select id="findUserByNo" parameterType="string" resultType="Users">
+		select * from users where uNo=#{uNo}
+	</select>
+	<select id="findChapterByNo" parameterType="string" resultType="Chapter">
+		select * from chapter where chNo=#{chNo}
+	</select>
+
+	<!-- 找到所有的评论信息 -->
+	<select id="getAllComment" parameterType="CommentBean" resultMap="CommentBeanMap">
+		select * from (select a.*,rownum rn from (select * from comments where coStatus!=1 order by chNo) a where #{pagea}>=rownum) b where rn>#{pageb}
+	</select>
+	
+	<!-- 获取当前评论的总数 -->
+	<select id="getCommentTotal" parameterType="CommentBean" resultType="int">
+		select count(1) from comments where coStatus!=1
+		<if test="chNo != null and chNo != '0' and chNo != ''">
+			and chNo=#{chNo}
+		</if>
+	</select>
+	
+	<!-- 根据章节找到评论信息 -->
+	<select id="findCommentsByInfo" parameterType="CommentBean" resultMap="CommentBeanMap">
+		select * from (select a.*,rownum rn from (select * from comments where chNo=#{chNo} and coStatus!=1 order by coTime) a where #{pagea}>=rownum) b where rn>#{pageb}
+	</select>
+	
+	<!-- 删除评论信息 -->
+	<update id="delComments" parameterType="string">
+		<foreach collection="array" item="coNos" open="update comments set coStatus=1 where coNo in(" close=")" separator=",">
+			${coNos}
+		</foreach>
+	</update>
+</mapper>

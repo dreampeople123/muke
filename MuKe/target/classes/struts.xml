@@ -19,6 +19,19 @@
 	
 	<package name="mukeJson" namespace="/back" extends="json-default">
 		<action name="*_*" class="{1}Action" method="{2}">
+			<!-- 删除评论信息 -->
+			<result name="delComments" type="json">
+				<param name="root">result</param>
+			</result>
+			<!-- 找到所有的评论信息 -->
+			<result name="getAllComment" type="json">
+				<param name="root">comments</param>
+			</result>
+			<!-- 获取所有的章节 -->
+			<result name="getAllChapter" type="json">
+				<param name="root">chapters</param>
+			</result>
+			
 			<!-- 找到所有的课程类别 -->
 			<result name="findAllCourseType" type="json">
 				<param name="root">cTypes</param>
@@ -35,6 +48,7 @@
 			<result name="delAskInfo" type="json">
 				<param name="root">result</param>
 			</result>
+			
 			<!-- 查询所有的管理员返回的json -->
 			<result name="admininfo" type="json">
 				<param name="root">admins</param>
