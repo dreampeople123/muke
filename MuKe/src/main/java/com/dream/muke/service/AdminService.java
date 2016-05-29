@@ -11,11 +11,11 @@ public interface AdminService {
 	 * @return
 	 */
 	public Admin adminLogin(Admin admin);
+	
 	/**
 	 * 查询所有的管理员信息
 	 * @return
 	 */
-
 	public List<Admin> findAllAdmin(int page,int rows);
 	/**
 	 * 添加管理员信息

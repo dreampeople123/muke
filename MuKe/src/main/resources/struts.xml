@@ -14,6 +14,7 @@
 	<package name="default" namespace="/" extends="struts-default">
 		<action name="*_*" class="{1}Action" method="{2}">
 		    <result>/front/login.jsp</result>
+		    <result name="adminLogin">/back/index.jsp</result><!-- 管理员登录 -->
 		</action>
 		
 		<action name="myFileUpload" class="uploadAction" method="upload">

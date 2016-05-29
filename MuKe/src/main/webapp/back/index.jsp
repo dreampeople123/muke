@@ -31,7 +31,7 @@
 <body class="easyui-layout" >
 	<div data-options="region:'north',border:false" style="height:137px;background:url('../easyui/images/ck.png');padding:10px" id="newslogo">
 		<div id="index_show_info">
-			<p>欢迎您:&nbsp;&nbsp;&nbsp;${loginAdmin.aname }</p>
+			<p>欢迎您:&nbsp;&nbsp;&nbsp;${loginAdmin.aName }</p>
 			<p id="currentTime"></p>
 		</div>
 	</div>

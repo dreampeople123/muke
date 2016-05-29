@@ -16,12 +16,12 @@
     <div id="test">
     </div>
     <div id="login">
-    	<form action="../adminServlet?op=adminLogin" method="post" id="myform">
+    	<form action="admin_adminLogin" method="post" id="myform">
             <div id="a">
-            	<label for="uname">用户名:</label><input type="text" name="uname" id="uname" class="myinput" placeholder="请输入用户名" />
+            	<label for="aName">用户名:</label><input type="text" name="aName" id="uname" class="myinput" placeholder="请输入用户名" />
             </div>
             <div id="b">
-            	<label for="pwd">密　码:</label><input type="password" name="pwd" id="pwd" class="myinput" placeholder="请输入密码" />
+            	<label for="aPwd">密　码:</label><input type="password" name="aPwd" id="pwd" class="myinput" placeholder="请输入密码" />
             </div>
             <input type="submit" id="mysub" value="登录" />
         </form>

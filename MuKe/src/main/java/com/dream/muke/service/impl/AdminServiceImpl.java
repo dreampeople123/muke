@@ -19,6 +19,7 @@ public class AdminServiceImpl implements AdminService {
 	public Admin adminLogin(Admin admin) {
 		return adminMapper.adminLogin(admin);
 	}
+	
 	/**
 	 * 查询所有的管理员信息
 	 * @return
