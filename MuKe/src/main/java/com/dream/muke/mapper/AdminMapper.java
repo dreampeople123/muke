@@ -30,7 +30,6 @@ public interface AdminMapper {
 	 * @return
 	 */
 	public int addAdmin(Admin admin);
-	
 	/**
 	 * 修改管理员信息
 	 * @param admin

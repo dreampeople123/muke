@@ -62,6 +62,7 @@
 				<param name="root">result</param>
 			</result>
 			
+	
 			<!-- 查询所有的管理员返回的json -->
 			<result name="admininfo" type="json">
 				<param name="root">admins</param>
@@ -69,6 +70,22 @@
 			<!-- 增删改管理员返回的json（int :1或0） -->
 			<result name="admin_result" type="json">
 				<param name="root">admin_result</param>
+			</result>
+			<!-- 查询所有的用户信息 -->
+			<result name="usersInfo" type="json">
+				<param name="root">users</param>
+			</result>
+			<!-- 删改用户返回的json（int :1或0） -->
+			<result name="users_result" type="json">
+				<param name="root">users_result</param>
+			</result>
+			<!-- 查询所有的用户课程信息 -->
+			<result name="ucourseInfo" type="json">
+				<param name="root">ucourses</param>
+			</result>
+			<!-- 保存用户课程返回的json（int :1或0） -->
+			<result name="ucourse_result" type="json">
+				<param name="root">ucourse_result</param>
 			</result>
 		</action>
     </package>
