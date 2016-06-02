@@ -11,10 +11,15 @@
 	<!-- 把struts的action对象交给spring容器管理 -->
 	<constant name="struts.objectFactory " value="spring" />
 
-	<package name="default" namespace="/" extends="struts-default">
+	<package name="default" namespace="/" extends="json-default">
 		<action name="*_*" class="{1}Action" method="{2}">
 		    <result>/front/login.jsp</result>
 		    <result name="adminLogin">/back/index.jsp</result><!-- 管理员登录 -->
+		    <result name="login_result">/front/zhuye.jsp</result><!-- 用户登录 -->
+		    <!-- 删改用户返回的json（int :1或0） -->
+			<result name="users_result" type="json">
+				<param name="root">users_result</param>
+			</result>
 		</action>
 		
 		<action name="myFileUpload" class="uploadAction" method="upload">
@@ -89,4 +94,6 @@
 			</result>
 		</action>
     </package>
+    
+
 </struts>

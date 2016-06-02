@@ -42,7 +42,6 @@ $(function(){
 	$('#login').mouseenter(function(){
 		$('#self_card').show();	
 	});
-	
 	$('#self_card').mouseleave(function(){
 		$('#self_card').hide();	
 	});
@@ -50,11 +49,10 @@ $(function(){
 
 //登出
 function exit(){
-	$.post("../userServlet",{op:"loginOut"},function(data){
+	$.post("user_loginOut",function(data){
 		data=parseInt(data);
 		if(data==1){
-			//location.href="zhuye.jsp";
-			location.reload(true);
+			location.href="zhuye.jsp";
 		}
 	});
 }

@@ -48,6 +48,17 @@ public class UsersServiceImpl implements UsersService {
 	public int updateUsers(UsersBean usersBean) {
 		return usersMapper.updateUsers(usersBean);
 	}
-	
+	/**
+	 * 用户注册
+	 * @return
+	 */
+	@Override
+	public UsersBean addUsreInfo(UsersBean usersBean) {
+		int res=usersMapper.addUsreInfo(usersBean);
+		if(res>0){
+			return usersBean;
+		}
+		return null;
+	}
 
 }

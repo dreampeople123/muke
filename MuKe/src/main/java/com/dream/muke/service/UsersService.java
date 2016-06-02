@@ -30,5 +30,10 @@ public interface UsersService {
 	 * @return
 	 */
 	public int updateUsers(UsersBean usersBean);
+	/**
+	 * 用户注册
+	 * @return
+	 */
+	public UsersBean addUsreInfo(UsersBean usersBean);
 
 }

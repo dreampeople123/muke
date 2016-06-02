@@ -37,5 +37,10 @@ public interface UsersMapper {
 	 * @return
 	 */
 	public int updateUsers(UsersBean usersBean);
+	/**
+	 * 用户注册
+	 * @return
+	 */
+	public int addUsreInfo(UsersBean usersBean);
 
 }

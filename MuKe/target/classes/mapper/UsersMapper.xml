@@ -9,6 +9,12 @@
 			<if test="uNo!=null">
 				and uNo=#{uNo}
 			</if>
+			<if test="uPwd!=null">
+				and uPwd=#{uPwd}  
+			</if>
+			<if test="uTel!=null">
+				and uTel=#{uTel}  
+			</if>
 			<if test="uName!=null">
 				and uName like '%${uName}%'
 			</if>
@@ -87,4 +93,11 @@
 		</set>
 		where uNo=#{uNo}
 	</update>
+	<!-- 用户注册 -->
+	<insert id="addUsreInfo" parameterType="UsersBean">
+		<selectKey keyProperty="uNo" keyColumn="uNo" order="BEFORE" resultType="String">
+			select seq_users_uNo.Nextval uNo from dual
+		</selectKey>
+		insert into users values(${uNo},'${uName}','${uPwd}','','','','${uSex}','${uUsign}','${uPic}',${uTel},0,0,'','','',2)
+	</insert>
 </mapper>

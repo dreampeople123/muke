@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -14,13 +15,14 @@ import com.opensymphony.xwork2.ModelDriven;
 
 @Controller("userAction")
 @Scope("prototype")
-public class UserAction implements ModelDriven<UsersBean> {
+public class UserAction implements SessionAware, ModelDriven<UsersBean> {
 	@Autowired
 	private UsersService usersService;
 	private Map<String, Object > users;
 	@Autowired
 	private UsersBean usersBean;//增删改查临时接收的usersBean	
 	private int users_result;//进行删改的的结果int类型
+	private Map<String,Object> session;
 	
 	public int getUsers_result() {
 		return users_result;
@@ -60,11 +62,8 @@ public class UserAction implements ModelDriven<UsersBean> {
 		usersBean.setuIsTeacher(-1);
 		usersBean.setPage("1");
 		usersBean.setRows("10");
-		System.out.println("传进来"+usersBean);
 		users = new HashMap<String, Object >();
-		
 		List<UsersBean> ress= usersService.findUsers(usersBean);
-		System.out.println("结果是"+ress);
 		users.put("rows", usersService.findUsers(usersBean));
 		return "usersInfo";
 	}
@@ -93,8 +92,90 @@ public class UserAction implements ModelDriven<UsersBean> {
 		users.put("rows", usersService.findUsers(usersBean));
 		return "usersInfo";
 	}
+	/**
+	 * 用户登录
+	 * @return
+	 */
+	public String loginUser(){
+		usersBean.setPage("1");
+		usersBean.setRows("10");
+		UsersBean use=usersService.findUsers(usersBean).get(0);
+		if(use!=null){
+			session.put("loginUser", use);
+			users_result=1;
+			return "users_result";
+		}else {
+			users_result=0;
+			return "users_result";
+		}
+	}
+	/**
+	 * 用户退出
+	 * @return
+	 */
+	public String loginOut(){
+		session.put("loginUser", null);
+		users_result=1;
+		return "users_result";
+	}
+	/**
+	 * 用户注册
+	 * @return
+	 */
+	public String addUsreInfo(){
+		usersBean.setuSex("男");
+		usersBean.setuIsTeacher(0);
+		usersBean.setUstatus(2);
+		usersBean.setuUsign("这个人很懒没有签名");//设置默认签名
+		usersBean.setuPic("upload/moren.jpg");//设置默认头像
+		UsersBean use=usersService.addUsreInfo(usersBean);
+		if(use!=null){
+			session.put("loginUser", use);
+			users_result=1;
+			return "users_result";
+		}else{
+			users_result=0;
+			return "users_result";
+		}
+	}
+	/**
+	 * 检查电话号码是否存在
+	 * @return
+	 */
+	public String chTel(){
+		usersBean.setPage("1");
+		usersBean.setRows("10");
+		int use=usersService.findUsers(usersBean).size();
+		if(use!=0){
+			users_result=0;
+			return "users_result";
+		}else{
+			users_result=1;
+			return "users_result";
+		}
+	}
+	/**
+	 * 检查名字是否存在
+	 * @return
+	 */
+	public String chName(){
+		usersBean.setPage("1");
+		usersBean.setRows("10");
+		int use=usersService.findUsers(usersBean).size();
+		if(use!=0){
+			users_result=0;
+			return "users_result";
+		}else{
+			users_result=1;
+			return "users_result";
+		}
+	}
 	@Override
 	public UsersBean getModel() {
 		return usersBean;
+	}
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session=session;
 	}
 }

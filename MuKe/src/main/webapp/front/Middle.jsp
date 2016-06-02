@@ -2,7 +2,7 @@
 <!-- 中转用的jsp -->
 <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
 <script>
-var uno="${loginUser.uno}";
+var uno="${loginUser.uNo}";
 var nowPage="${param.nowPage}";
 var op="${param.op}";
 $(function(){
@@ -24,11 +24,26 @@ $(function(){
 		loadJSPCeasydegree(nowPage);
 	} else if(op=="newQuestion"){
 		loadHTMLNewQuestion();
-	} else{
+	} else if(op=="loginOut"){//退出登陆
+		loginOut();
+	}  else{
 		loadHTMLComment(nowPage);
 	} 
 });
-
+/**
+ *退出登录
+ */
+function loginOut(){
+	
+		$.post("user_loginOut",function(data){
+			data=parseInt(data);
+			console.info("看 s"+data);
+			console.info("看 s"+uno);
+			if(data==1){
+				location.href="zhuye.jsp";
+			}
+		});
+}
 function loadMyComment(nowPage){
 	$.post("../commentsServlet",{op:"getCommentByUno",uno:uno,nowPage:nowPage,ctypno:'0'},function(data){
 		data=parseInt(data);
