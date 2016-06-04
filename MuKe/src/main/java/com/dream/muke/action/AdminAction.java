@@ -1,18 +1,21 @@
 package com.dream.muke.action;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.dream.muke.entity.Admin;
 import com.dream.muke.service.AdminService;
+import com.dream.muke.utils.SessionKey;
 import com.opensymphony.xwork2.ModelDriven;
 
 @Controller("adminAction")
 @Scope("prototype")
-public class AdminAction implements ModelDriven<Admin> {
+public class AdminAction implements ModelDriven<Admin>,SessionAware {
 	@Autowired
 	private AdminService adminService;
 	private List<Admin> admins;
@@ -21,7 +24,10 @@ public class AdminAction implements ModelDriven<Admin> {
 	@Autowired
 	private Admin admin;//进行增删改的临时的admin
 	private int admin_result;//进行增删改的的结果int类型
-
+	private Map<String, Object> session;
+	public void setSession(Map<String, Object> session) {//获取session
+		this.session=session;
+	}
 
 
 
@@ -43,7 +49,16 @@ public class AdminAction implements ModelDriven<Admin> {
 	public List<Admin> getAdmins() {
 		return admins;
 	}
-
+	/**
+	 * 后台管理员登录
+	 * @return
+	 */
+	public String adminLogin(){
+		System.out.println(admin);
+		Admin loginAdmin=adminService.adminLogin(admin);
+		session.put(SessionKey.LOGIN_ADMIN, loginAdmin);
+		return "adminLogin";
+	}
 
 	/**
 	 * 查询所有管理员的信息
