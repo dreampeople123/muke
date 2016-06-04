@@ -34,12 +34,18 @@ var img_index=1;//当前索引值
 var img_total=0;//图片总数
 var img_time;
 var img_change_time=3000;
-
+//判断是否跳转课程信息，
 $(function(){
+	var currentCourse="${currentCourseDetail}";
+	if(currentCourse==null || currentCourse==""){
+		location.href="Middle.jsp?op=currentCourse"
+	}else{
+	}
+	
 	img_total=$('#g-banner-img li').length;//所有的图片
 	img_time=window.setInterval('showPic()',img_change_time);//设置定时器
-	
-	$('#right').click(function(){//对右边按键设置click监听
+	//对右边按键设置click监听
+	$('#right').click(function(){
 		clearInterval(img_time);
 		if(img_index<img_total){
 			$('#g-banner-img li').css('display','none');
@@ -53,8 +59,8 @@ $(function(){
 		console.info(img_index);
 		img_time=window.setInterval('showPic()',img_change_time);//设置定时器
 	});
-	
-	$('#left').click(function(){//对左边按键设置click监听
+	//对左边按键设置click监听
+	$('#left').click(function(){
 		clearInterval(img_time);
 		if(img_index<img_total){
 			$('#g-banner-img li').css('display','none');

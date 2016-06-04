@@ -292,26 +292,27 @@ function checkWord(c){
 	document.getElementById("js-note-input-fake").className="textarea-wrap ipt-fake-focus space-fake-focus";
 	len=maxstrlen;
 	var str =c.value;
-	console.info(str);
-	myLen=getStrleng(str);
-	if(myLen>len*2){
-		c.value=str.substring(0,i+1);
-	}else{
-		document.getElementById("js-note-limit").innerHTML =1000-Math.floor((len*2-myLen)/2);
+	console.info("前"+str);
+		myLen=getStrleng(str);
+		console.info("长度是"+myLen);
+		if(myLen>len){
+			for(var i=0;i<str.length;i++){
+				str=str.replace(' ','');
+			}
+			c.value=str.substring(0,len);
+			document.getElementById("js-note-limit").innerHTML =1000;
+		}else{
+			document.getElementById("js-note-limit").innerHTML =myLen;
+		}
 	}
-}
-//计算出当前输入文字的字数
-function getStrleng(str){
-	myLen =0;
-	i=0;
-	for(;(i<str.length)&&(myLen<=maxstrlen*2);i++){
-		if(str.charCodeAt(i)>0&&str.charCodeAt(i)<128)
-		myLen++;
-		else
-		myLen+=2;
-	}
-	return myLen;
-	}
+	//计算出当前输入文字的字数
+	function getStrleng(str){
+		for(var i=0;i<str.length;i++){
+			str=str.replace(' ','');
+		}
+		return str.length;
+		}
+	
 //文本输入框失去焦点时
 function note_shiqu(){
 	document.getElementById("js-note-input-fake").className="textarea-wrap";
