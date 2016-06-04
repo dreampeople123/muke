@@ -4,24 +4,23 @@
 $(function(){
 	var datagrid=$("#easy_info");
 	var editRow;
-	var op;
+	var urls;
 	var flag;
-	var statusObj=[{sid:0,sname:'不可用'},{sid:1,sname:'可用'}];
+	var statusObj=[{sid:1,sname:'不可用'},{sid:2,sname:'可用'}];
 	datagrid.datagrid({
-		url:'../courseServlet',
-		queryParams:{op:"getEasyInfo"},
+		url:'deeply_findAllDeeplyInfo.action',
 		fitColumns:true,
 		striped:true,
 		loadMsg:"数据加载中...",
 		pagination:true,
 		rownumbers:true,
-		sortName:'easydegreeno',
+		sortName:'dNo',
 		remoteSort:false,
 		columns:[[
-			{field:'easydegreenos',title:'全选',width:100,align:'center',checkbox:true},
-			{field:'easydegreeno',title:'难易度编号',width:100,align:'center',sortable:true},
-			{field:'easydegreename',title:'难易度',width:100,align:'center',editor:{type:"text",option:{required:true}}},
-	        {field:'status',title:'状态',width:30,align:'center',editor:{type:"combobox",options:{
+			{field:'dNos',title:'全选',width:100,align:'center',checkbox:true},
+			{field:'dNo',title:'难易度编号',width:100,align:'center',sortable:true},
+			{field:'dName',title:'难易度',width:100,align:'center',editor:{type:"text",option:{required:true}}},
+	        {field:'dStatus',title:'状态',width:30,align:'center',editor:{type:"combobox",options:{
 	        	required:true,valueField:'sid',textField:'sname',data:statusObj}},
 	        	formatter:function(value,row,index){
 	        		for(var i=0;i<statusObj.length;i++){
@@ -37,7 +36,7 @@ $(function(){
 			text: "添加",
 			iconCls: 'icon-add',
 			handler: function(){
-				op="addEasyInfo"; //当前的操作
+				urls="deeply_addDeeplyInfo.action";
 				flag="添加";
 				//先判断有没有正在编辑的行
 				if(editRow!=undefined){ //说明有行正在被编辑，则还原当前的修改
@@ -66,7 +65,7 @@ $(function(){
 						showType:'slide'
 					});
 				} else{
-					op="updateEasyInfo";
+					urls="deeply_updateDeeplyInfo.action";
 					flag="修改";
 					if(editRow!=undefined){ //说明有行正在被编辑，则还原当前的修改
 						datagrid.datagrid("rejectChanges"); //回滚自创建以来或自上次调用AcceptChanges，所有的变化数据。
@@ -99,13 +98,13 @@ $(function(){
 				} else{
 					$.messager.confirm('信息确认','您确定要删除选中的数据吗?',function(r){
 						if(r){
-							var easydegreenos="";
+							var dNo="";
 							for(var i=0;i<rows.length-1;i++){
-								easydegreenos+=rows[i].easydegreeno+",";
+								dNo+=rows[i].dNo+",";
 							}
-							easydegreenos+=rows[i].easydegreeno;
+							dNo+=rows[i].dNo;
 						
-							$.post("../courseServlet",{op:"delEasyInfo",easydegreenos:easydegreenos},function(data){
+							$.post("deeply_delDeeplyInfo.action",{dNo:dNo},function(data){
 								data=parseInt($.trim(data));
 								if(data==1){
 									$.messager.show({
@@ -137,19 +136,18 @@ $(function(){
 					datagrid.datagrid("unselectAll");
 					editRow=undefined;
 				} else{
-					rows["op"]=op;
-
-					$.post("../courseServlet",rows,function(data){
+					$.post(urls,rows,function(data){
 						data=parseInt($.trim(data));
+						console.info(data);
 						if(data==1){
 							$.messager.show({
 								title:'成功提示',
-								msg:'难易度'+flag+'成功',
+								msg:'课程难易度'+flag+'成功',
 								timeout:2000,
 								showType:'slide'
 							});
 						} else{
-							$.messager.alert('失败提示','难易度'+flag+'成功','error');
+							$.messager.alert('失败提示','课程难易度'+flag+'成功','error');
 						}
 						rows=null;
 						datagrid.datagrid("reload"); //重新加载数据一次

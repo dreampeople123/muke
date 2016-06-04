@@ -1,22 +1,23 @@
 package com.dream.muke.entity;
 
 /**
- * 章节bean，外键改为类
+ * 章节
  * @author dream
  *
  */
 public class ChapterBean {
-    private String chNo;
+    private int chNo;
     private String chName;
-    private Course course;
+    private String cName;
     private String chContent;
     private int chOrder;
     private int chStatus;
     
-	public String getChNo() {
+	
+	public int getChNo() {
 		return chNo;
 	}
-	public void setChNo(String chNo) {
+	public void setChNo(int chNo) {
 		this.chNo = chNo;
 	}
 	public String getChName() {
@@ -25,11 +26,12 @@ public class ChapterBean {
 	public void setChName(String chName) {
 		this.chName = chName;
 	}
-	public Course getCourse() {
-		return course;
+	
+	public String getcName() {
+		return cName;
 	}
-	public void setCourse(Course course) {
-		this.course = course;
+	public void setcName(String cName) {
+		this.cName = cName;
 	}
 	public String getChContent() {
 		return chContent;
@@ -49,14 +51,25 @@ public class ChapterBean {
 	public void setChStatus(int chStatus) {
 		this.chStatus = chStatus;
 	}
-	
-	public String getInfo(){ //课程名-章节名
-		return course.getcName()+"-"+chName;
-	}
-	
+	@Override
 	public String toString() {
-		return "ChapterBean [chNo=" + chNo + ", chName=" + chName + ", course="
-				+ course + ", chContent=" + chContent + ", chOrder=" + chOrder
+		return "ChapterBean [chNo=" + chNo + ", chName=" + chName + ", cName="
+				+ cName + ", chContent=" + chContent + ", chOrder=" + chOrder
 				+ ", chStatus=" + chStatus + "]";
 	}
+	public ChapterBean(int chNo, String chName, String cName,
+			String chContent, int chOrder, int chStatus) {
+		super();
+		this.chNo = chNo;
+		this.chName = chName;
+		this.cName = cName;
+		this.chContent = chContent;
+		this.chOrder = chOrder;
+		this.chStatus = chStatus;
+	}
+	public ChapterBean() {
+		super();
+	}
+
+	
 }

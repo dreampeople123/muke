@@ -45,6 +45,12 @@
 			<result name="getAllComment" type="json">
 				<param name="root">comments</param>
 			</result>
+			
+			<!-- 查询课程的id和名字 -->
+			<result name="findCourseNameAndId" type="json">
+			    <param name="root">courses</param>
+			</result>
+			
 			<!-- 获取所有的章节 -->
 			<result name="getAllChapter" type="json">
 				<param name="root">chapters</param>
@@ -91,6 +97,81 @@
 			<!-- 保存用户课程返回的json（int :1或0） -->
 			<result name="ucourse_result" type="json">
 				<param name="root">ucourse_result</param>
+			</result>
+			
+			<!-- 查找所有的chapter -->
+			<result name="findAllChapter" type="json">
+			    <param name="root">chapters</param>
+			</result>
+			
+			<!-- 查询所有的chapter通过chName或cno -->
+			<result name="findChapterBycNoOrchName" type="json">
+			    <param name="root">chapters</param>
+			</result>
+			
+			<!-- 某一章节的信息 -->
+			<result name="showChapterDetail" type="json">
+			    <param name="root">chapters</param>
+			</result>
+			
+			<!-- 修改章节的状态 -->
+			<result name="updateChapterStatus" type="json">
+			    <param name="root">chStatu</param>
+			</result>
+			
+			<!-- 删除章节信息 -->
+			<result name="delChapterInfo" type="json">
+			    <param name="root">chStatu</param>
+			</result>
+			
+			<!-- 查找所有课程难易度 -->
+			<result name="findAllDeeplyInfo" type="json">
+			    <param name="root">deeplys</param>
+			</result>
+			
+			<!-- 添加课程难易度信息 -->
+			<result name="addDeeplyInfo" type="json">
+			    <param name="root">status</param>
+			</result>
+			
+			<!-- 删除课程难易程度信息 -->
+			<result name="delDeeplyInfo" type="json">
+			    <param name="root">status</param>
+			</result>
+			
+			<!-- 修改课程难易程度 信息-->
+			<result name="updateDeeplyInfo" type="json">
+			    <param name="root">status</param>
+			</result>
+			
+			<!-- 课程具体信息 -->
+			<result name="findCourseInfo" type="json">
+			    <param name="root">coursesInfo</param>
+			</result>
+			
+			<!-- 根据课程名或课程类别名查找 课程信息-->
+			<result name="findCourseByInfo" type="json">
+			    <param name="root">coursesInfo</param>
+			</result>
+			
+			<!-- 修改课程信息 -->
+			<result name="updateCourseInfo" type="json">
+			    <param name="root">status</param>
+			</result>
+			
+			<!-- 删除课程类别信息 -->
+			<result name="delCourseTypeInfo" type="json">
+			    <param name="root">status</param>
+			</result>
+			
+			<!-- 更改课程类别信息 -->
+			<result name="updateCourseTypeInfo" type="json">
+			    <param name="root">status</param>
+			</result>
+			
+			<!-- 添加课程类别信息 -->
+			<result name="addCourseTypeInfo" type="json">
+			    <param name="root">status</param>
 			</result>
 		</action>
     </package>

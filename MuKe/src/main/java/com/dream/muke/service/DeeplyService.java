@@ -1,21 +1,14 @@
-package com.dream.muke.mapper;
+package com.dream.muke.service;
 
 import java.util.List;
 import java.util.Map;
 
 import com.dream.muke.entity.Deeply;
 
-/**
- * 课程难易度表映射接口
- * @author dream
- *
- */
-public interface DeeplyMapper {
+public interface DeeplyService {
+	//查找所有课程难易度
+	List<Deeply> findAllDeeplyInfo(int page, int rows);
 
-	//获取课程难易度信息
-	List<Deeply> getAllDeeplyInfo(Map<String, Object> map);
-
-	//增加课程难易度信息
 	int addDeeplyInfo(Map<String, Object> map);
 
 	//修改课程难易程度信息
@@ -23,4 +16,5 @@ public interface DeeplyMapper {
 
 	//删除课程难易程度信息
 	int delDeeplyInfo(Map<String, Object> map);
+
 }

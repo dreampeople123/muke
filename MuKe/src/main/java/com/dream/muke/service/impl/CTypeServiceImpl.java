@@ -1,6 +1,7 @@
 package com.dream.muke.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,24 @@ public class CTypeServiceImpl implements CTypeService {
 
 	public List<CType> findAllCourseType() {
 		return cTypeMapper.findAllCourseType();
+	}
+
+	//删除课程类别信息
+	@Override
+	public int delCourseTypeInfo(Map<String, Object> map) {
+		return cTypeMapper.delCourseTypeInfo(map);
+	}
+
+	//更改课程类别信息
+	@Override
+	public int updateCourseTypeInfo(Map<String, Object> map) {
+		return cTypeMapper.updateCourseTypeInfo(map);
+	}
+
+	//添加课程类别信息
+	@Override
+	public int addCourseTypeInfo(Map<String, Object> map) {
+		return cTypeMapper.addCourseTypeInfo(map);
 	}
 
 }
