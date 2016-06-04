@@ -1,8 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <table id="update_adminPwd" data-options="fit:true"></table>
 <center style="margin-top:50px;">
+	<p id="pwdhid" style="display: none;">${loginAdmin.aPwd}</p><!-- 隐藏的密码 -->
+	<p id="aidhid" style="display: none;">${loginAdmin.aId}</p><!-- 隐藏的管理员编号 -->
 	<div>请输入原密码：
-		<input type="password" maxlength="20" style="width:180px;height:25px;" name="oldPwd"/>
+		<input type="password" maxlength="20" style="width:180px;height:25px;" id="yuanPwd" name="oldPwd"/>
 		<span id="oldp" style="position:absolute;"></span>
 	</div><br/>
 	<div>请输入新密码：

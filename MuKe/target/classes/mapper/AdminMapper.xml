@@ -24,7 +24,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<!-- 修改管理员信息 -->
 	<update id="updateAdmin" parameterType="Admin">
-		update admin set aName=#{aName},aPwd=#{aPwd} where aId=#{aId}
+		update admin 
+		<set>
+			<if test="aName!=null">
+				aName=#{aName} , 
+			</if>
+			<if test="aPwd!=null">
+				aPwd=#{aPwd}  
+			</if>
+		</set>
+		where aId=#{aId}
 	</update>
 	<!-- 删除管理员信息 -->
 	<update id="delAdmin" parameterType="String">

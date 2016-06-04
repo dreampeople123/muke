@@ -50,6 +50,20 @@ public class AdminAction implements ModelDriven<Admin>,SessionAware {
 		return admins;
 	}
 	/**
+	 * 修改管理员密码
+	 * @return
+	 */
+	public String updatepwd(){
+		admin_result=adminService.updateAdmin(admin);
+		if(admin_result==1){
+			Admin sda=(Admin) session.get(SessionKey.LOGIN_ADMIN);
+			sda.setaPwd(admin.getaPwd());
+			session.put(SessionKey.LOGIN_ADMIN, sda);
+		}
+		return "admin_result";
+		
+	}
+	/**
 	 * 后台管理员登录
 	 * @return
 	 */
