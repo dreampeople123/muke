@@ -24,26 +24,24 @@ $(function(){
 		loadJSPCeasydegree(nowPage);
 	} else if(op=="newQuestion"){
 		loadHTMLNewQuestion();
-	} else if(op=="loginOut"){//退出登陆
-		loginOut();
+	}  else if(op=="currentCourse"){//在主页的课程显示
+		currentCourse();
 	}  else{
 		loadHTMLComment(nowPage);
 	} 
 });
 /**
- *退出登录
+ * 在主页的课程显示
  */
-function loginOut(){
-	
-		$.post("user_loginOut",function(data){
-			data=parseInt(data);
-			console.info("看 s"+data);
-			console.info("看 s"+uno);
-			if(data==1){
-				location.href="zhuye.jsp";
-			}
-		});
+function currentCourse(){
+	$.post("../commentsServlet",{op:"getCommentByUno",uno:uno,nowPage:nowPage,ctypno:'0'},function(data){
+		data=parseInt(data);
+		if(data==1){
+			location.href="MyComment.jsp";
+		}
+	});
 }
+
 function loadMyComment(nowPage){
 	$.post("../commentsServlet",{op:"getCommentByUno",uno:uno,nowPage:nowPage,ctypno:'0'},function(data){
 		data=parseInt(data);

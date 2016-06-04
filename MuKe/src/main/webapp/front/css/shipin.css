@@ -1245,6 +1245,16 @@ body {
    position:relative;
   width:100%;
 }
+#course_note .unquestion{
+	display:block;
+	height:179px;
+	width:880px;
+	padding-top:80px;
+	padding-bottom:30px;
+	font-size:13px;
+	color:#787D82;
+	text-align:center;
+}
 #course_note .unquestion .icon-ques{
 	display:block;
 	width:130px;
