@@ -24,20 +24,21 @@
 		</span>
 	</a>
 		
-	<span>标题:</span><input type="text" name="title" id="chaptername" />
+	<span>标题:</span><input type="text" name="chName" id="chName" />
 	<span>课程:</span><select name="typeInfo" id="typeInfo">
 		<option value="0">全部</option>
 	</select>
-	<a href="javascript:findChapterByInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+	<a href="javascript:findChapterBycNoOrchName()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
 </div>
 <script>
 
 	$(function(){
-		$.post("../courseServlet",{op:"findCourseNameAndId"},function(data){
+		$.post("course_findCourseNameAndId",{op:"findCourseNameAndId"},function(data){
 			var obj=$("#typeInfo");
 			var opt;
-			$.each(data.courseNameAndId,function(index,item){ //将所有的课程名称赋值给select
-				opt="<option value='"+item.cno+"'>"+item.cname+"</option>";
+			console.info(data);
+			$.each(data,function(index,item){ //将所有的课程名称赋值给select
+				opt="<option value='"+item.cNo+"'>"+item.cName+"</option>";
 				obj.append($(opt));
 			});
 		},"json");
@@ -49,29 +50,28 @@
 	var op;
 
 	$(function(){
-		var statusObj=[{sid:0,sname:'不可用'},{sid:1,sname:'可用'},{sid:2,sname:'待审核'}];
+		var statusObj=[{sid:1,sname:'不可用'},{sid:2,sname:'可用'}];
 
 		datagrid.datagrid({
-			url:'../chapterServlet',
-			queryParams:{op:"getPageChapterInfo"},
+			url:'chapter_findAllChapter.action',
 			fitColumns:true,
 			striped:true,
 			loadMsg:"数据加载中...",
 			pagination:true,
 			rownumbers:true,
-			sortName:'chapterno',
+			sortName:'chNo',
 			remoteSort:false,
 			columns:[[
-				{field:'chapternos',title:'全选',width:100,align:'center',checkbox:true},
-				{field:'chapterno',title:'章节编号',width:100,align:'center',sortable:true},
-				{field:'chaptername',title:'章节名',width:100,align:'center'},
-		        {field:'cname',title:'课程名',width:100,align:'center'},
+				{field:'chNos',title:'全选',width:100,align:'center',checkbox:true},
+				{field:'chNo',title:'章节编号',width:100,align:'center',sortable:true},
+				{field:'chName',title:'章节名',width:100,align:'center'},
+		        {field:'cName',title:'课程名',width:100,align:'center'},
 		        {field:'_operate',title:'操作',width:20,align:'center',
 		        	formatter:function(value,rowData,index){
-		        		return '<a class="icon-search1 icon-padding" href="javascript:showChapterDetail(\''+rowData.chapterno+'\')">详细</a>';
+		        		return '<a class="icon-search1 icon-padding" href="javascript:showChapterDetail(\''+rowData.chNo+'\')">详细</a>';
 		        	}	
 		        },
-		        {field:'status',title:'状态',width:30,align:'center',editor:{type:"combobox",options:{
+		        {field:'chStatus',title:'状态',width:30,align:'center',editor:{type:"combobox",options:{
 		        	required:true,valueField:'sid',textField:'sname',data:statusObj}},
 		        	formatter:function(value,row,index){
 		        		for(var i=0;i<statusObj.length;i++){
@@ -87,18 +87,18 @@
 		});
 	});
 	
-	function showChapterDetail(chapterno){
+	function showChapterDetail(chNo){
 		var rows=datagrid.datagrid("getChecked")[0];
 		$("#chapter_detail").dialog("open");
-		$.post("../chapterServlet",{op:"getChapterDetailByCid",chapterno:chapterno},function(data){
+		$.post("chapter_showChapterDetail",{chNo:chNo},function(data){
 			var sname=['不可用','可用','未审核'];
 			
-			$("#chapter_id").val(chapterno);
-			$("#chapter_name").val(data.chapterInfo[0]['chaptername']);
-			$("#course_name").val(data.chapterInfo[0]['cname']);
-			$("#chapter_status").val(sname[data.chapterInfo[0]['status']]);
-			$("#chapter_content").html(data.chapterInfo[0]['chaptercontent']);
-			$("#chapter_sort").val(data.chapterInfo[0]['chapterNum']);
+			$("#chapter_id").val(chNo);
+			$("#chapter_name").val(data[0]['chName']);
+			$("#course_name").val(data[0]['cName']);
+			$("#chapter_status").val(sname[data[0]['chStatus']]);
+			$("#chapter_content").html(data[0]['chContent']);
+			$("#chapter_sort").val(data[0]['chOrder']);
 		},"json");
 	}
 	
@@ -113,7 +113,7 @@
 				showType:'slide'
 			});
 		} else{
-			op="updateChapterStatus";
+			urls="chapter_updateChapterStatus.action";
 			if(editRow!=undefined){ //说明有行正在被编辑，则还原当前的修改
 				datagrid.datagrid("rejectChanges"); //回滚自创建以来或自上次调用AcceptChanges，所有的变化数据。
 				datagrid.datagrid("endEdit",editRow); //关闭当前正在编辑的行
@@ -143,12 +143,12 @@
 		} else{
 			$.messager.confirm('信息确认','您确定要删除选中的数据吗?',function(r){
 				if(r){
-					var chapternos="";
+					var chNo="";
 					for(var i=0;i<rows.length-1;i++){
-						chapternos+=rows[i].chapterno+",";
+						chNo+=rows[i].chNo+",";
 					}
-					chapternos+=rows[i].chapterno;
-					$.post("../chapterServlet",{op:"delChapter",chapternos:chapternos},function(data){
+					chNo+=rows[i].chNo;
+					$.post("chapter_delChapterInfo",{chNo:chNo},function(data){
 						data=parseInt($.trim(data));
 						if(data==1){
 							$.messager.show({
@@ -177,11 +177,12 @@
 			datagrid.datagrid("unselectAll");
 			editRow=undefined;
 		} else{
-			rows["op"]=op;
+			//rows["op"]=op;
 
-			$.post("../chapterServlet",rows,function(data){
+			$.post("chapter_updateChapterStatus.action",rows,function(data){
+				//console.info(data);
 				data=parseInt($.trim(data));
-				if(data==1){ //添加成功
+				if(data==1){ //修改成功
 					$.messager.show({
 						title:'成功提示',
 						msg:'课程章节修改成功',
@@ -206,13 +207,15 @@
 		editRow=undefined;
 	}
 	
-	function findChapterByInfo(){
-		var chaptername=$("#chaptername").val();
-		var cno=$("#typeInfo").val();
+	function findChapterBycNoOrchName(){
+		var chName=$("#chName").val();
+		var cName=$("#typeInfo").val();
 		
+		console.info(chName+"章节名");
+		console.info(cName+"课程编号");
 		datagrid.datagrid({   
-		    url:'../chapterServlet',
-		    queryParams:{op:"findChapterByLike",chaptername:chaptername,cno:cno}
+		    url:'chapter_findChapterBycNoOrchName.action',
+		    queryParams:{chName:chName,cName:cName}
 		});
 	}
 </script>

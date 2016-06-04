@@ -34,12 +34,11 @@
 
 	function getAllCourseDir(){
 		//课程类别下拉框
-		$.post("../courseServlet",{op:"getAllCourseDir"},function(data){
+		$.post("cType_findAllCourseType.action",function(data){
 			var obj=$("#ctypename");
 			var opt;
-			$.each(data.types,function(index,item){
-				//console.info(item);
-				opt="<option value='"+item.ctypeno+"'>"+item.ctypename+"</option>";
+			$.each(data,function(index,item){
+				opt="<option value='"+item.ctNo+"'>"+item.ctName+"</option>";
 				obj.append($(opt));
 			});
 		},"json");
@@ -49,31 +48,30 @@
 	
 	var datagrid=$("#course_info");
 	var editRow=undefined;
-	var op;
+	var urls;
 	var flag;
 
 	$(function(){
-		var statusObj=[{sid:0,sname:'已更完'},{sid:1,sname:'未更完'}];
-		var statusObj1=[{sid1:0,sname1:'可用'},{sid1:1,sname1:'不可用'}];
+		var statusObj=[{sid:2,sname:'已更完'},{sid:1,sname:'未更完'}];
+		var statusObj1=[{sid1:2,sname1:'可用'},{sid1:1,sname1:'不可用'}];
 		datagrid=$('#course_info').datagrid({
-			url:'../courseServlet',
-			queryParams:{op:"getPageCourseInfo"},
+			url:'courses_findCourseInfo.action',
 			fitColumns:true,
 			striped:true,
 			loadMsg:"数据加载中...",
 			pagination:true,
 			rownumbers:true,
-			sortName:'cno',
+			sortName:'cNo',
 			remoteSort:false,
 			columns:[[
-				{field:'cnos',title:'课程编号',width:100,align:'center',checkbox:true},
-				{field:'cno',title:'课程编号',width:100,align:'center'},
-				{field:'cname',title:'课程名',width:100,align:'center',editor:{type:"text",option:{required:true}}},
-				{field:'easydegreename',title:'难易程度',width:100,align:'center'},
-				{field:'cdirname',title:'方向',width:100,align:'center'},
-				{field:'ctypename',title:'类型',width:100,align:'center'},
-				{field:'updatetime',title:'课程更新时间',width:100,align:'center'},
-		        {field:'upstatus',title:'状态',width:40,align:'center',editor:{type:"combobox",options:{
+				{field:'cNos',title:'课程编号',width:100,align:'center',checkbox:true},
+				{field:'cNo',title:'课程编号',width:100,align:'center'},
+				{field:'cName',title:'课程名',width:100,align:'center',editor:{type:"text",option:{required:true}}},
+				{field:'dName',title:'难易程度',width:100,align:'center'},
+				{field:'ctDirname',title:'方向',width:100,align:'center'},
+				{field:'ctName',title:'类型',width:100,align:'center'},
+				{field:'cUpdatetime',title:'课程更新时间',width:100,align:'center'},
+		        {field:'cUpstatus',title:'状态',width:40,align:'center',editor:{type:"combobox",options:{
 		        	required:true,valueField:'sid',textField:'sname',data:statusObj}},
 		        	formatter:function(value,row,index){
 		        		for(var i=0;i<statusObj.length;i++){
@@ -84,7 +82,7 @@
 		        		return value;
 		        	}
 		        },
-		         {field:'status',title:'是否可用',width:40,align:'center',editor:{type:"combobox",options:{
+		         {field:'cStatus',title:'是否可用',width:40,align:'center',editor:{type:"combobox",options:{
 		        	required:true,valueField:'sid1',textField:'sname1',data:statusObj1}},
 		        	formatter:function(value,row,index){
 		        		for(var i=0;i<statusObj1.length;i++){
@@ -95,14 +93,10 @@
 		        		return value;
 		        	}
 		        }
-		        
-		        
 			]],
 			toolbar:"#toolutils1"
 		});
 	});
-
-
 	
 	function updateCourseInfo(){
 		//获取要修改的行
@@ -115,7 +109,7 @@
 				showType:'slide'
 			});
 		} else{
-			op="updateCourseInfo";
+			urls="courses_updateCourseInfo.action";
 			if(editRow!=undefined){ //说明有行正在被编辑，则还原当前的修改
 				datagrid.datagrid("rejectChanges"); //回滚自创建以来或自上次调用AcceptChanges，所有的变化数据。
 				datagrid.datagrid("endEdit",editRow); //关闭当前正在编辑的行
@@ -144,10 +138,9 @@
 			datagrid.datagrid("unselectAll");
 			editRow=undefined;
 		} else{
-			rows["op"]=op;
-
-			$.post("../courseServlet",rows,function(data){
+			$.post(urls,rows,function(data){
 				data=parseInt($.trim(data));
+				console.info(data);
 				if(data==1){ //添加成功
 					$.messager.show({
 						title:'成功提示',
@@ -175,29 +168,11 @@
 	
 
 	function findCourseByInfo(){
-		var cname=$.trim($("#cname").val());
-		var ctypename=$.trim($("#ctypename").val());
+		var cName=$.trim($("#cname").val());
+		var ctNo=$.trim($("#ctypename").val());
 		$('#course_info').datagrid({
-			url:'../courseServlet',
-			queryParams:{op:"findCourseByInfo",cname:cname,ctypename:ctypename}
+			url:'courses_findCourseByInfo.action',
+			queryParams:{cName:cName,ctNo:ctNo}
 		});
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </script>

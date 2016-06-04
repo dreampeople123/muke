@@ -4,25 +4,25 @@
 $(function(){
 	var datagrid=$("#courseType_info");
 	var editRow;
-	var op;
+	var urls;
 	var flag;
-	var statusObj=[{sid:0,sname:'不可用'},{sid:1,sname:'可用'}];
+	var statusObj=[{sid:1,sname:'不可用'},{sid:2,sname:'可用'}];
 	datagrid.datagrid({
-		url:'../courseServlet',
-		queryParams:{op:"getCourseTypeInfo"},
+		url:'cType_findAllCourseType.action',
+		//queryParams:{op:"getCourseTypeInfo"},
 		fitColumns:true,
 		striped:true,
 		loadMsg:"数据加载中...",
 		pagination:true,
 		rownumbers:true,
-		sortName:'ctypeno',
+		sortName:'ctNo',
 		remoteSort:false,
 		columns:[[
-			{field:'ctypenos',title:'全选',width:100,align:'center',checkbox:true},
-			{field:'ctypeno',title:'类型编号',width:100,align:'center',sortable:true},
-			{field:'cdirname',title:'方向',width:100,align:'center',editor:{type:"text",option:{required:true}}},
-			{field:'ctypename',title:'类型',width:100,align:'center',editor:{type:"text",option:{required:true}}},
-	        {field:'status',title:'状态',width:30,align:'center',editor:{type:"combobox",options:{
+			{field:'ctNos',title:'全选',width:100,align:'center',checkbox:true},
+			{field:'ctNo',title:'类型编号',width:100,align:'center',sortable:true},
+			{field:'ctDirname',title:'方向',width:100,align:'center',editor:{type:"text",option:{required:true}}},
+			{field:'ctName',title:'类型',width:100,align:'center',editor:{type:"text",option:{required:true}}},
+	        {field:'ctStatus',title:'状态',width:30,align:'center',editor:{type:"combobox",options:{
 	        	required:true,valueField:'sid',textField:'sname',data:statusObj}},
 	        	formatter:function(value,row,index){
 	        		for(var i=0;i<statusObj.length;i++){
@@ -38,7 +38,7 @@ $(function(){
 			text: "添加",
 			iconCls: 'icon-add',
 			handler: function(){
-				op="addCourseTypeInfo"; //当前的操作
+				urls="cType_addCourseTypeInfo"; //当前的操作
 				flag="添加";
 				//先判断有没有正在编辑的行
 				if(editRow!=undefined){ //说明有行正在被编辑，则还原当前的修改
@@ -67,7 +67,7 @@ $(function(){
 						showType:'slide'
 					});
 				} else{
-					op="updateCourseTypeInfo";
+					urls="cType_updateCourseTypeInfo";
 					flag="修改";
 					if(editRow!=undefined){ //说明有行正在被编辑，则还原当前的修改
 						datagrid.datagrid("rejectChanges"); //回滚自创建以来或自上次调用AcceptChanges，所有的变化数据。
@@ -100,13 +100,13 @@ $(function(){
 				} else{
 					$.messager.confirm('信息确认','您确定要删除选中的数据吗?',function(r){
 						if(r){
-							var ctypenos="";
+							var ctNo="";
 							for(var i=0;i<rows.length-1;i++){
-								ctypenos+=rows[i].ctypeno+",";
+								ctNo+=rows[i].ctNo+",";
 							}
-							ctypenos+=rows[i].ctypeno;
+							ctNo+=rows[i].ctNo;
 						
-							$.post("../courseServlet",{op:"delCourseTypeInfo",ctypenos:ctypenos},function(data){
+							$.post("cType_delCourseTypeInfo.action",{ctNo:ctNo},function(data){
 								data=parseInt($.trim(data));
 								if(data==1){
 									$.messager.show({
@@ -120,7 +120,6 @@ $(function(){
 									$.messager.alert('失败提示','课程类型删除失败','error');
 								}
 							});
-					
 						}
 					});
 				}
@@ -138,19 +137,18 @@ $(function(){
 					datagrid.datagrid("unselectAll");
 					editRow=undefined;
 				} else{
-					rows["op"]=op;
-
-					$.post("../courseServlet",rows,function(data){
+					$.post(urls,rows,function(data){
 						data=parseInt($.trim(data));
+						console.info(data);
 						if(data==1){
 							$.messager.show({
 								title:'成功提示',
-								msg:'难易度'+flag+'成功',
+								msg:'课程类别'+flag+'成功',
 								timeout:2000,
 								showType:'slide'
 							});
 						} else{
-							$.messager.alert('失败提示','难易度'+flag+'成功','error');
+							$.messager.alert('失败提示','课程类别'+flag+'成功','error');
 						}
 						rows=null;
 						datagrid.datagrid("reload"); //重新加载数据一次

@@ -1,10 +1,13 @@
 package com.dream.muke.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dream.muke.entity.Chapter;
 import com.dream.muke.entity.ChapterBean;
 import com.dream.muke.mapper.ChapterMapper;
 import com.dream.muke.service.ChapterService;
@@ -13,9 +16,31 @@ import com.dream.muke.service.ChapterService;
 public class ChapterServiceImpl implements ChapterService {
 	@Autowired
 	private ChapterMapper chapterMapper;
-
-	public List<ChapterBean> getAllChapter() {
-		return chapterMapper.getAllChapter();
+	@Override
+	public List<ChapterBean> findAllChapter(int page,int rows) {
+		Map<String,Integer> map=new HashMap<String,Integer>();
+		map.put("page", page);
+		map.put("rows", rows);
+		return chapterMapper.getAllChpater(map);
+	}
+	@Override
+	public List<ChapterBean> findChapterBycNoOrchName(Map<String, Object> map) {
+		return chapterMapper.getChapterByChnoOrCname(map);
+	}
+	@Override
+	public List<ChapterBean> showChapterDetail(Map<String, Object> map) {
+		return chapterMapper.getChapterDetailByChno(map);
+	}
+	//修改章节的状态
+	@Override
+	public int updateChapterStatus(Map<String, Object> map) {
+		return chapterMapper.updateChapterStatus(map);
+	}
+	
+	//删除章节
+	@Override
+	public int delChapterInfo(Map<String, Object> map) {
+		return chapterMapper.delChapterInfo(map);
 	}
 
 }

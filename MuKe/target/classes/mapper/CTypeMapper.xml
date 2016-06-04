@@ -5,4 +5,19 @@
 	<select id="findAllCourseType" resultType="CType">
 		select * from ctype
 	</select>
+	
+	<!-- 删除课程类别信息 -->
+	<update id="delCourseTypeInfo" parameterType="map">
+	    update ctype set ctStatus=1 where ctNo=#{ctNo}
+	</update>
+	
+	<!-- 更改课程类别信息 -->
+	<update id="updateCourseTypeInfo" parameterType="map">
+	    update ctype set ctName=#{ctName},ctDirname=#{ctDirname},ctStatus=#{ctStatus} where ctNo=#{ctNo}
+	</update>
+	
+	<!-- 添加课程类别信息 -->
+	<insert id="addCourseTypeInfo" parameterType="map">
+	    insert into ctype values(seq_ctype_ctNo.Nextval,#{ctName},#{ctDirname},'','','',2)
+	</insert>
 </mapper>
