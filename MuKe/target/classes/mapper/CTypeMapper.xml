@@ -5,4 +5,14 @@
 	<select id="findAllCourseType" resultType="CType">
 		select * from ctype
 	</select>
+	
+	<!-- 找到所有的方向 -->
+	<select id="findAllDir" resultType="CType">
+		select distinct ctDirname from ctype
+	</select>
+	
+	<!-- 根据方向找到所有的类别 -->
+	<select id="findTypeByDir" parameterType="string" resultType="CType">
+		select ctName,ctNo from ctype where ctDirname=#{key}
+	</select>
 </mapper>

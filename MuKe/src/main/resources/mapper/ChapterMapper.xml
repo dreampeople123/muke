@@ -13,4 +13,12 @@
 	<select id="getAllChapter" resultMap="ChapterBeanMap">
 		select * from chapter where chStatus!=1
 	</select>
+	
+	<!-- 添加新的章节 -->
+	<insert id="addNewChapter" parameterType="UploadChapterBean">
+		<selectKey keyProperty="chOrder" keyColumn="chOrder" order="BEFORE" resultType="int">
+			select nvl(max(chOrder),0)+1 as chOrder from chapter where cNo=#{cNo}
+		</selectKey>
+		insert into chapter values(seq_chapter_chNo.Nextval,#{chName},#{cNo},#{chContent},#{chOrder},'','','',2)
+	</insert>
 </mapper>

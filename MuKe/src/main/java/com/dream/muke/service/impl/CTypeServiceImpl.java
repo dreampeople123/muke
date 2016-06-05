@@ -18,4 +18,12 @@ public class CTypeServiceImpl implements CTypeService {
 		return cTypeMapper.findAllCourseType();
 	}
 
+	public List<CType> findAllDir() {
+		return cTypeMapper.findAllDir();
+	}
+
+	public List<CType> findTypeByDir(String key) {
+		return cTypeMapper.findTypeByDir(key);
+	}
+
 }

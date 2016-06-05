@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.dream.muke.entity.ChapterBean;
+import com.dream.muke.entity.UploadChapterBean;
 
 /**
  * 章节表映射接口
@@ -18,4 +19,11 @@ public interface ChapterMapper {
 	 * @return
 	 */
 	public List<ChapterBean> getAllChapter();
+
+	/**
+	 * 添加章节
+	 * @param params
+	 * @return
+	 */
+	public int addNewChapter(UploadChapterBean chapter);
 }

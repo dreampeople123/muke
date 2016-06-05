@@ -1,11 +1,14 @@
 package com.dream.muke.action;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.dream.muke.entity.Course;
 import com.dream.muke.entity.Users;
 import com.dream.muke.service.UsersService;
 import com.opensymphony.xwork2.ModelDriven;
@@ -20,16 +23,25 @@ public class UserAction implements ModelDriven<Users> {
 	private String rows;//进行分页的rows
 	private Users user;//增删改临时的users
 	
+	private Map<String,Object> couerses=new HashMap<String, Object>();
+	
 	public void setPage(String page) {
 		this.page = page;
 	}
-
 	public void setRows(String rows) {
 		this.rows = rows;
 	}
-
+	
 	public List<Users> getUsers() {
 		return users;
+	}
+	public Map<String, Object> getCouerses() {
+		return couerses;
+	}
+	
+	public Users getModel() {
+		user=new Users();
+		return user;
 	}
 
 	/**
@@ -40,9 +52,13 @@ public class UserAction implements ModelDriven<Users> {
 		/*users=usersService.findUsers(user,Integer.parseInt(page),Integer.parseInt(rows));*/
 		return "";
 	}
-
-	@Override
-	public Users getModel() {
-		return user;
+	
+	/**
+	 * 获取该教师维护的所有的课程
+	 * @return
+	 */
+	public String getTeacherCourse(){
+		couerses.put("infos", usersService.getTeacherCourse(user.getuNo()));
+		return "getTeacherCourse";
 	}
 }

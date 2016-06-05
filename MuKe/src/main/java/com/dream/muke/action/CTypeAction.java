@@ -13,10 +13,15 @@ public class CTypeAction {
 	@Autowired
 	private CTypeService cTypeService;
 	
-	private List<CType> cTypes; //课程类别
+	private String key;
 	
+	private List<CType> cTypes; //课程类别json
 	public List<CType> getcTypes() {
 		return cTypes;
+	}
+	
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 	/**
@@ -26,5 +31,19 @@ public class CTypeAction {
 	public String findAllCourseType(){
 		cTypes=cTypeService.findAllCourseType();
 		return "findAllCourseType";
+	}
+	
+	/**
+	 * 找到所有的方向
+	 * @return
+	 */
+	public String findAllDir(){
+		cTypes=cTypeService.findAllDir();
+		return "findAllDir";
+	}
+	
+	public String findTypeByDir(){
+		cTypes=cTypeService.findTypeByDir(key);
+		return "findTypeByDir";
 	}
 }

@@ -23,6 +23,8 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	<filter-mapping>
 		<filter-name>struts2</filter-name>
 		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 
 	<!-- 欢迎界面 -->

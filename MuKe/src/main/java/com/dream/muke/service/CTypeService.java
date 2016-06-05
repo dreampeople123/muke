@@ -10,4 +10,17 @@ public interface CTypeService {
 	 * @return
 	 */
 	public List<CType> findAllCourseType();
+
+	/**
+	 * 找到所有的方向
+	 * @return
+	 */
+	public List<CType> findAllDir();
+
+	/**
+	 * 根据方向找到所有的类别
+	 * @param key
+	 * @return
+	 */
+	public List<CType> findTypeByDir(String key);
 }
