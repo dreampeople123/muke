@@ -19,7 +19,28 @@ public class Users {
     private int uIsTeacher; //表示不是教师 1表示为是教师
     private int uStudytime; //学习时间
     private int ustatus;//删除标记  0已被删除 1为存在
+    private String uSummary;//应聘时用的简介字段
+    private String uTry;//试讲视频
+    private String uRealname;//真实姓名
     
+	public String getuRealname() {
+		return uRealname;
+	}
+	public void setuRealname(String uRealname) {
+		this.uRealname = uRealname;
+	}
+	public String getuSummary() {
+		return uSummary;
+	}
+	public void setuSummary(String uSummary) {
+		this.uSummary = uSummary;
+	}
+	public String getuTry() {
+		return uTry;
+	}
+	public void setuTry(String uTry) {
+		this.uTry = uTry;
+	}
 	public String getuNo() {
 		return uNo;
 	}
@@ -101,13 +122,16 @@ public class Users {
 	public void setUstatus(int ustatus) {
 		this.ustatus = ustatus;
 	}
-	
+	@Override
 	public String toString() {
 		return "Users [uNo=" + uNo + ", uName=" + uName + ", uPwd=" + uPwd
 				+ ", uAddressProv=" + uAddressProv + ", uAddressCity="
 				+ uAddressCity + ", uAddressCounty=" + uAddressCounty
 				+ ", uSex=" + uSex + ", uUsign=" + uUsign + ", uPic=" + uPic
 				+ ", uTel=" + uTel + ", uIsTeacher=" + uIsTeacher
-				+ ", uStudytime=" + uStudytime + ", ustatus=" + ustatus + "]";
+				+ ", uStudytime=" + uStudytime + ", ustatus=" + ustatus
+				+ ", uSummary=" + uSummary + ", uTry=" + uTry + ", uRealname="
+				+ uRealname + "]";
 	}
+
 }

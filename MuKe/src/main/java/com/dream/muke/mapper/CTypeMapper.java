@@ -1,6 +1,7 @@
 package com.dream.muke.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -31,5 +32,14 @@ public interface CTypeMapper {
 	 * @return
 	 */
 	public List<CType> findTypeByDir(String key);
+	
+	//删除课程类别信息
+	public int delCourseTypeInfo(Map<String, Object> map);
+
+	//更改课程类别信息
+	public int updateCourseTypeInfo(Map<String, Object> map);
+
+	//添加课程类别信息
+	public int addCourseTypeInfo(Map<String, Object> map);
 	
 }

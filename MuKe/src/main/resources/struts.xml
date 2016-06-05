@@ -10,8 +10,18 @@
 	<constant name="struts.multipart.maxSize" value="1048576000" />
 	<!-- 把struts的action对象交给spring容器管理 -->
 	<constant name="struts.objectFactory " value="spring" />
-
-	<package name="default" namespace="/" extends="json-default">		
+		
+	<package name="default" namespace="/" extends="json-default">
+		<action name="*_*" class="{1}Action" method="{2}">
+		    <result>/front/login.jsp</result>
+		    <result name="adminLogin" type="redirect">/back/index.jsp</result><!-- 管理员登录(重定向解决路径问题) -->
+		    <result name="login_result">/front/zhuye.jsp</result><!-- 用户登录 -->
+		    <!-- 删改用户返回的json（int :1或0） -->
+			<result name="users_result" type="json">
+				<param name="root">users_result</param>
+			</result>
+		</action>
+		
 		<action name="myFileUpload" class="uploadAction" method="upload">
 			<!-- 文件上传的拦截器 -->
 			<interceptor-ref name="fileUpload">
@@ -38,7 +48,7 @@
 		    </result>
 		    <!-- upload.jsp获取所有的难易度 -->
 		    <result name="getDeeply" type="json">
-		    	<param name="root">deeplys</param>
+		    	<param name="root">uoloadDeeplys</param>
 		    </result>
 		    <!-- upload.jsp获取该教师维护的所有课程  -->
 		    <result name="getTeacherCourse" type="json">
@@ -62,8 +72,14 @@
 			<result name="getAllComment" type="json">
 				<param name="root">comments</param>
 			</result>
+			
+			<!-- 查询课程的id和名字 -->
+			<result name="findCourseNameAndId" type="json">
+			    <param name="root">courses</param>
+			</result>
+			
 			<!-- 获取所有的章节 -->
-			<result name="getAllChapter" type="json">
+			<result name="findAllChapters" type="json">
 				<param name="root">chapters</param>
 			</result>
 			
@@ -84,6 +100,7 @@
 				<param name="root">result</param>
 			</result>
 			
+	
 			<!-- 查询所有的管理员返回的json -->
 			<result name="admininfo" type="json">
 				<param name="root">admins</param>
@@ -92,6 +109,99 @@
 			<result name="admin_result" type="json">
 				<param name="root">admin_result</param>
 			</result>
+			<!-- 查询所有的用户信息 -->
+			<result name="usersInfo" type="json">
+				<param name="root">users</param>
+			</result>
+			<!-- 删改用户返回的json（int :1或0） -->
+			<result name="users_result" type="json">
+				<param name="root">users_result</param>
+			</result>
+			<!-- 查询所有的用户课程信息 -->
+			<result name="ucourseInfo" type="json">
+				<param name="root">ucourses</param>
+			</result>
+			<!-- 保存用户课程返回的json（int :1或0） -->
+			<result name="ucourse_result" type="json">
+				<param name="root">ucourse_result</param>
+			</result>
+			
+			<!-- 查找所有的chapter -->
+			<result name="findAllChapter" type="json">
+			    <param name="root">chapters</param>
+			</result>
+			
+			<!-- 查询所有的chapter通过chName或cno -->
+			<result name="findChapterBycNoOrchName" type="json">
+			    <param name="root">chapters</param>
+			</result>
+			
+			<!-- 某一章节的信息 -->
+			<result name="showChapterDetail" type="json">
+			    <param name="root">chapters</param>
+			</result>
+			
+			<!-- 修改章节的状态 -->
+			<result name="updateChapterStatus" type="json">
+			    <param name="root">chStatu</param>
+			</result>
+			
+			<!-- 删除章节信息 -->
+			<result name="delChapterInfo" type="json">
+			    <param name="root">chStatu</param>
+			</result>
+			
+			<!-- 查找所有课程难易度 -->
+			<result name="findAllDeeplyInfo" type="json">
+			    <param name="root">deeplys</param>
+			</result>
+			
+			<!-- 添加课程难易度信息 -->
+			<result name="addDeeplyInfo" type="json">
+			    <param name="root">status</param>
+			</result>
+			
+			<!-- 删除课程难易程度信息 -->
+			<result name="delDeeplyInfo" type="json">
+			    <param name="root">status</param>
+			</result>
+			
+			<!-- 修改课程难易程度 信息-->
+			<result name="updateDeeplyInfo" type="json">
+			    <param name="root">status</param>
+			</result>
+			
+			<!-- 课程具体信息 -->
+			<result name="findCourseInfo" type="json">
+			    <param name="root">coursesInfo</param>
+			</result>
+			
+			<!-- 根据课程名或课程类别名查找 课程信息-->
+			<result name="findCourseByInfo" type="json">
+			    <param name="root">coursesInfo</param>
+			</result>
+			
+			<!-- 修改课程信息 -->
+			<result name="updateCourseInfo" type="json">
+			    <param name="root">status</param>
+			</result>
+			
+			<!-- 删除课程类别信息 -->
+			<result name="delCourseTypeInfo" type="json">
+			    <param name="root">status</param>
+			</result>
+			
+			<!-- 更改课程类别信息 -->
+			<result name="updateCourseTypeInfo" type="json">
+			    <param name="root">status</param>
+			</result>
+			
+			<!-- 添加课程类别信息 -->
+			<result name="addCourseTypeInfo" type="json">
+			    <param name="root">status</param>
+			</result>
 		</action>
     </package>
+    
+
 </struts>

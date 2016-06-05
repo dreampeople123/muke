@@ -2,7 +2,7 @@
 <!-- 中转用的jsp -->
 <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
 <script>
-var uno="${loginUser.uno}";
+var uno="${loginUser.uNo}";
 var nowPage="${param.nowPage}";
 var op="${param.op}";
 $(function(){
@@ -24,10 +24,23 @@ $(function(){
 		loadJSPCeasydegree(nowPage);
 	} else if(op=="newQuestion"){
 		loadHTMLNewQuestion();
-	} else{
+	}  else if(op=="currentCourse"){//在主页的课程显示
+		currentCourse();
+	}  else{
 		loadHTMLComment(nowPage);
 	} 
 });
+/**
+ * 在主页的课程显示
+ */
+function currentCourse(){
+	$.post("../commentsServlet",{op:"getCommentByUno",uno:uno,nowPage:nowPage,ctypno:'0'},function(data){
+		data=parseInt(data);
+		if(data==1){
+			location.href="MyComment.jsp";
+		}
+	});
+}
 
 function loadMyComment(nowPage){
 	$.post("../commentsServlet",{op:"getCommentByUno",uno:uno,nowPage:nowPage,ctypno:'0'},function(data){

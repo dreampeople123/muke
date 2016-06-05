@@ -4,9 +4,39 @@
 	<!-- 添加新课程 -->
 	<insert id="addNewCourse" parameterType="NewCourseUploadBean">
 		insert into course values(seq_course_cNo.Nextval,#{cName},#{dNo},#{ctNo},#{cUpdatetime},1,#{picPath},#{cProfiles},'','',2)
-		
 		<selectKey keyProperty="cno" keyColumn="cno" order="AFTER" resultType="string">
 			select max(cNo) as cno from course
 		</selectKey>
 	</insert>
+	
+    <select id="getCourseNameAndId" resultType="Course">
+		select cname,cno from course
+    </select>
+    
+    <select id="getCourseInfo" parameterType="map" resultType="CourseBean">
+        select * from (select d.*,rownum rn from (select a.cNo,cName,dName,ctDirname,ctName,cUpdatetime,cUpstatus,a.cStatus
+		from(select dName,cNo,cName,ctNo,cUpdatetime,cUpstatus,c.cStatus from deeply e,course c where e.dNo=c.dNo)a,
+		ctype ct where ct.ctNo=a.ctNo)d where cStatus!=0 and rownum<![CDATA[<]]>=(${page}*${rows}))b where rn<![CDATA[>]]>((${page}-1)*${rows}) 
+    </select>
+    
+    <select id="getCourseByInfo" parameterType="map" resultType="CourseBean">
+        select * from (select d.*,rownum rn from (select a.cNo,ct.ctNo,cName,dName,ctDirname,ctName,cUpdatetime,cUpstatus,a.cStatus
+		from(select dName,cNo,cName,ctNo,cUpdatetime,cUpstatus,c.cStatus from deeply e,course c where e.dNo=c.dNo)a,
+		ctype ct where ct.ctNo=a.ctNo)d where cStatus!=0 and rownum<![CDATA[<]]>=10)b
+		<where>
+		    <if test="rn!=null">
+		        rn<![CDATA[>]]>((${page}-1)*${rows})
+		    </if>
+		    <if test="cName!=null">
+		        and cname like '%${cName}%'
+		    </if>
+		    <if test="ctNo!=0">
+		        and ctNo=#{ctNo}
+		    </if>
+		</where>
+    </select>
+    
+    <update id="updateCourseInfo" parameterType="map">
+        update course set cName=#{cName},cUpstatus=#{cUpstatus},cStatus=#{cStatus} where cNo=#{cNo}
+    </update>
 </mapper>

@@ -10,7 +10,7 @@
 	</select>
 
 	<!-- 获取所有的章节信息 -->
-	<select id="getAllChapter" resultMap="ChapterBeanMap">
+	<select id="findAllChapters" resultMap="ChapterBeanMap">
 		select * from chapter where chStatus!=1
 	</select>
 	
@@ -21,4 +21,36 @@
 		</selectKey>
 		insert into chapter values(seq_chapter_chNo.Nextval,#{chName},#{cNo},#{chContent},#{chOrder},'','','',2)
 	</insert>
+
+    <select id="getAllChpater" parameterType="map" resultType="ChapterBean">
+        select * from (select a.*,rownum rn from (select ch.*,c.cname from chapter ch,course c where ch.Cno=c.cno and
+		chStatus!=0 order by chNo) a where rownum<![CDATA[<]]>=(${page}*${rows}))
+		b where rn<![CDATA[>]]>((${page}-1)*${rows}) 
+    </select>
+    
+    <select id="getChapterByChnoOrCname" parameterType="map" resultType="ChapterBean">
+        select ch.*,c.cname from chapter ch,course c
+        <where>
+            <if test="1==1">
+                ch.Cno=c.cno 
+            </if>
+            <if test="chName!=null">
+           		and chName like '%${chName}%'
+	        </if>
+	        <if test="cName!=0">
+	            and c.cNo=#{cName}
+	        </if>
+        </where>
+    </select>
+    
+    <select id="getChapterDetailByChno" parameterType="map" resultType="ChapterBean">
+        select ch.*,c.cname from chapter ch,course c where  ch.Cno=c.cno and chNo=#{chNo}
+    </select>
+    <update id="updateChapterStatus" parameterType="map">
+        update chapter set chStatus=#{chStatus} where chNo=#{chNo}
+    </update>
+    
+   	<update id="delChapterInfo" parameterType="map">
+   	    update chapter set chStatus=1 where chNo=#{chNo}
+   	</update>
 </mapper>

@@ -1,7 +1,7 @@
 package com.dream.muke.entity;
 
 /**
- * 章节bean，外键改为类
+ * 章节
  * @author dream
  *
  */
@@ -12,7 +12,7 @@ public class ChapterBean {
     private String chContent;
     private int chOrder;
     private int chStatus;
-    
+	
 	public String getChNo() {
 		return chNo;
 	}
@@ -25,12 +25,11 @@ public class ChapterBean {
 	public void setChName(String chName) {
 		this.chName = chName;
 	}
-	public Course getCourse() {
-		return course;
+	
+	public String getcName() {
+		return course.getcName();
 	}
-	public void setCourse(Course course) {
-		this.course = course;
-	}
+
 	public String getChContent() {
 		return chContent;
 	}

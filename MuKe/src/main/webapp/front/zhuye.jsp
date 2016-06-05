@@ -5,12 +5,13 @@
 <head>
 <meta charset="utf-8">
 <title>主页</title>
+<!-- <base href="./front/zhuye.jsp"> -->
 <link rel="shortcut icon" href="../images/1.png" type="image/x-icon"/>
 <link rel="stylesheet" href="css/zhuye.css" type="text/css"/>
+<!-- <link rel="stylesheet" href="../css/bootstrap.css" type="text/css"/> -->
 <link rel="stylesheet" href="css/footer.css" type="text/css" />
 <link rel="stylesheet" href="css/header.css" type="text/css" />
 <link rel="stylesheet" href="css/login.css" type="text/css" />
-
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/header.js"></script>
 <script type="text/javascript" src="js/zhuye.js"></script>
@@ -20,7 +21,8 @@
 
 </head>
 <body id="index">
-<%@ include file="header.jsp" %>
+<div id="heads"><%@ include file="header.jsp" %></div>
+
 
 <div class="g-banner">
     <div class="g-banner-content">

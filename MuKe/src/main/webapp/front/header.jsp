@@ -15,21 +15,21 @@
     <div id="login">
      	<c:if test="${empty loginUser}">
 	        <ul class="header-unlogin clearfix">
-	            <li class="header-signin"><a href="javascript:showDiv()" id="js-signin-btn">登录</a></li>
-	            <li class="header-signup"><a href="javascript:showDiv()" id="js-signup-btn">注册</a></li>
+	            <li class="header-signin"><a href="javascript:showDiv(1)" id="js-signin-btn">登录</a></li>
+	            <li class="header-signup"><a href="javascript:showDiv(0)" id="js-signup-btn">注册</a></li>
 	        </ul>
         </c:if>
         
         <c:if test="${not empty loginUser}">
-        <img id="login_head_img" src="images/xkjm.png" />
+        <img id="login_head_img" src="../${loginUser.uPic }" />
         <div id="self_card">
       	<ul>
         	<li id="card_img">
         		<div id="user_pic">
-            		<img src="images/thisisthis.jpg" />
+            		<img src="../${loginUser.uPic }" />
             	</div>
-                <span>${loginUser.uname }</span>
-                <span>${loginUser.posname }</span>
+                <span>${loginUser.uName }</span>
+                <%-- <span>${loginUser.posname }</span> --%>
             </li>
             <li id="card_mya">
             	<a href="MyCourse.jsp" id="mya_active">我的慕课</a>
@@ -37,7 +37,7 @@
             </li>
             
             <li id="card_course">
-            	<span>${loginUser.usign }</span>
+            	<span>${loginUser.uUsign }</span>
             </li>
             
             <li id="card_set">

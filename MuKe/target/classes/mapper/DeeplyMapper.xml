@@ -5,4 +5,21 @@
 	<select id="getDeeply" resultType="Deeply">
 		select * from deeply where dStatus!=1
 	</select>
+
+    <select id="getAllDeeplyInfo" resultType="Deeply" parameterType="map">
+		select * from (select a.*,rownum rn from (select * from deeply where
+		dStatus!=0 order by dNo)a where rownum<![CDATA[<]]>=(${page}*${rows}))b where rn<![CDATA[>]]>(${page}-1)*${rows}
+    </select>
+    
+    <insert id="addDeeplyInfo" parameterType="map">
+        insert into deeply values(seq_deeply_dNo.nextval,#{dName},'','','',#{dStatus})
+    </insert>
+    
+    <update id="updateDeeplyInfo" parameterType="map">
+        update deeply set dName=#{dName},dStatus=#{dStatus} where dNo=#{dNo}
+    </update>
+    
+    <update id="delDeeplyInfo" parameterType="map">
+        update deeply set dStatus=1 where dNo=#{dNo}
+    </update>
 </mapper>

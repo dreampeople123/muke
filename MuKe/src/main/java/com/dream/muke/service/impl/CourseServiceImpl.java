@@ -10,6 +10,11 @@ import com.dream.muke.mapper.ChapterMapper;
 import com.dream.muke.mapper.CourseMapper;
 import com.dream.muke.mapper.UsersMapper;
 import com.dream.muke.service.CourseService;
+import java.util.List;
+import java.util.Map;
+
+import com.dream.muke.entity.Course;
+import com.dream.muke.entity.CourseBean;
 
 @Service("courseService")
 public class CourseServiceImpl implements CourseService {
@@ -67,5 +72,26 @@ public class CourseServiceImpl implements CourseService {
 
 	public int uploadChapter(UploadChapterBean chapter) {
 		return chapterMapper.addNewChapter(chapter);
+	}
+
+
+	@Override
+	public List<Course> findCourseNameAndId() {
+		return courseMapper.getCourseNameAndId();
+	}
+	@Override
+	public List<CourseBean> findCourseInfo(Map<String, Object> map) {
+		return courseMapper.getCourseInfo(map);
+	}
+	
+	//按照课程名或课程类别编号查找课程信息
+	@Override
+	public List<CourseBean> findCourseByInfo(Map<String, Object> map) {
+		return courseMapper.getCourseByInfo(map);
+	}
+	//修改课程信息
+	@Override
+	public int updateCourseInfo(Map<String, Object> map) {
+		return courseMapper.updateCourseInfo(map);
 	}
 }

@@ -51,9 +51,6 @@
 					<li data-options="state:'open'">
 						<span>会员信息管理</span>
 						<ul>
-							<li id="update_position">
-								<span>修改会员职位</span>
-							</li>
 							<li id="users_manager">
 								<span>会员信息管理</span>
 							</li>
