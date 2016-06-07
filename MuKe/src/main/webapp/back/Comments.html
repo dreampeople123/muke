@@ -65,7 +65,6 @@
 	
 	//设置一个定时器，防止post冲突
 	setTimeout("find()",1000);
-	
 	function find(){
 		//获取所有的章节
 		$.post("chapter_findAllChapters",function(data){

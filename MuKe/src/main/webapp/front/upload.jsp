@@ -45,17 +45,17 @@
 	</div>
 	<div id="loading">
 		<div id="wating">
-			<img alt="loading" src="images/loading.gif">
+			<img alt="loading" width="85px" height="81px" src="images/loading.gif">
 			<p>正在上传...</p>
 		</div>
 
 		<div hidden="hidden" id="success">
-			<img id="loadingImg" alt="loading" width="85px" height="81px" src="images/success.jpg">
+			<img alt="success" width="85px" height="81px" src="images/success.jpg">
 			<p>上传成功</p>
 		</div>
 		
 		<div hidden="hidden" id="failed">
-			<img id="loadingImg" alt="loading" width="85px" height="81px" src="images/failed.jpg">
+			<img alt="failed" width="85px" height="81px" src="images/failed.jpg">
 			<p>上传失败</p>
 		</div>
 	</div>
