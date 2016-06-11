@@ -23,4 +23,22 @@ public interface CourseMapper {
 
 	//修改课程信息
 	int updateCourseInfo(Map<String, Object> map);
+
+	/**
+	 * 前台部分
+	 */
+	//根据课程名查询课程信息
+	List<CourseBean> getCourseByCname(Map<String, Object> map);
+
+	//根据课程编号查询课程具体信息
+	List<CourseBean> showCoursesByCno(Map<String, Object> map);
+
+	//根据课程方向查找课程信息
+	List<CourseBean> getCourseByCdirname(Map<String, Object> map);
+
+	//根据课程类型名查找课程信息
+	List<CourseBean> getCourseByCtname(Map<String, Object> map);
+
+	//根据课程难易度查找课程信息
+	List<CourseBean> getCourseByDname(Map<String, Object> map);
 }

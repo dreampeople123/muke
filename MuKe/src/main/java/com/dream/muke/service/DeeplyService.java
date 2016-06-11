@@ -17,4 +17,7 @@ public interface DeeplyService {
 	//删除课程难易程度信息
 	int delDeeplyInfo(Map<String, Object> map);
 
+	//查找所有难易度信息
+	List<Deeply> findAllDeeply();
+
 }

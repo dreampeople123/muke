@@ -1,5 +1,3 @@
-
-
 var flag;
 var chTelRe=false; //检查电话号码的标志
 var chPwdRe=false;//检查密码格式的标志

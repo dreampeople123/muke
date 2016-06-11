@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div id="main">
 	<div class="course-infos">
-		<c:forEach items="${currentCourse1 }" var="i" begin="0" end="0">
+		<c:forEach items="${courseInfo }" var="i" begin="0" end="0">
     		
     	<div class="w">
     		
@@ -33,22 +33,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <p>
             	<a href="course.jsp">课程</a>
                 <i class="path-split">\</i>
-                <a href="#">${ i.cdirname}</a>
+                <a href="#">${ i.ctDirname}</a>
                 <i class="path-split">\</i>
-                <a href="#">${i.ctypename}</a>
+                <a href="#">${i.ctName}</a>
                 <i class="path-split">\</i>
-                <a href="#">${i.cname}</a>
+                <a href="#">${i.cName}</a>
             </p>
             </div><!--path结束-->
-            	<h2 class="l">${i.cname}</h2>
+            	<h2 class="l">${i.cName}</h2>
             <div class="static">
             	<div class="static-item">
-                	<span class="meta-value"><strong>${i.easydegreename }</strong></span>
+                	<span class="meta-value"><strong>${i.dName }</strong></span>
                     <span class="meta">难度</span>
                     <em></em>
                 </div><!--static-item结束-->
                 <div class="static-item static-time">
-                    <span class="meta-value"><strong>${i.updatetime }</strong></span>
+                    <span class="meta-value"><strong>${i.cUpdatetime }</strong></span>
                     <span class="meta">更新时间</span>
                     <em></em>
      		    </div><!--static-item static-time结束-->
@@ -92,19 +92,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             -->
              
             	<div class="chapter-active" id="1" style="display:block">
-            		<c:forEach items="${currentCourse1}" var="CourContent">
+            		<c:forEach items="${chapterInfo}" var="CourContent">
             		
             		<script>
-            			console.info("${CourContent.chapterno}");
+            			console.info("${CourContent.chNo}");
             		</script>
             			<h3 id="chapS"  onClick="show(this)" class="active">
 	                    	<span class="icon-sub"></span>
-	                        <strong onMouseOut="close()"><i class="state-expand"></i>${CourContent.chaptername }</strong>
+	                        <strong onMouseOut="close()"><i class="state-expand"></i>${CourContent.chName }</strong>
                     	</h3>
 	                    <ul style="display:block" id="chapterCon">
 	                    	<li id="con"  style="display:block">
 	                            <em class="laststudy"></em>
-	                            <a target="_blank" href="javascript:jumpToShiPin('${CourContent.cno}','${CourContent.chapterno }')" class="studyvideo" id="color">>_${CourContent.chaptername }<i class="study-state"></i></a>
+	                            <a target="_blank" href="javascript:jumpToShiPin('${CourContent.cNo}','${CourContent.chNo }')" class="studyvideo" id="color">>_${CourContent.chName }<i class="study-state"></i></a>
 	                        </li>
 	                    </ul><br>
             		</c:forEach>

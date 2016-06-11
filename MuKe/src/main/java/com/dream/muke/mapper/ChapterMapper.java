@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.dream.muke.entity.Chapter;
 import com.dream.muke.entity.ChapterBean;
 
 /**
@@ -28,4 +29,11 @@ public interface ChapterMapper {
 	
 	//删除章节信息
 	int delChapterInfo(Map<String, Object> map);
+
+	
+	/**
+	 * 前台内容
+	 */
+	//根据课程编号查询章节信息
+	List<Chapter> getAllChpaterByCno(Map<String, Object> map);
 }

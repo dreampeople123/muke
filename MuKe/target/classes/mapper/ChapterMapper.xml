@@ -32,5 +32,10 @@
    	<update id="delChapterInfo" parameterType="map">
    	    update chapter set chStatus=1 where chNo=#{chNo}
    	</update>
+   	
+   	<!-- 前台操作 -->
+   	<select id="getAllChpaterByCno" parameterType="map" resultType="Chapter">
+   	    select * from chapter where cNo=#{cNo}
+   	</select>
     
 </mapper>

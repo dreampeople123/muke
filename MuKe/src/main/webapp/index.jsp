@@ -8,7 +8,7 @@
   });
   </script>
 <body>
-<center>
+	<center>
 		<img style="margin-top: 100px;" src="./images/loading.gif" />
 	</center>
 </body>

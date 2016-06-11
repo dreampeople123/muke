@@ -7,7 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.dream.muke.entity.CourseBean;
 import com.dream.muke.entity.Deeply;
+import com.dream.muke.service.CourseService;
 import com.dream.muke.service.DeeplyService;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -21,6 +23,15 @@ public class DeeplyAction implements ModelDriven<Deeply>{
 	private String page;//进行分页的page
 	private String rows;//进行分页的rows
 	private int status;
+	@Autowired
+	private CourseService courseService;
+	List<CourseBean> courses;
+	public List<CourseBean> getCourses() {
+		return courses;
+	}
+	public void setCourses(List<CourseBean> courses) {
+		this.courses = courses;
+	}
 	public int getStatus() {
 		return status;
 	}
@@ -93,6 +104,16 @@ public class DeeplyAction implements ModelDriven<Deeply>{
 		status= deeplyService.delDeeplyInfo(map);
 		System.out.println(status+"结果........");
 		return "delDeeplyInfo";
+	}
+	
+	//根据课程难易度查找课程信息
+	public String showCourseByDname(){
+		map=new HashMap<String, Object>();
+		map.put("dName", deeply.getdName());
+		System.out.println(deeply.getdName());
+		courses = courseService.findCourseByDname(map);
+		System.out.println(courses);
+		return "showCourseByDname";
 	}
 	
 	@Override

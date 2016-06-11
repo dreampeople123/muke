@@ -2,7 +2,6 @@
 <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
-
 <struts>
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<constant name="struts.devMode" value="true" />
@@ -19,6 +18,24 @@
 		    <!-- 删改用户返回的json（int :1或0） -->
 			<result name="users_result" type="json">
 				<param name="root">users_result</param>
+			</result>
+			<!-- 根据课程编号查询课程信息 -->
+			<result name="showCoursesByCno">/front/keepLearning.jsp</result>
+			
+			<!-- 到course.jsp中去 -->
+			<result name="findAllTypes">/front/course.jsp</result>
+			
+			<!-- 根据课程方向名查找课程信息 -->
+			<result name="findCourseByCdirname" type="json">
+			    <param name="root">courses</param>
+			</result>
+			<!-- 根据课程类型名查找课程信息 -->
+			<result name="showCourseByCtypename" type="json">
+			    <param name="root">courses</param>
+			</result>
+			<!-- 根据课程难易程度查找课程信息 -->
+			<result name="showCourseByDname" type="json">
+			    <param name="root">courses</param>
 			</result>
 		</action>
 		
@@ -173,6 +190,13 @@
 			<result name="addCourseTypeInfo" type="json">
 			    <param name="root">status</param>
 			</result>
+			
+			<!-- 根据课程名模糊查询课程信息 -->
+			<result name="findCourseByCname" type="json">
+				<param name="root">status</param>
+			</result>
+			
+			
 		</action>
     </package>
     

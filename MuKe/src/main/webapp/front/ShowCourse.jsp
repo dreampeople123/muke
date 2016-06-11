@@ -56,8 +56,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="result-list J-result-list">
                 <div class="result-header clearfix">
                 	<c:choose>
-                		<c:when test="${not empty currentCourse}">
-                		为您找到相关课程<span style="font-size:25px">${CourseNum}</span>个
+                		
+                		<c:when test="${not empty courseBean}">
+                			为您找到相关课程<span style="font-size:25px">${courseBean.size()}</span>个
 	                	</c:when>
 	                		
 	                	<c:otherwise>
@@ -70,11 +71,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 
                 <div class="cp-tab-pannel js-comp-tab-pannel" style="display:block" data-pannel="course">
 						 <ul class="other-list">
-						 	<c:forEach items="${currentCourse}" var="aaa">
+						 	<c:forEach items="${courseBean}" var="aaa">
 						 		<li class="img" style="float:left;margin-top:40px;">
-		                            <a target="_blank" href="../courseServlet?op=showCoursesByCno&cno=${aaa.cno }" target="_blank" >
-		                                <img  id="course_img"  src="${aaa.cpic }" >
-		                                <span class="name autowrap">${aaa.cname }</span>
+		                            <a target="_blank" href="courses_showCoursesByCno.action?cNo=${aaa.cNo }" target="_blank" >
+		                                <img  id="course_img"  src="${aaa.cPic}" >
+		                                <span class="name autowrap">${aaa.cName }</span>
 		                            </a>
 		                        </li>
 						 	</c:forEach>

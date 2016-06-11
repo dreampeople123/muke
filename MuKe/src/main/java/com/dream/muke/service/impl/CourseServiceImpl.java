@@ -34,5 +34,38 @@ public class CourseServiceImpl implements CourseService {
 	public int updateCourseInfo(Map<String, Object> map) {
 		return courseMapper.updateCourseInfo(map);
 	}
+	
+	/**
+	 * 前台部分
+	 */
+	//通过课程名字查找课程信息
+	@Override
+	public List<CourseBean> findCourseByCname(Map<String, Object> map) {
+		return courseMapper.getCourseByCname(map);
+	}
+	
+	//根据课程编号查询课程具体信息
+	@Override
+	public List<CourseBean> showCoursesByCno(Map<String, Object> map) {
+		return courseMapper.showCoursesByCno(map);
+	}
+	
+	//根据课程方向查找课程信息
+	@Override
+	public List<CourseBean> findCourseByCdirname(Map<String, Object> map) {
+		return courseMapper.getCourseByCdirname(map);
+	}
+	
+	//根据课程类型名查找课程信息
+	@Override
+	public List<CourseBean> findCourseByCtname(Map<String, Object> map) {
+		return courseMapper.getCourseByCtname(map);
+	}
+	
+	//根据课程难易度查找课程信息
+	@Override
+	public List<CourseBean> findCourseByDname(Map<String, Object> map) {
+		return courseMapper.getCourseByDname(map);
+	}
 
 }

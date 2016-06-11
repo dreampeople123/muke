@@ -29,4 +29,8 @@ public interface CTypeMapper {
 	//添加课程类别信息
 	public int addCourseTypeInfo(Map<String, Object> map);
 	
+	/**
+	 * 前台部分
+	 */
+	
 }

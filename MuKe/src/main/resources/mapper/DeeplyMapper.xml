@@ -17,4 +17,8 @@
     <update id="delDeeplyInfo" parameterType="map">
         update deeply set dStatus=1 where dNo=#{dNo}
     </update>
+    
+    <select id="findAllDeeply" resultType="Deeply">
+        select * from deeply
+    </select>
 </mapper>

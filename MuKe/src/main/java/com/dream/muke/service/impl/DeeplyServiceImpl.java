@@ -40,4 +40,10 @@ public class DeeplyServiceImpl implements DeeplyService {
 		return deeplyMapper.delDeeplyInfo(map);
 	}
 
+	//查找所有难易度信息
+	@Override
+	public List<Deeply> findAllDeeply() {
+		return deeplyMapper.findAllDeeply();
+	}
+
 }

@@ -1,13 +1,14 @@
 //根据课程名模糊查询
 function findCourseByCnameOne(){
-	var cname=$.trim($("#search-input-out").val());
-	console.info(cname);
-	if(cname==null||cname==""){
+	var cName=$.trim($("#search-input-out").val());
+	var urls="courses_findCourseByCname.action";
+	console.info(cName);
+	if(cName==null||cName==""){
 		location.reload(true);
 	}else{
-		$.post("../courseServlet?d="+new Date(),{op:"findCourseInfoByCname",cname:cname},function(data){
+		$.post(urls,{cName:cName},function(data){
 			if(data==1){
-				$("#showCname").val=cname;
+				$("#showCname").val=cName;
 				location.href="ShowCourse.jsp";
 			}else{
 				location.href="ShowCourse.jsp";

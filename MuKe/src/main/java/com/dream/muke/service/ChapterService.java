@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.dream.muke.entity.Chapter;
 import com.dream.muke.entity.ChapterBean;
 @Repository
 public interface ChapterService {
@@ -19,4 +20,10 @@ public interface ChapterService {
 
 	//删除章节
 	public int delChapterInfo(Map<String, Object> map);
+
+	/**
+	 * 前台内容
+	 */
+	//根据课程编号查找章节信息
+	public List<Chapter> findAllChapterByCno(Map<String, Object> map);
 }

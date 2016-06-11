@@ -73,36 +73,36 @@
 </div><!--mooc-dynamic结束-->
 <div class="icourse">
 	<center>
-	<div class="icourse-wrap idx-width">
-    	<h2 class="icourse-title hide-text">课程</h2>
-        <ul class="icourse-course clearfix">
-	        <c:forEach items="${currentCourseDetail }" var ="a">
-	        	<li class="icourse-course-li">
-	            	<a href="/learn/544">
-	                	<div class="icourse-img">
-	                    	<img id="icourse-img1" alt="" src="../${a.cpic }">
-	                        <span class="icourse-learnt" style="display:none">你已参加本课程</span>
-	                    </div><!--icourse-img结束-->
-	                    <div class="icourse-intro title">  
-	                    	<p class="icourse-intro-p">Multitasking</p>
-	                        <span class="l" >更新至4-1</span>
-	                        <span class="r" >课程时长：48分</span>
-	                    </div><!--icourse-intro clearfix结束-->
-	                    <div class="icourse-intro introduce" hidden="hidden" >
-	                    	<p class="icourse-intro-p2">${a.cintro }</p>
-	                        <span class="l" >14小时之前更新</span>
-	                        <span class="r" >571学习</span>
-	                    </div><!--icourse-tips clearfix结束-->
-	                </a>
-	            </li>
+		<div class="icourse-wrap idx-width">
+	    	<h2 class="icourse-title hide-text">课程</h2>
+	        <ul class="icourse-course clearfix">
+		        <c:forEach items="${currentCourseDetail }" var ="a">
+		        	<li class="icourse-course-li">
+		            	<a href="/learn/544">
+		                	<div class="icourse-img">
+		                    	<img id="icourse-img1" alt="" src="../${a.cpic }">
+		                        <span class="icourse-learnt" style="display:none">你已参加本课程</span>
+		                    </div><!--icourse-img结束-->
+		                    <div class="icourse-intro title">  
+		                    	<p class="icourse-intro-p">Multitasking</p>
+		                        <span class="l" >更新至4-1</span>
+		                        <span class="r" >课程时长：48分</span>
+		                    </div><!--icourse-intro clearfix结束-->
+		                    <div class="icourse-intro introduce" hidden="hidden" >
+		                    	<p class="icourse-intro-p2">${a.cintro }</p>
+		                        <span class="l" >14小时之前更新</span>
+		                        <span class="r" >571学习</span>
+		                    </div><!--icourse-tips clearfix结束-->
+		                </a>
+		            </li>
+		        </c:forEach>
+	        </ul>
 	        
-	        </c:forEach>
+	        <div class="icourse-footer">
+	            <a href="course.jsp">全部课程</a>
+	        </div><!--icourse-footer结束-->
 	        
-        </ul>
-        <div class="icourse-footer">
-            <a href="course.jsp">全部课程</a>
-        </div><!--icourse-footer结束-->
-    </div><!--incourse-wrap-->
+	    </div><!--incourse-wrap-->
     </center>
 </div><!--icourse结束-->
 

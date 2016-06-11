@@ -13,7 +13,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="css/coursein.css" type="text/css" rel="stylesheet"/>
 <link rel="stylesheet" href="css/footer.css" type="text/css" />
 <link rel="stylesheet" href="css/header.css" type="text/css" />
-
 <script type="text/javascript" src="js/coursein.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/header.js"></script>
@@ -21,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </head>
 <script type="text/javascript">
-	$(function(){
+	/* $(function(){
 		var cdir="${findCdirDetail}";
 		var ctype="${CtypeDetail}";
 		var ceasydegree="${easydegreeDetail}";
@@ -31,21 +30,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}else {
 			
 		}
-	}) 
+	})  */
 	
-	function findAllDir(){
-		$.post("../courseServlet?d="+new Date(),{op:"showCourseDirDetail"});
+/* 	function findAllDir(){
+		$.post("cType_findAllCourseType.action");
 		
 	}
 	
 	function findAllType(){
-		$.post("../courseServlet?d="+new Date(),{op:'showCourseTypeDetail'},function(data){
+		$.post("cType_findAllCourseType.action",function(data){
 			var obj=$("#abc");
 			var opt="";
 			opt="<li class='course-nav-item '><a href='javascript:void(0)' onclick='findAllType()'>全部</a></li>";
 			$.each(data.ctypes,function(index,item){
 				//console.info(item.ctypename);//可以输出来
-				opt+="<li class='course-nav-item ' id='ctypenames'><a href='javascript:showCourseByCtypename(\""+item.ctypename+"\")'>"+item.ctypename+"</a></li>";
+				opt+="<li class='course-nav-item ' id='ctypenames'><a href='javascript:showCourseByCtypename(\""+item.ctName+"\")'>"+item.ctName+"</a></li>";
 				
 			});
 			
@@ -54,11 +53,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	
 	function findAllEasyDegree(){
-		$.post("../courseServlet?d="+new Date(),{op:"showCourseEasydegreeDetail"});
+		$.post("deeply_findAllDeeplyInfo");
 	}
 	
 	function showCtype(a){
-	    $.post("../courseServlet",{op:'showCoursesByCtno',cdirname:a},function(data){
+	    $.post("cType_showCtypeByctDirname.action",function(data){
 	    	var obj=$("#abc");
 			var opt="";
 			opt="<li class='course-nav-item '><a href='javascript:void(0)' onclick='findAllType()'>全部</a></li>";
@@ -73,11 +72,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	    
 	    
-	    
-	    $.post("../testCourseServlet",{op:'showCoursesByCdirname',cdirname:a},function(data){
+	    $.post("cType_findCourseByCdirname.action",{ctDirname:a},function(data){
 	    	var obj=$("#ByCdirname");
 	    	var opt="";
-	    	
 	    	console.info(data.course);
 	    	$.each(data.course,function(index,item){
 	    		opt+="<li class='course-one'><a target='_blank' href='../courseServlet?op=showCoursesByCno&cno="+item.cno+"'> "+
@@ -94,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 
 	function showCourseByCtypename(a){
-		$.post("../testCourseServlet",{op:'showCoursesByCtypename',ctypename:a},function(data){
+		$.post("courses_showCoursesByCtypename.action",{ctName:a},function(data){
 	    	var obj=$("#ByCdirname");
 	    	var opt="";
 	    	
@@ -125,9 +122,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	});
 	    	obj.html(opt);
 	    },"json");
+	} */
+	
+	//根据课程方向查找看出信息
+	function showCourseByCdirname(a){
+		$.post("cType_findCourseByCdirname.action",{ctDirname:a},function(data){
+	    	var obj=$("#ByCdirname");
+	    	var opt="";
+	    	console.info(data);
+	    	$.each(data,function(index,item){
+	    		opt+="<li class='course-one'><a target='_blank' href='courses_showCoursesByCno.action?cNo="+item.cNo+"'> "+
+	             "<div class='course-list-img'><img alt="+ item.cName+ " src="+item.cPic+" height='135' width='240'></div>"+
+	              " <h5><span>"+item.cName+" </span></h5>"+
+	              " <div class='tips'><p class='text-ellipsis'>"+item.cProfiles+ "</p><span class='l update-latest'>更新至5-1</span><span class='l ml20'>418人学习</span></div>"+       
+	              " <span class='time-label'>35分钟 | 高级</span><b class='follow-label'>跟我学</b></a></li>";
+	    	});
+	    	obj.html(opt);
+	    },"json");
 	}
-	
-	
+	//根据课程类型名查找信息
+	function showCourseByCtypename(a){
+		$.post("cType_showCourseByCtypename.action",{ctName:a},function(data){
+	    	var obj=$("#ByCdirname");
+	    	var opt="";
+	    	console.info(data);
+	    	$.each(data,function(index,item){
+	    		opt+="<li class='course-one'><a target='_blank' href='courses_showCoursesByCno.action?cNo="+item.cNo+"'> "+
+	             "<div class='course-list-img'><img alt="+ item.cName+ " src="+item.cPic+" height='135' width='240'></div>"+
+	              " <h5><span>"+item.cName+" </span></h5>"+
+	              " <div class='tips'><p class='text-ellipsis'>"+item.cProfiles+ "</p><span class='l update-latest'>更新至5-1</span><span class='l ml20'>418人学习</span></div>"+       
+	              " <span class='time-label'>35分钟 | 高级</span><b class='follow-label'>跟我学</b></a></li>";
+	    	});
+	    	obj.html(opt);
+	    },"json");
+	}
+	//根据课程难易程度查找课程信息
+	function showCourseByDname(a){
+		$.post("deeply_showCourseByDname.action",{dName:a},function(data){
+	    	var obj=$("#ByCdirname");
+	    	var opt="";
+	    	console.info(data);
+	    	$.each(data,function(index,item){
+	    		opt+="<li class='course-one'><a target='_blank' href='courses_showCoursesByCno.action?cNo="+item.cNo+"'> "+
+	             "<div class='course-list-img'><img alt="+ item.cName+ " src="+item.cPic+" height='135' width='240'></div>"+
+	              " <h5><span>"+item.cName+" </span></h5>"+
+	              " <div class='tips'><p class='text-ellipsis'>"+item.cProfiles+ "</p><span class='l update-latest'>更新至5-1</span><span class='l ml20'>418人学习</span></div>"+       
+	              " <span class='time-label'>35分钟 | 高级</span><b class='follow-label'>跟我学</b></a></li>";
+	    	});
+	    	obj.html(opt);
+	    },"json");
+	}
 </script>
 <body>
 <%@ include file="header.jsp" %>
@@ -138,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	<div class="course-nav-box">
                 	<div class="course-nav-hd">
                     	<b>全部课程</b>
-                         <a href="javascript:void(0)" class="for-teacher hide-text" title="应聘讲师" target="_blank"></a>
+                         <a href="aboutUs.html" class="for-teacher hide-text" title="应聘讲师" target="_blank"></a>
                     </div>
                     <div class="course-nav-row clearfix">
                     	<div class="hdd">
@@ -146,14 +190,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>
                         <div class="bd">
                         	<ul >
-                        		<li class="course-nav-item"><a href="javascript:void(0)" onclick="findAllDir()">全部</a></li>
-                        		<c:forEach items="${findCdirDetail}" var="a">
-                        			<li class="course-nav-item"><a target="_self" href="javascript:showCtype('${a.cdirname }')">${a.cdirname }</a></li>
+                        		<li class="course-nav-item"><a href="courses_findAllTypes.action">全部</a></li>
+                        		<c:forEach items="${cTypeInfo}" var="a">
+                        			<li class="course-nav-item"><a target="_self" href="javascript:showCourseByCdirname('${a.ctDirname }')">${a.ctDirname }</a></li>
                         		</c:forEach>		
-                            	
-                            	<!--  
-                            	<li class="course-nav-item on"><a>全部</a></li>
-                                -->
                             </ul>
                         </div>
                         
@@ -165,10 +205,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     	
                         <div class="bd">
                         	<ul id="abc">
-                        		<li class="course-nav-item "><a href="javascript:void(0)" onclick="findAllType()">全部</a></li>
-                       				<c:forEach items="${CtypeDetail}" var="b" >
+                        		<li class="course-nav-item "><a href="courses_findAllTypes.action">全部</a></li>
+                       				<c:forEach items="${cTypeInfo}" var="b" >
                                			<li class="course-nav-item " id="ctypenames">
-                               				<a href="javascript:showCourseByCtypename('${b.ctypename }')">${b.ctypename }</a>
+                               				<a href="javascript:showCourseByCtypename('${b.ctName }')">${b.ctName }</a>
                                			</li>
                                		</c:forEach>
                             </ul>
@@ -180,10 +220,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>
                         <div class="bd">
                         	 <ul class="">
-                        	 	<li class="course-nav-item " id="ctypename"><a href="javascript:void(0)" onclick="findAllEasyDegree()">全部</a></li>
-                        	 	<c:forEach items="${easydegreeDetail}" var="a">
+                        	 	<li class="course-nav-item " id="ctypename"><a href="courses_findAllTypes.action" >全部</a></li>
+                        	 	<c:forEach items="${deeplyInfo}" var="a">
                         			<li class="course-nav-item ">
-                                		<a href="javascript:showCourseByEasyName('${a.easydegreename }')">${a.easydegreename }</a>
+                                		<a href="javascript:showCourseByDname('${a.dName}')">${a.dName }</a>
                             		</li>
                                	</c:forEach>
                         	</ul>
@@ -207,17 +247,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="course-list">
                 	<div class="js-course-lists">
 						<ul id="ByCdirname">
-							<c:forEach items="${currentCourseDetail}" var="a">
+							<c:forEach items="${courseInfo}" var="a">
 								<li class="course-one">
-									 <a target="_blank" href="../courseServlet?op=showCoursesByCno&cno=${a.cno }" target="_blank" >
+									 <a target="_blank" href="courses_showCoursesByCno.action?cNo=${a.cNo }" target="_blank" >
 	                                    <div class="course-list-img">
-	                                        <img alt="${a.cname }" src="${a.cpic }" height="135" width="240">
+	                                    	
+	                                        <img alt="${a.cName }" src="${a.cPic }" height="135" width="240">
 	                                    </div>
 	                                    <h5>
-	                                        <span>${a.cname }</span>
+	                                        <span>${a.cName }</span>
 	                                    </h5>
 	                                    <div class="tips">
-	                                        <p class="text-ellipsis">${a.cintro }</p>
+	                                        <p class="text-ellipsis">${a.cProfiles }</p>
 	                                        <span class="l update-latest">更新至5-1</span>                             
 	                                        <span class="l ml20">418人学习</span>
 	                                    </div>

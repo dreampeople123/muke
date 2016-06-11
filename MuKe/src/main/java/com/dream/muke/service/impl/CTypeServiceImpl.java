@@ -37,4 +37,8 @@ public class CTypeServiceImpl implements CTypeService {
 		return cTypeMapper.addCourseTypeInfo(map);
 	}
 
+	/*
+		前台部分
+	 */
+
 }

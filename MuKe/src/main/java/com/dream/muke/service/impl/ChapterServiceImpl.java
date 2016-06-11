@@ -42,5 +42,14 @@ public class ChapterServiceImpl implements ChapterService {
 	public int delChapterInfo(Map<String, Object> map) {
 		return chapterMapper.delChapterInfo(map);
 	}
+	
+	/**
+	 * 前台内容
+	 */
+	//根据课程编号查询章节信息
+	@Override
+	public List<Chapter> findAllChapterByCno(Map<String, Object> map) {
+		return chapterMapper.getAllChpaterByCno(map);
+	}
 
 }
