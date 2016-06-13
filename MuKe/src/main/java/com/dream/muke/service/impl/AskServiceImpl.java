@@ -1,12 +1,15 @@
 package com.dream.muke.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dream.muke.entity.Ask;
 import com.dream.muke.entity.BackAskBean;
+import com.dream.muke.entity.frontAsk;
 import com.dream.muke.mapper.AnswerMapper;
 import com.dream.muke.mapper.AskMapper;
 import com.dream.muke.service.AskService;
@@ -58,4 +61,31 @@ public class AskServiceImpl implements AskService {
 	public int getAskTotal(BackAskBean backAskBean) {
 		return askMapper.getAskTotal(backAskBean);
 	}
+	/**
+	 * 根据cno查询视频界面的问答信息
+	 * @param cno
+	 * @return
+	 */
+	@Override
+	public List<frontAsk> findForntAsk(Map<String,Object> maps) {
+		return askMapper.findForntAsk(maps);
+	}
+	/**
+	 * 查询视频界面的精华问答信息
+	 * @param cno
+	 * @return
+	 */
+	@Override
+	public List<frontAsk> findJinAskByCtype(Map<String, Object> maps) {
+		return askMapper.findJinAskByCtype(maps);
+	}
+	/**
+	 * 视频界面添加问答信息
+	 * @param backAskBean
+	 * @return
+	 */
+	@Override
+	public int addAsk(Ask ask) {
+		return askMapper.addAsk(ask);
+		}
 }

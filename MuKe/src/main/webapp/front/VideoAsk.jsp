@@ -1,54 +1,53 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-             	<c:when test="${not empty asks}">
-             		<c:forEach items="${asks}" var="item">
+             	<c:when test="${not empty sessionScope.asks}">
+             		<c:forEach items="${sessionScope.asks}" var="item">
 						<div class="wenda-listcon">
-							<div class="headslider">
-								<a class="wenda-head" title="${item.uname}" target="_blank" href="">
-						        	<img width="40" height="40" alt="${item.uname}" src="${item.pic}">
+							<div class="headslider">    
+								<a class="wenda-head" title="${item.uName}" target="_blank" href="">
+						        	<img width="40" height="40" alt="${item.uName}" src="../${item.uPic}">
 								</a>
-										<a class="wenda-nickname" title="${item.uname}" target="_blank" href="">${item.uname}</a>
+										<a class="wenda-nickname" title="${item.uName}" target="_blank" href="">${item.uName}</a>
 									</div>
 									<div class="wendaslider">
 										<a class="replynumber hasanswernum" target="_blank" href="">
-											<c:forEach items="${countAnswers}" var="itesem">
-						                    			<c:if test="${itesem.askno eq item.askno}">
+											<%-- <c:forEach items="${countAnswers}" var="itesem">
+						                    			<c:if test="${itesem.askno eq item.askno}"> --%>
 					                    					<div class="ys">
 																<div class="number padAjust">
-																	<b class="numShow">${itesem.counAnswer}</b>
+																	<b class="numShow">${item.answernum}</b>
 																</div>
 																<div class="number">回答</div>
 															</div>
-					                    				</c:if>
-			            					</c:forEach>
+					                    	<%-- 			</c:if>
+			            					</c:forEach> --%>
 										</a>
 										<h2 class="wendaquetitle">
 											<i class="icon-ques-revert"></i>
 											<div class="wendatitlecon">
 												<a class="wendatitle" target="_blank" href="">
-													<p>${item.askcontent} </p>
+													<p>${item.aContent} </p>
 												</a>
 											</div>
 										</h2>
 										<div class="replycont clearfix">
 											<i class="icon-msg-revert"></i>
+						                    		<c:if test="${not empty item.lastAnswer}">
 											<div class="fl replydes">
-												<c:forEach items="${answers}" var="iteem">
-						                    		<c:if test="${iteem.askno eq item.askno}">
+												
 						                    			<span class="replysign praise">[最新回答]</span>
-					            						<a class="replyuserhead" title="${iteem.uname}" target="_blank" href="">
-															<img width="20" height="20" alt="${iteem.uname}" src="${iteem.pic}">
+					            						<a class="replyuserhead" title="${item.lastAnswer.user.uName}" target="_blank" href="">
+															<img width="20" height="20" alt="${item.lastAnswer.user.uName}" src="../${item.lastAnswer.user.uPic}">
 														</a>
-														<a class="nickname" title="${iteem.uname}" target="_blank" href="">${iteem.uname}: </a>
-														<span class="replydet">${iteem.answercontent}</span>
-					            					</c:if>
-			            						</c:forEach>
+														<a class="nickname" title="${item.lastAnswer.user.uName}" target="_blank" href="">${item.lastAnswer.user.uName}: </a>
+														<span class="replydet">${item.lastAnswer.anContent}</span>
 											</div>
+					            					</c:if>
 										</div>
 										<div class="replymegfooter">
 											<div class="wenda-time">
-												<em>时间：${item.askTimes}</em>
+												<em>时间：${item.aTime}</em>
 											</div>
 										</div>
 									</div>

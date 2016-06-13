@@ -29,7 +29,7 @@
 	
 	<!-- 根据章节找到评论信息 -->
 	<select id="findCommentsByInfo" parameterType="CommentBean" resultMap="CommentBeanMap">
-		select * from (select a.*,rownum rn from (select * from comments where chNo=#{chNo} and coStatus!=1 order by coTime) a where #{pagea}>=rownum) b where rn>#{pageb}
+		select * from (select a.*,rownum rn from (select * from comments where chNo=#{chNo} and coStatus!=1 order by coNo desc) a where #{pagea}>=rownum) b where rn>#{pageb}
 	</select>
 	
 	<!-- 删除评论信息 -->
@@ -38,4 +38,12 @@
 			${coNos}
 		</foreach>
 	</update>
+	<!--根据章节找到评论信息点赞排序 -->
+	<select id="findCommentByDian" parameterType="CommentBean" resultMap="CommentBeanMap">
+		select * from (select a.*,rownum rn from (select * from comments where chNo=#{chNo} and coStatus!=1 order by coDianzannum desc ) a where #{pagea}>=rownum) b where rn>#{pageb}
+	</select>
+	<!-- 在视频界面添加评论信息 -->
+	<insert id="addComment" parameterType="Comments">
+	insert into comments values(seq_comments_coNo.nextval,#{uNo},#{chNo},#{coContent},#{coTime},0,#{coPic},'','','',2)
+	</insert>
 </mapper>

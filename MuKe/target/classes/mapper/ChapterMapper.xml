@@ -38,7 +38,7 @@
            		and chName like '%${chName}%'
 	        </if>
 	        <if test="cName!=0">
-	            and c.cNo=#{cName}
+	            and c.cNo=#{cNo}
 	        </if>
         </where>
     </select>

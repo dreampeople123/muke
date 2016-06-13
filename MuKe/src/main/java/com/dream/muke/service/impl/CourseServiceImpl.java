@@ -94,4 +94,13 @@ public class CourseServiceImpl implements CourseService {
 	public int updateCourseInfo(Map<String, Object> map) {
 		return courseMapper.updateCourseInfo(map);
 	}
+	/**
+	 * 根据cNo查找课程信息
+	 * @param cNo
+	 * @return
+	 */
+	@Override
+	public List<CourseBean> findBycno(String cNo) {
+		return courseMapper.findBycno(cNo);
+	}
 }

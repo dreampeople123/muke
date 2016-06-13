@@ -35,4 +35,10 @@ public interface CourseMapper {
 
 	//修改课程信息
 	int updateCourseInfo(Map<String, Object> map);
+	/**
+	 * 根据cNo查找课程信息
+	 * @param cNo
+	 * @return
+	 */
+	List<CourseBean> findBycno(String cNo);
 }

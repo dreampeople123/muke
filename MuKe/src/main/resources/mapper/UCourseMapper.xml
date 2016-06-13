@@ -12,7 +12,13 @@
 			<if test="cName!=null">
 				and cName like '%${cName}%' 
 			</if>
-			<if test="ucAttention">
+			<if test="uNo!=null">
+				and e.uNo=#{uNo} 
+			</if>
+			<if test="cNo!=null">
+				and e.cNo=#{cNo} 
+			</if>
+			<if test="ucAttention>0">
 				and ucAttention=#{ucAttention} 
 			</if>
 		</where>
@@ -39,4 +45,16 @@
 	<update id="updateUcourseInfo" parameterType="UCourseBean">
 		update ucourse set ucStatus=#{ucStatus} where uNo=#{uNo} and cNo=(select cNo from course where cName=#{cName})
 	</update>
+	<!-- 查找学习同一课程的同学 -->
+	<select id="findUsBychano" parameterType="Map" resultType="UsersBean">
+	select b.*  from ucourse a,users b where a.uNo=b.uNo and cNo=#{cNo} and a.ucStatus<![CDATA[>]]>1 and a.uNo!=#{uNo}
+	</select> 
+	<!-- 查找学习同一课程的同学的数量 -->
+	<select id="totalChapterno" parameterType="Map" resultType="int">
+		select count(*) from ucourse where cNo=#{cNo} and ucStatus<![CDATA[>]]>1 and uNo!=#{uNo}
+	</select> 
+	<!-- 查找学习这门课程的同学学习的其他课程 -->
+ 	<select id="sameByCno" parameterType="String" resultType="CourseBean">
+		select * from course where cNo in (select distinct cNo from ucourse where uNo in (select a.uNo from ucourse a,users b where a.uNo=b.uNo and cNo=#{cNo}  and a.ucStatus<![CDATA[>]]>1))
+	</select>
 </mapper>

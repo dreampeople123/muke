@@ -202,6 +202,14 @@
 			<result name="addCourseTypeInfo" type="json">
 			    <param name="root">status</param>
 			</result>
+			<!-- 查询视频界面的课程信息 -->
+			<result name="shipinInfo" type="json">
+			    <param name="root">status</param>
+			</result>
+			<!-- 查询视频界面保存评论返回的课程信息 -->
+			<result name="shipin" type="json">
+			    <param name="root">result</param>
+			</result>
 		</action>
     </package>
     
