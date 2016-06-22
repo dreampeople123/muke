@@ -4,15 +4,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.dream.muke.entity.CType;
 import com.dream.muke.service.CTypeService;
+import com.dream.muke.utils.SessionKey;
 import com.opensymphony.xwork2.ModelDriven;
 
 @Controller("cTypeAction")
-public class CTypeAction implements ModelDriven<CType>{
+public class CTypeAction implements ModelDriven<CType>,SessionAware{
+	private Map<String, Object> session;
 	private CType cType;
 	@Autowired
 	private CTypeService cTypeService;
@@ -21,6 +24,11 @@ public class CTypeAction implements ModelDriven<CType>{
 	private List<CType> cTypes; //课程类别json
 	
 	private String key;
+	
+
+	public void setSession(Map<String, Object> session) {
+		this.session=session;
+	}
 	
 	public int getStatus() {
 		return status;
@@ -43,6 +51,7 @@ public class CTypeAction implements ModelDriven<CType>{
 	 */
 	public String findAllCourseType(){
 		cTypes = cTypeService.findAllCourseType();
+		session.put(SessionKey.ALLTYPES, cTypes);
 		return "findAllCourseType";
 	}
 	
@@ -89,7 +98,7 @@ public class CTypeAction implements ModelDriven<CType>{
 		status = cTypeService.addCourseTypeInfo(map);
 		return "addCourseTypeInfo";
 	}
-	@Override
+	
 	public CType getModel() {
 		cType = new CType();
 		return cType;

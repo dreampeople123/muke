@@ -10,18 +10,17 @@
 <link rel="stylesheet" href="css/header.css" type="text/css" />
 <link rel="stylesheet" href="css/footer.css" type="text/css" />
 <link rel="stylesheet" href="css/Question.css" />
+
+<link rel="stylesheet" href="css/trumbowyg.css">
+
 <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="js/Community.js"></script>
 <script type="text/javascript" src="js/header.js"></script>
+<script src="js/trumbowyg.js"></script>
 
-<script type="text/javascript" src="editor/ueditor.config.js"></script>
-<script type="text/javascript" src="editor/ueditor.all.js"></script>
-<script type="text/javascript" src="editor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" src="js/editor.js" ></script>
+
 <script type="text/javascript">
-	var uno="${loginUser.uno}";
-	var askno="${question.askno}";
-	var ctypeno="${question.ctypeno}";
+	var uno="${loginUser.uNo}";
 </script>
 <script type="text/javascript" src="js/Question.js"></script>
 </head>
@@ -42,36 +41,77 @@
             
             <div class="qu-person">
             	<a id="qu-person">
-                    <img src="${question.pic }" />
-                    <span>${question.uname }</span>
+                    <img src="${questionInfo.user.uPic}" />
+                    <span>${questionInfo.user.uName }</span>
                 </a>
             </div>
             
             <div class="qu-body">
             	<div class="qu-body-title">
-            		<h4>${question.asktitle}</h4>
+            		<h4>${questionInfo.ask.aTitle}</h4>
                 </div>
                 <div class="qu-body-body">
-                	<p>${question.askcontent}</p>
+                	<p>${questionInfo.ask.aContent}</p>
                 </div>
+                <c:if test="${not empty questionInfo.ask.aPic}">
+	                <div class="qu-body-img">
+	                	<img onclick="openMask(1,'../../upload/${questionInfo.ask.aPic}')" src="../../upload/${questionInfo.ask.aPic}" >
+	                </div>
+                </c:if>
                 <div class="qu-body-label">
-                	<span class="qu-time">${question.askTime}</span>
-                    <a class="qu-label" href="javascript:void(0)">${question.cdirname}</a>
-                    <span class="an"><span class="hd-num">${question.answernum}</span>回答</span>
+                	<span class="qu-time">${questionInfo.ask.aTime}</span>
+                    <a class="qu-label" href="javascript:void(0)">${questionInfo.cTname}</a>
+                    <span class="an"><span class="hd-num">${questionInfo.answerNum}</span>回答</span>
                 </div>
             </div>
             
+           	<!-- 遮罩 -->
+			<div onclick="closeMask()" id="mask" class="mask">
+			</div>
+			<div id="bigimg">
+				<img width="600px" height="338px" src="">
+			</div>
+			<div id="bigimgYulan">
+				<img onclick="openfile()" width="600px" height="338px" src="">
+			</div>
+            
+            <!-- 回答列表 -->
             <div id="answerlist">
             	<ul id="answerul">
+            		<c:forEach items="${questionAnswers }" var="item">
+            			<li>
+            				<div>
+            					<img class='userImg' src="${item.user.uPic}" />${item.anContent}
+            					<br/><br/>
+            		
+            					<c:if test="${not empty item.anPic }">
+            					<img onclick="openMask(1,'../../upload/${item.anPic }')" src="../../upload/${item.anPic }">
+            					</c:if>
+            				</div>
+            				<div id="answerTime">
+            					<span>${item.anTime}</span>
+            				</div>
+            			</li>
+            		</c:forEach>
             	</ul>
             </div>
             
             <div class="answer">
-                <div class="question-mainbody">
-                 	<textarea style="line-height: 0px;" id="content" name="content" >
-  					</textarea>
-                </div>
-                <button onclick="submitAnswer()">回答</button>
+            	<form action="ask_addAnswer?aNo=${questionInfo.ask.aNo }&uNo=${loginUser.uNo}" method="post" enctype="multipart/form-data">
+					<textarea name="anContent" id="myeditor"></textarea>
+					<script>
+						$('#myeditor').trumbowyg();
+						$(function(){
+							$("#yulan").hide();
+						})
+					</script>
+					<div style="float: right;">
+						<span id="uploadImg" onclick="openfile()">上传图片</span>
+						<input onchange="showYulan()" type="file" hidden="hidden" id="answerImg" name="answerImg" />
+		                <span id="yulan" hidden="hidden" onclick="openMask(2,null)">查看预览</span>
+		                <input type="submit" id="submitButton" value="回答"/>
+	                </div>
+                </form>
             </div>
         </div>
 

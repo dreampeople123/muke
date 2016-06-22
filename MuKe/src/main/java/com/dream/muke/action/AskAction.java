@@ -1,26 +1,65 @@
 package com.dream.muke.action;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.dream.muke.entity.BackAskBean;
+import com.dream.muke.service.AnswerService;
 import com.dream.muke.service.AskService;
+import com.dream.muke.service.CourseService;
+import com.dream.muke.utils.DateUtil;
+import com.dream.muke.utils.SessionKey;
 import com.opensymphony.xwork2.ModelDriven;
 
 @Controller("askAction")
-public class AskAction implements ModelDriven<BackAskBean>{
+public class AskAction implements ModelDriven<BackAskBean>,SessionAware{
 	private BackAskBean backAskBean;
+	private Map<String, Object> session;
 	@Autowired
 	private AskService askService;
+	@Autowired
+	private CourseService courseService;
+	@Autowired
+	private AnswerService answerService;
 	
-	private Map<String,Object> asks=new HashMap<String, Object>(); //传到后台的json信息,问答信息
+	private Map<String,Object> asks=new HashMap<String, Object>(); //传到后台的json信息
 	private int result; //传到后台的数据更新结果
 	
 	private String askNos; //问题编号
+	private String anContent; //回答内容
+	private File answerImg;
+	private String answerImgFileName;
+	private String uNo;
+
+	private File askImg;
+	private String askImgFileName;
+	
+	public void setAskImg(File askImg) {
+		this.askImg = askImg;
+	}
+	public void setAskImgFileName(String askImgFileName) {
+		this.askImgFileName = askImgFileName;
+	}
+	public void setuNo(String uNo) {
+		this.uNo = uNo;
+	}
+	public void setAnswerImgFileName(String answerImgFileName) {
+		this.answerImgFileName = answerImgFileName;
+	}
+	public void setAnswerImg(File answerImg) {
+		this.answerImg = answerImg;
+	}
+	public void setAnContent(String anContent) {
+		this.anContent = anContent;
+	}
 	public void setAskNos(String askNos) {
 		this.askNos = askNos;
 	}
@@ -35,6 +74,58 @@ public class AskAction implements ModelDriven<BackAskBean>{
 	public BackAskBean getModel() {
 		backAskBean=new BackAskBean();
 		return backAskBean;
+	}
+	
+
+	public void setSession(Map<String, Object> session) {
+		this.session=session;
+	}
+	
+	/**
+	 * 添加问题信息
+	 * @return
+	 */
+	public String addAsk(){
+		String path="F:/tomcat/apache-tomcat-7.0.47/webapps/upload";
+		String fileName=new DateUtil().getFileName()+askImgFileName;
+		
+		Map<String,Object> params=new HashMap<String, Object>();
+		params.put("ctNo", backAskBean.getTypeNo());
+		params.put("uNo", uNo);
+		params.put("aTitle", backAskBean.getaTitle());
+		params.put("aContent", backAskBean.getaContent());
+		params.put("aTime", new DateUtil().getDate());
+		
+		if(askImg!=null){
+			try {
+				params.put("aPic",fileName);
+				FileUtils.copyFile(askImg, new File(path+"/"+fileName));
+				LogManager.getLogger().debug("文件上传成功"+path);
+			} catch (IOException e) {
+				LogManager.getLogger().debug("文件上传失败");
+				e.printStackTrace();
+			}
+		} else{
+			params.put("aPic","");
+		}
+		askService.addAsk(params);
+		
+		return findCommunityInfo();
+	}
+	
+	/**
+	 * 获取社区的信息
+	 * @return
+	 */
+	public String findCommunityInfo(){
+		backAskBean.setRows(10); //一个页面显示10条数据
+		
+		session.put(SessionKey.COMMUNITY_ASKS, askService.findCommunityAsks(backAskBean));
+		session.put(SessionKey.COMMUNITY_HOTCOURSE, courseService.findCommunityHotCourse());
+		session.put(SessionKey.COMMUNITY_HOTASK, askService.findCommunityHotAsk());
+		session.put(SessionKey.COMMUNITY_HOTUSER, askService.findCommunityHotUser());
+
+		return "findCommunityInfo";
 	}
 
 	/**
@@ -75,5 +166,41 @@ public class AskAction implements ModelDriven<BackAskBean>{
 			LogManager.getLogger().debug("删除问题信息失败",e);
 		}
 		return "delAskInfo";
+	}
+	
+	/**
+	 * 跳转到问题详情界面
+	 * @return
+	 */
+	public String gotoQuestion(){
+		session.put(SessionKey.QUESTION_INFO, askService.findAskBeanByNo(askNos)); //引用社区askbean
+		session.put(SessionKey.QUESTION_ANSWERS, answerService.getAskAnswerByNo(askNos));
+		
+		System.out.println("取到的数据"+session.get(SessionKey.QUESTION_INFO));
+		
+		return "gotoQuestion";
+	}
+	
+	/**
+	 * 添加回答
+	 * @return
+	 */
+	public String addAnswer(){
+		String path="F:/tomcat/apache-tomcat-7.0.47/webapps/upload";
+		String fileName=new DateUtil().getFileName()+answerImgFileName;
+		
+		if(answerImg!=null){
+			try {
+				FileUtils.copyFile(answerImg, new File(path+"/"+fileName));
+				LogManager.getLogger().debug("上传成功:"+path);
+				answerService.addAnswer(backAskBean.getaNo(),uNo,anContent,fileName);
+			} catch (IOException e) {
+				LogManager.getLogger().debug("上传图片失败");
+				e.printStackTrace();
+			}
+		} else{
+			answerService.addAnswer(backAskBean.getaNo(),uNo,anContent,"");
+		}
+		return gotoQuestion();
 	}
 }

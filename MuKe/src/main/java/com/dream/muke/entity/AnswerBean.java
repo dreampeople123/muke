@@ -12,7 +12,16 @@ public class AnswerBean {
     private String anTime;
     private int anStatus;
     private String anContent;
+    private String anPic;
     
+    
+    
+	public String getAnPic() {
+		return anPic;
+	}
+	public void setAnPic(String anPic) {
+		this.anPic = anPic;
+	}
 	public String getAnNo() {
 		return anNo;
 	}
@@ -49,10 +58,10 @@ public class AnswerBean {
 	public void setAnContent(String anContent) {
 		this.anContent = anContent;
 	}
-	
+
 	public String toString() {
 		return "AnswerBean [anNo=" + anNo + ", ask=" + ask + ", user=" + user
 				+ ", anTime=" + anTime + ", anStatus=" + anStatus
-				+ ", anContent=" + anContent + "]";
+				+ ", anContent=" + anContent + ", anPic=" + anPic + "]";
 	}
 }

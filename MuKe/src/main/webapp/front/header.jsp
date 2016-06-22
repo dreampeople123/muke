@@ -9,7 +9,7 @@
         <a href="#" class="menu-ctrl"><i class="icon-menu"></i></a>
         <ul>
             <li><a href="course.jsp" target="_self">课程</a></li>
-            <li><a href="Middle.jsp?op=community" target="_self">社区</a></li>
+            <li><a href="Community.jsp" target="_self">社区</a></li>
         </ul>
     </div>
     <div id="login">

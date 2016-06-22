@@ -21,8 +21,9 @@
 
 </head>
 <body id="index">
-<div id="heads"><%@ include file="header.jsp" %></div>
-
+<div id="heads">
+<%@ include file="header.jsp" %>
+</div>
 
 <div class="g-banner">
     <div class="g-banner-content">

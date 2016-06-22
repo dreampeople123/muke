@@ -1,5 +1,6 @@
 package com.dream.muke.test;
 
+import org.apache.logging.log4j.LogManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,27 @@ public class AskServiceImplTest {
 		b.setRows(10);
 		System.out.println(askService.getAskInfo(b));
 	}
-
+	
+	@Test
+	public void testFindCommunityAsks(){
+		BackAskBean b=new BackAskBean();
+		b.setPage(1);
+		b.setRows(10);
+		LogManager.getLogger().debug(askService.findCommunityAsks(b));
+	}
+	
+	@Test
+	public void testFindCommunityHotAsk(){
+		LogManager.getLogger().debug(askService.findCommunityHotAsk());
+	}
+	
+	@Test
+	public void testFindCommunityHotUser(){
+		LogManager.getLogger().debug(askService.findCommunityHotUser());
+	}
+	
+	@Test
+	public void testFindAskBeanByNo(){
+		LogManager.getLogger().debug(askService.findAskBeanByNo("1061"));
+	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,29 +11,24 @@
 <link rel="stylesheet" href="css/header.css" type="text/css" />
 <link rel="stylesheet" href="css/footer.css" type="text/css" />
 <link rel="stylesheet" href="css/NewQuestion.css" type="text/css" />
+
+<link rel="stylesheet" href="css/trumbowyg.css">
+
 <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="js/header.js"></script>
 <script type="text/ecmascript" src="js/NewQuestion.js"></script>
 
-<script type="text/javascript" src="editor/ueditor.config.js"></script>
-<script type="text/javascript" src="editor/ueditor.all.js"></script>
-<script type="text/javascript" src="editor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" src="js/editor.js" ></script>
+<script src="js/trumbowyg.js"></script>
 
 <script type="text/javascript">
-	var uno="${loginUser.uno}";
-	$(function(){
-		var label="${label}";
-		if(label!=null && label!="" ){
-			//console.info("${label}"); 
-		} else{
-			location.href="Middle.jsp?op=newQuestion";
-		}
-	});
+	var uno="${loginUser.uNo}";
 </script>
 </head>
 
 <body>
+<!-- 获取所有的类型 -->
+<s:action name="cType_findAllCourseType" namespace="/" ></s:action>
+
 <%@include file="header.jsp" %>
 <div id="main">
 	<div class="container">
@@ -41,31 +37,63 @@
                 <h4>发问题</h4>
             </div>
             <div class="question-body">
-                <ul>
-                    <li>分类：<span class="question-class">技术问答</span></li>
-                    <li> <!--js-->
-                    	标题：<input type="text" class="question-text" id="question-title" placeholder="请输入问题的标题"/>
-                    	<p hidden class="question-title-hint" id="question-title-hint"><img src="images/prompt.jpg" />标题不能少于5个字符</p>
-                    </li>
-                    <li id="special">
-                        <span class="neirong">内容：</span>
-                        <div class="question-mainbody">
-                 			<textarea style="line-height: 0px;" id="content" name="content" >
-  							</textarea>
-                        </div>
-                        <p hidden class="question-title-hint" id="bodytext-hint"><img src="images/prompt.jpg" />正文不能少于5个字符</p>
-                    </li>
-                    <li>
-                    	方向：<input type="text" disabled="disabled" id="question-text" class="question-text" placeholder="您须从下列标签选择一个呦!">
-                        <div class="question-lable">
-                        	<c:forEach items="${label }" var="item">
-                        		<span data-id="${item.ctypeno }" onclick="addLabel(this)" class="labels">${item.cdirname }</span>
-                        	</c:forEach>
-                        </div>
-                    </li>
-
-                    <li><a href="javascript:submitQuestion()" class="issue">发布</a></li>
-                </ul>
+            	<form action="ask_addAsk" method="post" enctype="multipart/form-data" onsubmit="return checkForm()">
+	                <ul class="bodyul">
+	                    <li class="bodyli">分类：<span class="question-class">技术问答</span></li>
+	                    <li class="bodyli"> <!--js-->
+	                    	标题：<input type="text" name="aTitle" class="question-text" id="question-title" placeholder="请输入问题的标题"/>
+	                    	<span hidden="hidden" class="question-title-hint" id="question-title-hint">
+	                    		<img src="images/prompt.jpg" />标题不能少于5个字符
+	                    	</span>
+	                    </li>
+	                    <li class="bodyli" id="special">
+	                        <span class="neirong">内容：</span>
+	                        <div class="question-mainbody">
+								<textarea name="aContent" id="myeditor"></textarea>
+								<script>
+									$('#myeditor').trumbowyg();
+									
+									$(function(){
+										$(".trumbowyg-editor").blur(function(){
+											var content=$("#myeditor").val();
+											if(content.length<5){
+												$('#bodytext-hint').show();	
+											}
+										});
+										
+										$(".trumbowyg-editor").focus(function(){
+											$('#bodytext-hint').hide();	
+										});
+									})
+								</script>
+	                        </div>
+	                        
+	                        <p hidden="hidden" class="question-title-hint" id="bodytext-hint">
+	                        	<img src="images/prompt.jpg" />正文不能少于5个字符
+	                        </p>
+	                    </li>
+	                    <li class="bodyli">
+	                    	方向：<input type="text" disabled="disabled" id="question-text" class="question-text" placeholder="您须从下列标签选择一个呦!">
+	                        <input hidden="hidden" name="typeNo" id="typeNo" type="text"/>
+	                        <input hidden="hidden" name="uNo" type="text" value="${loginUser.uNo }" />
+	                        <div class="question-lable">
+							</div>
+	                    </li>
+	                    <li class="bodyli">
+	                    	<span id="openFile" hidden="hidden" class="issue" onclick="openFile()">上传图片</span>
+	                    	<span id="Yulan" hidden="hidden" onclick="openMask()">查看预览</span>
+	                    	<input hidden="hidden" type="file" id="askImg" name="askImg" onchange="showYulan()" />
+	                    	<input type="submit" class="issue" value="发布" />
+	                    </li>
+	                </ul>
+                </form>
+                
+                <!-- 遮罩 -->
+				<div onclick="closeMask()" id="mask" class="mask">
+				</div>
+				<div id="bigimgYulan">
+					<img onclick="openFile()" width="600px" height="338px" src="">
+				</div>
             </div>
         </div>
         <div class="container-right">
@@ -83,8 +111,8 @@
             <div class="hotlabel">
             	<h4>热门标签</h4>
                 <div class="labels-div">
-                	<c:forEach items="${label }" var="item">
-                		<a href="javascript:void(0)" title="${item.cdirname }" class="labels">${item.cdirname }</a>
+                	<c:forEach items="${alltypes }" var="item">
+                		<a href="javascript:void(0)" title="${item.ctName }" class="labels">${item.ctName }</a>
                 	</c:forEach>
                 </div>
             </div>

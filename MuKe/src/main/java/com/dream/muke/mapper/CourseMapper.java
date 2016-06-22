@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.dream.muke.entity.CommunityHotCourseBean;
 import com.dream.muke.entity.Course;
 import com.dream.muke.entity.CourseBean;
 
@@ -24,6 +25,12 @@ public interface CourseMapper {
 	 * @return
 	 */
 	public int addNewCourse(NewCourseUploadBean course);
+	
+	/**
+	 * 获取热门课程信息
+	 * @return
+	 */
+	public List<CommunityHotCourseBean> findCommunityHotCourse();
 
 	List<Course> getCourseNameAndId();
 

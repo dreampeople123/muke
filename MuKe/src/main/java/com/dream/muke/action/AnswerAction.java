@@ -34,5 +34,4 @@ public class AnswerAction implements ModelDriven<Answer>{
 		answers=answerService.getAskAnswerByNo(answer.getaNo());
 		return "getAskAnswer";
 	}
-
 }

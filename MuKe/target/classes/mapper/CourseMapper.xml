@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dream.muke.mapper.CourseMapper" >
+	<!-- 社区  热门课程bean的map -->
+	<resultMap type="CommunityHotCourseBean" id="CommunityHotCourseBeanMap">
+		<association property="course" column="cno" select="findCourseByNo" />
+	</resultMap>
+	<select id="findCourseByNo" parameterType="string" resultType="Course">
+		select * from course where cno=#{cno}
+	</select>
+	
+	<!-- 根据关注度的排行获取课程信息(获取前三的) -->
+	<select id="findCommunityHotCourse" resultMap="CommunityHotCourseBeanMap">
+		select a.* from(
+			select cno,count(1) as attNum from ucourse where ucAttention=1 group by cno order by count(1) desc) a where rownum<![CDATA[<]]>=3
+	</select>
+
+
 	<!-- 添加新课程 -->
 	<insert id="addNewCourse" parameterType="NewCourseUploadBean">
 		insert into course values(seq_course_cNo.Nextval,#{cName},#{dNo},#{ctNo},#{cUpdatetime},1,#{picPath},#{cProfiles},'','',2)
