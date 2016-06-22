@@ -1,18 +1,21 @@
 package com.dream.muke.action;
 
+
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
+import com.dream.muke.entity.Ask;
 import com.dream.muke.entity.BackAskBean;
 import com.dream.muke.service.AnswerService;
+import com.dream.muke.entity.CourseBean;
 import com.dream.muke.service.AskService;
 import com.dream.muke.service.CourseService;
 import com.dream.muke.utils.DateUtil;
@@ -32,7 +35,6 @@ public class AskAction implements ModelDriven<BackAskBean>,SessionAware{
 	
 	private Map<String,Object> asks=new HashMap<String, Object>(); //传到后台的json信息
 	private int result; //传到后台的数据更新结果
-	
 	private String askNos; //问题编号
 	private String anContent; //回答内容
 	private File answerImg;
@@ -176,8 +178,6 @@ public class AskAction implements ModelDriven<BackAskBean>,SessionAware{
 		session.put(SessionKey.QUESTION_INFO, askService.findAskBeanByNo(askNos)); //引用社区askbean
 		session.put(SessionKey.QUESTION_ANSWERS, answerService.getAskAnswerByNo(askNos));
 		
-		System.out.println("取到的数据"+session.get(SessionKey.QUESTION_INFO));
-		
 		return "gotoQuestion";
 	}
 	
@@ -201,6 +201,27 @@ public class AskAction implements ModelDriven<BackAskBean>,SessionAware{
 		} else{
 			answerService.addAnswer(backAskBean.getaNo(),uNo,anContent,"");
 		}
+		
 		return gotoQuestion();
+	}
+
+	/**
+	 * 视频界面添加问答信息
+	 * @return
+	 */
+	public String addAsks(){
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
+		String askTime=sdf.format(new Date());
+		Ask ask=new Ask();
+		ask.setaTime(askTime);
+		ask.setaContent(backAskBean.getaContent());
+		ask.setaTitle(backAskBean.getaTitle());
+		ask.setuNo((String) session.get("riuno"));
+		CourseBean couu=(CourseBean) session.get("dancourse");
+		ask.setCtNo(couu.getCtNo());
+		System.out.println("添加的"+ask);
+		 result=askService.addAsk(ask);
+		 System.out.println("结果是"+result);
+		return "shipin";
 	}
 }

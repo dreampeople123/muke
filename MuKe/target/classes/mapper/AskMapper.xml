@@ -37,7 +37,6 @@
 		update ask set aStatus=1 where aNo=#{aNo}
 	</update>
 	
-	
 	<!-- 社区问答的map -->
 	<resultMap type="CommunityAskBean" id="CommunityAskBeanMap">
 		<association property="user" column="uno" select="findUserByNo"/>
@@ -81,7 +80,41 @@
 	</select>
 	
 	<!-- 添加问题信息 -->
-	<insert id="addAsk" parameterType="map">
+	<insert id="addCommunityAsk" parameterType="map">
 		insert into ask values(seq_ask_aNo.nextval,#{ctNo},#{uNo},#{aTitle},#{aContent},#{aTime},#{aPic},'','',2)
+	</insert>
+	
+	<!--forntAsk的Map  -->
+	<resultMap type="frontAsk" id="forntAskMap">
+		<association property="lastAnswer" column="last" select="selans" />
+	</resultMap>
+	<!-- AnswerBean的resultMap -->
+	<resultMap type="AnswerBean" id="AnswerBeanMap">
+		<id property="anNo" column="anNo"/>
+		<association property="user" column="uNo" select="findUsersByNo"/>
+	</resultMap>
+	<!-- 查询回答用户 -->
+	<select id="findUsersByNo" parameterType="String" resultType="Users">
+		select * from users where uNo=#{uNo}
+	</select>
+	<!--查找最新的回答  -->
+	<select id="selans" parameterType="String" resultMap="AnswerBeanMap">
+		select * from answer where aNo=#{last} and anNo in (select max(anNo) from  answer where aNo=#{last} )
+	</select>
+	<!-- 查找视频界面的全部问答信息 -->
+	<select id="findForntAsk" parameterType="Map" resultMap="forntAskMap">
+	select a.*,uName, ctName,uPic,ctDirname,
+	(select count(*) from answer asw  where  asw.aNo =a.aNo) answernum,a.aNo last
+	 from ask a, ctype b, users c where a.ctNo=#{ctNo} and a.ctNo=b.ctNo and a.uNo=c.uNo and a.aStatus<![CDATA[>]]>1 order by  aNo desc 
+	</select>
+	<!-- 查找视频界面的精华问答信息 -->
+	<select id="findJinAskByCtype" parameterType="Map" resultMap="forntAskMap">
+	select a.*,uName, ctName,uPic,ctDirname,
+	(select count(*) from answer asw  where  asw.aNo =a.aNo) answernum,a.aNo last
+	 from ask a, ctype b, users c where a.ctNo=#{ctNo} and a.ctNo=b.ctNo and a.uNo=c.uNo and a.aStatus<![CDATA[>]]>1 order by  answernum desc 
+	</select>
+	<!-- 在视频界面添加信息 -->
+	<insert id="addAsk" parameterType="Ask">
+		insert into ask values(seq_ask_aNo.nextval,#{ctNo},#{uNo},#{aTitle},#{aContent},#{aTime},'','','',2)
 	</insert>
 </mapper>

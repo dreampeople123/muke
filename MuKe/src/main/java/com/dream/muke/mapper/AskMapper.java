@@ -5,8 +5,12 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.dream.muke.entity.Ask;
 import com.dream.muke.entity.BackAskBean;
+
 import com.dream.muke.entity.CommunityAskBean;
+
+import com.dream.muke.entity.frontAsk;
 
 /**
  * 回答表映射接口
@@ -41,6 +45,7 @@ public interface AskMapper {
 	 */
 	public int getAskTotal(BackAskBean backAskBean);
 
+
 	/**
 	 * 获取社区的问答信息
 	 * @param backAskBean
@@ -72,5 +77,22 @@ public interface AskMapper {
 	 * @param params
 	 * @return
 	 */
-	public int addAsk(Map<String, Object> params);
+	public int addCommunityAsk(Map<String, Object> params);
+
+	/**
+	 * 查询视频界面的全部问答信息
+	 * @return
+	 */
+	public List<frontAsk> findForntAsk(Map<String, Object> maps);
+	/**
+	 * 查询视频界面的精华问答信息
+	 * @return
+	 */
+	public List<frontAsk> findJinAskByCtype(Map<String, Object> maps);
+	/**
+	 * 视频界面添加问答信息
+	 * @param ask
+	 * @return
+	 */
+	public int addAsk(Ask ask);
 }

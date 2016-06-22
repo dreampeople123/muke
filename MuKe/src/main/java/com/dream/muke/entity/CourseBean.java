@@ -10,6 +10,22 @@ public class CourseBean {
     private int cUpstatus;      //是否跟新
     private int cStatus;   		//是否可用
     private String ctNo;   		//课程类别名
+    
+    private String cPic; //课程图片
+    private String  cProfiles;//课程简介
+    
+	public String getcPic() {
+		return cPic;
+	}
+	public void setcPic(String cPic) {
+		this.cPic = cPic;
+	}
+	public String getcProfiles() {
+		return cProfiles;
+	}
+	public void setcProfiles(String cProfiles) {
+		this.cProfiles = cProfiles;
+	}
 	public String getcNo() {
 		return cNo;
 	}
@@ -64,16 +80,19 @@ public class CourseBean {
 	public void setCtNo(String ctNo) {
 		this.ctNo = ctNo;
 	}
+
 	@Override
 	public String toString() {
 		return "CourseBean [cNo=" + cNo + ", cName=" + cName + ", dName="
 				+ dName + ", ctDirname=" + ctDirname + ", ctName=" + ctName
 				+ ", cUpdatetime=" + cUpdatetime + ", cUpstatus=" + cUpstatus
-				+ ", cStatus=" + cStatus + ", ctNo=" + ctNo + "]";
+				+ ", cStatus=" + cStatus + ", ctNo=" + ctNo + ", cPic=" + cPic
+				+ ", cProfiles=" + cProfiles + "]";
 	}
+	
 	public CourseBean(String cNo, String cName, String dName, String ctDirname,
 			String ctName, String cUpdatetime, int cUpstatus, int cStatus,
-			String ctNo) {
+			String ctNo, String cPic, String cProfiles) {
 		super();
 		this.cNo = cNo;
 		this.cName = cName;
@@ -84,6 +103,8 @@ public class CourseBean {
 		this.cUpstatus = cUpstatus;
 		this.cStatus = cStatus;
 		this.ctNo = ctNo;
+		this.cPic = cPic;
+		this.cProfiles = cProfiles;
 	}
 	public CourseBean() {
 		super();
