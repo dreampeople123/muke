@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 function change2White(_this){
 	var text=_this; //输入搜索内容的文本框
 	var btn=$('#search_btn_out'); //搜索按钮
@@ -30,7 +28,6 @@ function changeSearchBlur(){
 	$('.search-tags-ipt').css('border-color','#CCC');
 }
 
->>>>>>> branch 'master' of ssh://git@github.com/dreampeople123/muke.git
 var flag;
 var chTelRe=false; //检查电话号码的标志
 var chPwdRe=false;//检查密码格式的标志

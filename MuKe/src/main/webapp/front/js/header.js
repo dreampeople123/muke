@@ -43,6 +43,7 @@ $(function(){
 	$('#login').mouseenter(function(){
 		$('#self_card').show();	
 	});
+	
 	$('#self_card').mouseleave(function(){
 		$('#self_card').hide();	
 	});

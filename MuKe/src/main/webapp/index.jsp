@@ -1,6 +1,6 @@
 <html>
 <head>
-<script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="front/js/jquery-2.1.1.js"></script>
 </head>
 <script type="text/javascript">
   $(function(){
@@ -8,8 +8,8 @@
   });
   </script>
 <body>
-	<center>
+	<div style="text-align: center;">
 		<img style="margin-top: 100px;" src="./images/loading.gif" />
-	</center>
+	</div>
 </body>
 </html>

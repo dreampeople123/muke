@@ -177,7 +177,6 @@ public class AskAction implements ModelDriven<BackAskBean>,SessionAware{
 	public String gotoQuestion(){
 		session.put(SessionKey.QUESTION_INFO, askService.findAskBeanByNo(askNos)); //引用社区askbean
 		session.put(SessionKey.QUESTION_ANSWERS, answerService.getAskAnswerByNo(askNos));
-		
 		return "gotoQuestion";
 	}
 	
