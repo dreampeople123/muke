@@ -41,23 +41,23 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 	//增修返回值
 	private int status;
 	//在点击查看视频界面中穿过来的值
-		private String uno;//用户编号
-		private String chapterno;//章节编号
-		private String cno;//课程编号
-		private Map<String, Object> session;
-		@Override
-		public void setSession(Map<String, Object> session) {//获得session
-			this.session=session;
-		}
-		public void setUno(String uno) {
-			this.uno = uno;
-		}
-		public void setChapterno(String chapterno) {
-			this.chapterno = chapterno;
-		}
-		public void setCno(String cno) {
-			this.cno = cno;
-		}
+	private String uno;//用户编号
+	private String chapterno;//章节编号
+	private String cno;//课程编号
+	private Map<String, Object> session;
+	@Override
+	public void setSession(Map<String, Object> session) {//获得session
+		this.session=session;
+	}
+	public void setUno(String uno) {
+		this.uno = uno;
+	}
+	public void setChapterno(String chapterno) {
+		this.chapterno = chapterno;
+	}
+	public void setCno(String cno) {
+		this.cno = cno;
+	}
 	public int getStatus() {
 		return status;
 	}
@@ -82,7 +82,7 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 	public void setCoursesInfo(List<CourseBean> coursesInfo) {
 		this.coursesInfo = coursesInfo;
 	}
-	
+
 	//查找所有课程信息
 	public String findCourseInfo(){
 		map = new HashMap<String, Object>();
@@ -91,7 +91,7 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 		coursesInfo = courseService.findCourseInfo(map);
 		return "findCourseInfo";
 	}
-	
+
 	//按照课程名或课程类别编号查找课程信息
 	public String findCourseByInfo(){
 		map = new HashMap<String, Object>();
@@ -99,13 +99,13 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 		map.put("rows", rows);
 		map.put("cName", courseBean.getcName());
 		map.put("ctNo", Integer.parseInt(courseBean.getCtNo()));
-		
+
 		System.out.println(courseBean.getcName()+"传过来的类别名");
 		System.out.println(Integer.parseInt(courseBean.getCtNo())+"闯过来的类别id");
 		coursesInfo = courseService.findCourseByInfo(map);
 		return "findCourseByInfo";
 	}
-	
+
 	//修改课程信息
 	public String updateCourseInfo(){
 		map = new HashMap<String, Object>();
@@ -113,7 +113,7 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 		map.put("cName", courseBean.getcName());
 		map.put("cUpstatus", courseBean.getcUpstatus());
 		map.put("cStatus", courseBean.getcStatus());
-		
+
 		status = courseService.updateCourseInfo(map);
 		return "updateCourseInfo";
 	}
@@ -266,8 +266,8 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 		List<CommentBean> comments=commentService.findCommentByDian(com); //获得评论信息
 		session.put("comments", comments);
 		return chapterno;
-		
 	}
+	
 	@Override
 	public CourseBean getModel() {
 		courseBean = new CourseBean();

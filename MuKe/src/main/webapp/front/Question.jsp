@@ -83,7 +83,6 @@
             				<div>
             					<img class='userImg' src="${item.user.uPic}" />${item.anContent}
             					<br/><br/>
-            		
             					<c:if test="${not empty item.anPic }">
             					<img onclick="openMask(1,'../../upload/${item.anPic }')" src="../../upload/${item.anPic }">
             					</c:if>
@@ -121,7 +120,6 @@
   				<a href="NewQuestion.jsp" class="newques-btn" id="js-newques" target="_blank">发新问题</a>
 			</div>
 			<%@include file="userInfo.jsp" %>
-			
       		<div class="panel recomment">
       			<div class="panel-heading">
         			<span class="panel-title">相关课程</span>
