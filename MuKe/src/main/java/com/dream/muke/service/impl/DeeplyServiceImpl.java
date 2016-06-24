@@ -1,8 +1,7 @@
 package com.dream.muke.service.impl;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +9,18 @@ import org.springframework.stereotype.Service;
 import com.dream.muke.entity.Deeply;
 import com.dream.muke.mapper.DeeplyMapper;
 import com.dream.muke.service.DeeplyService;
+import java.util.HashMap;
+import java.util.Map;
+
 @Service("deeplyService")
 public class DeeplyServiceImpl implements DeeplyService {
 	@Autowired
 	private DeeplyMapper deeplyMapper;
+
+	public List<Deeply> getDeeply() {
+		return deeplyMapper.getDeeply();
+	}
+	
 	//获得课程难易度信息
 	@Override
 	public List<Deeply> findAllDeeplyInfo(int page, int rows) {

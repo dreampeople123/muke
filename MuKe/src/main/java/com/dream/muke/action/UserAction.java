@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+
+import com.dream.muke.entity.Course;
+import com.dream.muke.entity.Users;
+
 import com.dream.muke.entity.UsersBean;
 import com.dream.muke.service.UsersService;
 import com.opensymphony.xwork2.ModelDriven;
@@ -24,14 +28,22 @@ public class UserAction implements SessionAware, ModelDriven<UsersBean> {
 	private int users_result;//进行删改的的结果int类型
 	private Map<String,Object> session;
 	
+	private Map<String,Object> couerses=new HashMap<String, Object>();
+	
+
+
 	public int getUsers_result() {
 		return users_result;
 	}
 
-
 	public Map<String, Object> getUsers() {
 		return users;
 	}
+	
+	public Map<String, Object> getCouerses() {
+		return couerses;
+	}
+	
 	/**
 	 * 审核教师
 	 * @return
@@ -54,6 +66,16 @@ public class UserAction implements SessionAware, ModelDriven<UsersBean> {
 		users.put("rows", usersService.findUsers(usersBean));
 		return "usersInfo";
 	}
+	
+	/**
+	 * 获取该教师维护的所有的课程
+	 * @return
+	 */
+	public String getTeacherCourse(){
+		couerses.put("infos", usersService.getTeacherCourse(usersBean.getuNo()));
+		return "getTeacherCourse";
+	}
+	
 	/**
 	 * 查看详细的用户信息
 	 * @return
@@ -170,10 +192,13 @@ public class UserAction implements SessionAware, ModelDriven<UsersBean> {
 			return "users_result";
 		}
 	}
+	
 	@Override
 	public UsersBean getModel() {
+		usersBean=new UsersBean();
 		return usersBean;
 	}
+	
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session=session;

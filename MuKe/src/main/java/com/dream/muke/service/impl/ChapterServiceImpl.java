@@ -16,6 +16,12 @@ import com.dream.muke.service.ChapterService;
 public class ChapterServiceImpl implements ChapterService {
 	@Autowired
 	private ChapterMapper chapterMapper;
+	
+	@Override
+	public List<ChapterBean> findAllChapters() {
+		return chapterMapper.findAllChapters();
+	}
+	
 	@Override
 	public List<ChapterBean> findAllChapter(int page,int rows) {
 		Map<String,Integer> map=new HashMap<String,Integer>();

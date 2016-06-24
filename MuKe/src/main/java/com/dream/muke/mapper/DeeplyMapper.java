@@ -1,8 +1,8 @@
 package com.dream.muke.mapper;
 
 import java.util.List;
+import org.springframework.stereotype.Repository;
 import java.util.Map;
-
 import com.dream.muke.entity.Deeply;
 
 /**
@@ -10,7 +10,13 @@ import com.dream.muke.entity.Deeply;
  * @author dream
  *
  */
+@Repository("deeplyMapper")
 public interface DeeplyMapper {
+	/**
+	 * 获取所有的难易度信息
+	 * @return
+	 */
+	public List<Deeply> getDeeply();
 
 	//获取课程难易度信息
 	List<Deeply> getAllDeeplyInfo(Map<String, Object> map);

@@ -100,11 +100,13 @@ function savePin(){
 }
 
 
-function jumpToShiPin(a,b){
-	//alert("进来了");
-	$.post("../courseServlet",{op:'showVideoByCno',cno:a,chapterno:b},function(data){
-		console.info(data+"试试");
-		if(parseInt(data)==1){
+function jumpToShiPin(a,b,c){
+	
+	$.post("courses_getshipinDataInfo",{cno:a,chapterno:b,uno:c},function(data){
+		alert("进来了。。。");
+		console.info(data+"数据值");
+		if(data==1){
+			alert(data+"试试");
 			
 			location.href="shipin.jsp";
 		}else{

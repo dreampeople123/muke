@@ -20,8 +20,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </head>
 <script type="text/javascript">
-	
-	
 	//根据课程方向查找看出信息
 	function showCourseByCdirname(a){
 		$.post("cType_findCourseByCdirname.action",{ctDirname:a},function(data){

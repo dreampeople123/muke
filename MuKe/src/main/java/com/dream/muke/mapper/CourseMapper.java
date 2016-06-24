@@ -1,7 +1,12 @@
 package com.dream.muke.mapper;
 
+
+import com.dream.muke.entity.NewCourseUploadBean;
+
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.stereotype.Repository;
 
 import com.dream.muke.entity.Course;
 import com.dream.muke.entity.CourseBean;
@@ -11,7 +16,14 @@ import com.dream.muke.entity.CourseBean;
  * @author dream
  *
  */
+@Repository("courseMapper")
 public interface CourseMapper {
+	/**
+	 * 添加新课程
+	 * @param course
+	 * @return
+	 */
+	public int addNewCourse(NewCourseUploadBean course);
 
 	List<Course> getCourseNameAndId();
 
@@ -41,4 +53,10 @@ public interface CourseMapper {
 
 	//根据课程难易度查找课程信息
 	List<CourseBean> getCourseByDname(Map<String, Object> map);
+	/**
+	 * 根据cNo查找课程信息
+	 * @param cNo
+	 * @return
+	 */
+	List<CourseBean> findBycno(String cNo);
 }

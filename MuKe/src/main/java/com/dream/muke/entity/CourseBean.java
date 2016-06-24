@@ -25,6 +25,8 @@ public class CourseBean {
 	public void setcPic(String cPic) {
 		this.cPic = cPic;
 	}
+    
+    
 	public String getcNo() {
 		return cNo;
 	}
@@ -79,6 +81,7 @@ public class CourseBean {
 	public void setCtNo(String ctNo) {
 		this.ctNo = ctNo;
 	}
+
 	@Override
 	public String toString() {
 		return "CourseBean [cNo=" + cNo + ", cName=" + cName + ", dName="
@@ -87,6 +90,7 @@ public class CourseBean {
 				+ ", cStatus=" + cStatus + ", ctNo=" + ctNo + ", cPic=" + cPic
 				+ ", cProfiles=" + cProfiles + "]";
 	}
+	
 	public CourseBean(String cNo, String cName, String dName, String ctDirname,
 			String ctName, String cUpdatetime, int cUpstatus, int cStatus,
 			String ctNo, String cPic, String cProfiles) {

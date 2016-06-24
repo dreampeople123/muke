@@ -52,22 +52,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <span class="meta">更新时间</span>
                     <em></em>
      		    </div><!--static-item static-time结束-->
-     		    <!-- 
-                 <div class="static-item">
-                    <span class="meta-value"><strong>317</strong></span>
-                    <span class="meta">学习人数</span>
-        			<em></em>
-      			</div><!--static-item结束-->
-      			 -->
-      			 
-      			 <div class="static-item">
-      			 	<img >
-      			 </div>
+    			 <div class="static-item">
+    			 	<img >
+    			 </div>
       			
             </div><!--static结束-->
         </div><!--w结束-->
 	 	</c:forEach>
-    	
     </div><!--course-infos结束-->
     
     <div class="course-info-main">
@@ -82,8 +73,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	<ul class="course-menu clearfix">
                     <li ><a class="active" id="learnOn"  href="javascript:change('learnOn',1)"><span>章节</span></a></li>
                     <li ><a id="commentOn" class="" href="javascript:change('commentOn',2)"><span>评论</span></a></li>
-                   <!--   <li ><a id="qaOn" class="" href="javascript:change('qaOn',3)"><span>问答</span></a></li>-->
-                        <!-- <li ><a id="noteOn" class="" href="javascript:change('noteOn',4)"><span>笔记</span></a></li>-->
                 </ul>
             </div><!--mod-tab-menu结束-->
             <div class="mod-chapters">
@@ -93,10 +82,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              
             	<div class="chapter-active" id="1" style="display:block">
             		<c:forEach items="${chapterInfo}" var="CourContent">
-            		
-            		<script>
+            		<!-- <script>
             			console.info("${CourContent.chNo}");
-            		</script>
+            		</script> -->
             			<h3 id="chapS"  onClick="show(this)" class="active">
 	                    	<span class="icon-sub"></span>
 	                        <strong onMouseOut="close()"><i class="state-expand"></i>${CourContent.chName }</strong>
@@ -104,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    <ul style="display:block" id="chapterCon">
 	                    	<li id="con"  style="display:block">
 	                            <em class="laststudy"></em>
-	                            <a target="_blank" href="javascript:jumpToShiPin('${CourContent.cNo}','${CourContent.chNo }')" class="studyvideo" id="color">>_${CourContent.chName }<i class="study-state"></i></a>
+	                            <a  href="javascript:jumpToShiPin('${CourContent.cNo}','${CourContent.chNo }','${loginUser.uNo }')" class="studyvideo" id="color">>_${CourContent.chName }<i class="study-state"></i></a>
 	                        </li>
 	                    </ul><br>
             		</c:forEach>
@@ -112,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div><!--chapter-active结束-->
                 <div class="chapter-active" id="2" style="display:none">
                 	 <div class="comment" id="comment" style="display:none">
-                           <textarea id="comment_tucao" class="comment_tucao" placeholder="扯淡、吐槽、表扬、鼓励……想说啥就说啥！"></textarea>-->
+                           <textarea id="comment_tucao" class="comment_tucao" placeholder="扯淡、吐槽、表扬、鼓励……想说啥就说啥！"></textarea>
                            <span class="count_limit"><span id="count_limit">0</span>/300</span>
  			   		 </div><!--comment结束-->
                      <div id="pub-btm" class="pub-btm" style="display:none">
@@ -176,8 +164,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="text-area">
                             	<input type="text" class="text-area-write" style="width:650px ; height:81px" />
                             </div><!--text-area结束-->
-                            
-                            
                         </div><!--editor-wrap结束-->
                         <p class="errortip" style="display:none">您还没填写内容！</p>
                     </div><!--quesdetail结束-->
@@ -307,30 +293,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    </a>
 	                </li>
                 </c:forEach>
-               <!--   <li class="img2">
-                	<a target="_blank" href="#">
-                    	<img alt="HTML+CSS基础课程" src="images/learned1.jpg" >
-                        <span class="name autowrap">HTML+CSS基础课程</span>
-                    </a>
-                </li>
-                <li class="img3">
-                	<a target="_blank" href="#">
-                    	<img alt="HTML+CSS基础课程" src="images/learned1.jpg" >
-                        <span class="name autowrap">HTML+CSS基础课程</span>
-                    </a>
-                </li>
-                 <li class="img4">
-                	<a target="_blank" href="#">
-                    	<img alt="HTML+CSS基础课程" src="images/learned1.jpg" >
-                        <span class="name autowrap">HTML+CSS基础课程</span>
-                    </a>
-                </li>
-                <li class="img5">
-                	<a target="_blank" href="#">
-                    	<img alt="HTML+CSS基础课程" src="images/learned1.jpg" >
-                        <span class="name autowrap">HTML+CSS基础课程</span>
-                    </a>
-                </li>-->
             </ul>
         </div><!--cp-tab-pannel结束-->
     </div><!--cp-body结束-->

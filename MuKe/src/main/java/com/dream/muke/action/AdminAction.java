@@ -25,11 +25,10 @@ public class AdminAction implements ModelDriven<Admin>,SessionAware {
 	private Admin admin;// 进行增删改的临时的admin
 	private int admin_result;// 进行增删改的的结果int类型
 	private Map<String, Object> session;
+	
 	public void setSession(Map<String, Object> session) {//获取session
 		this.session=session;
 	}
-
-
 
 	public int getAdmin_result() {
 		return admin_result;
@@ -65,7 +64,6 @@ public class AdminAction implements ModelDriven<Admin>,SessionAware {
 	 * @return
 	 */
 	public String adminLogin(){
-		System.out.println(admin);
 		Admin loginAdmin=adminService.adminLogin(admin);
 		session.put(SessionKey.LOGIN_ADMIN, loginAdmin);
 		return "adminLogin";

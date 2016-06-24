@@ -6,6 +6,16 @@
 		select * from ctype
 	</select>
 	
+	<!-- 找到所有的方向 -->
+	<select id="findAllDir" resultType="CType">
+		select distinct ctDirname from ctype
+	</select>
+	
+	<!-- 根据方向找到所有的类别 -->
+	<select id="findTypeByDir" parameterType="string" resultType="CType">
+		select ctName,ctNo from ctype where ctDirname=#{key}
+	</select>
+	
 	<!-- 删除课程类别信息 -->
 	<update id="delCourseTypeInfo" parameterType="map">
 	    update ctype set ctStatus=1 where ctNo=#{ctNo}

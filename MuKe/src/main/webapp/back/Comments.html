@@ -67,13 +67,14 @@
 	setTimeout("find()",1000);
 	function find(){
 		//获取所有的章节
-		$.post("chapter_getAllChapter",function(data){
+		$.post("chapter_findAllChapters",function(data){
+			console.info(data);
  			var obj=$("#chaptername");
-			var opt;
-			$.each(data.chapters,function(index,item){ //将所有的课程名称赋值给select
+ 			var opt;
+			$.each(data,function(index,item){ //将所有的课程名称赋值给select
 				opt="<option value='"+item.chNo+"'>"+item.info+"</option>";
 				obj.append($(opt));
-			});
+			}); 
 		},"json");
 	}
 	

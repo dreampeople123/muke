@@ -3,6 +3,7 @@ package com.dream.muke.service;
 import java.util.List;
 
 import com.dream.muke.entity.CommentBean;
+import com.dream.muke.entity.Comments;
 
 public interface CommentService {
 	/**
@@ -29,5 +30,17 @@ public interface CommentService {
 	 * @param coNos
 	 */
 	public int delComments(String coNos);
+	/**
+	 * 视频界面点击点赞查询评论
+	 * @param com
+	 * @return
+	 */
+	public List<CommentBean> findCommentByDian(CommentBean com);
+	/**
+	 * 在视频界面添加评论
+	 * @param com
+	 * @return
+	 */
+	public int addComment(Comments com);
 
 }

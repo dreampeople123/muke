@@ -5,7 +5,6 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
 <!doctype html>
 <html>
 <head>
@@ -17,11 +16,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/shipin.js"></script>
 
-<script type="text/javascript" src="editor/ueditor.config.js"></script>
+  <script type="text/javascript" src="editor/ueditor.config.js"></script>
 <script type="text/javascript" src="editor/ueditor.all.js"></script>
-<script type="text/javascript" src="editor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="editor/lang/zh-cn/zh-cn.js"></script>  
 </head>
-
+<script type="text/javascript">
+	//console.info("${sessionScope.danchapter.chContent}");
+</script>
 <body>
 	<!-- 灰色背景 -->
 	<div id="bg" class="bg" style="display:none;"></div>
@@ -35,8 +36,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </li>
                 <li class="nv nv-menu">
                 	<a class="chaptername J-chaptername" style="cursor:text;" href="javascript:void(0);">
-                		<span>${dancourse.cname}</span>
-						<p>${danchapter.chaptername}</p>
+                		<span>${sessionScope.dancourse.cName}</span>
+						<p>${sessionScope.danchapter.chName}</p>
 					</a>
                 </li>
             </ul>
@@ -46,11 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="studyMain"> 
 		<div id="bgarea" class="video-con">
     		<div style="width:100%; height: 526px;" class="js-box-wrap" id="js-box-wrap">
-	    		<!-- <c:forEach items="${chapters}" var="itemsd"> 
-	               		<c:if test="${itemsd.chapterno eq '1000'}"></c:if>
-		        </c:forEach> -->
-
-	            <video id="media" src="../../${danchapter.chaptercontent}" controls="ture" loop="loop"  preload="preload" height="100%" width="100%" autoplay="autoplay">视频走丢了。。</video>
+	            <video id="media" src="../${sessionScope.danchapter.chContent}" controls="ture" loop="loop"  preload="preload" height="100%" width="100%" autoplay="autoplay">视频走丢了。。</video> 
 	            <canvas style="display:none"></canvas>	
     		</div>
 	    <!--此处结构为侧栏-->
@@ -62,12 +59,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		</div>
 	    		<div class="nano has-scrollbar">
 	        		<div style="right: -17px;" tabindex="0" class="nano-content">
-	            		<h3>${dancourse.cname}</h3>
+	            		<h3>${sessionScope.dancourse.cName}</h3>
 	                   	<ul>
-	                   		<c:forEach items="${chapters}" var="item">
+	                   		<c:forEach items="${sessionScope.chapters}" var="item">
 		                   		<li data-id="10220">
-		                        	<a href="javascript:tiaozhuan(${item.chapterno})"><em class="icon-video"></em>${item.chaptername}</a>
-		                    		<c:if test="${item.chapterno eq danchapter.chapterno}">
+		                        	<a href="javascript:tiaozhuan(${item.chNo})"><em class="icon-video"></em>${item.chName}</a>
+		                    		<c:if test="${item.chNo eq sessionScope.danchapter.chNo}">
 	            						<i class="">正在学</i>
 	            					</c:if>
 	                    		</li>
@@ -90,7 +87,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="course-subcontainer clearfix">
   <div class="course-left clearfix">
       <ul  class="course-menu course-video-menu clearfix js-course-menu" data-ower="all" data-sort="last">
-	  <!-- <li class="course-menu-item"><a class="active" href="javascript:qie('plMenu')" id="plMenu">评论</a></li>-->
 	    <li class="course-menu-item"><a href="javascript:qie('qaMenu')" class="active" id="qaMenu">问答</a></li>
 	    <li class="course-menu-item"><a href="javascript:qie('noteMenu')" id="noteMenu">评论</a></li>
   
@@ -117,11 +113,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        	<div class="tool-left js-all-state">		        
 			        	<a href="javascript:zuixin();" id="zuixin" class="sort-item active" data-sort="last">最新</a>		        
 			        	<a href="javascript:ddian();" id="danzan" class="sort-item" data-sort="sugg">点赞</a>		        
-			        	<!--  <a href="javascript:;" class="sort-item" data-sort="coll">采集</a>-->	        
 		        	</div>	        
 		        	<div class="tool-right r">		        
 			        	<span class="tool-item">		        	
-			        		<!--  <a href="javascript:;" class="js-ower hide-learned tool-chk" data-sort="last">只看我的</a>-->		        
 			        	</span>		    
 		        	</div>		
 		        </div>
@@ -138,12 +132,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 <div class="course-right clearfix">
 	<div class="classmate fl">
-		<h3>你的同学<span>${counu}人</span></h3>
+		<h3>你的同学<span>${sessionScope.counu}人</span></h3>
 		<div class="users_wrap">
 			<div id="js-class-mate" class="users clearfix">
-				<c:forEach items="${tongxue}" var="item">
-					<a class="mate-avator" href="javascript:tongxu(${item.uno})" target="_blank">
-						<img src="${item.pic}" title="${item.uname}">
+				<c:forEach items="${sessionScope.tongxue}" var="item">
+					<a class="mate-avator" href="javascript:tongxu(${item.uNo})" target="_blank">
+						<img src="../${item.uPic}" title="${item.uName}">
 					</a>
 				</c:forEach>
 			</div>
@@ -158,11 +152,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <span class="on">课程</span>
                     </div>
         <ul style="display: block;" class="con-wrap clearfix">
-        	 <c:forEach items="${sameUcourse}" var="item">
+        	 <c:forEach items="${sessionScope.sameUcourse}" var="item">
 		          	<li>
 			            <a href="javascript:void(0)" class="img-box" target="_blank">
-			                <img src="${item.cpic}" alt="${item.cname}">
-			                <p>${item.cname}</p>
+			                <img src="../${item.cPic}" alt="${item.cName}">
 			            </a>
 	        		</li>
           	</c:forEach>
@@ -216,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="publish-wrap publish-wrap-note video-publish-note pop-con">
         <img width=100% height=100% alt="" id="showphoto" src="images/2015-12-09_194819.gif">     
     </div>
-        <div class="pop-title guanbi">images/x.png
+        <div class="pop-title guanbi">
             <a onClick="noclose('showpics')"><img src="images/x.png" width="40px" height="40px"/></a>
         </div>   
 </div>
@@ -247,8 +240,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div style="" class="rich-text-editor">
                     <div style="" class="edui-imooc" id="discuss-editor">
                     	<div class="edui-editor">
-                        
-			<script type="text/javascript">
+                       
+			 <script type="text/javascript">
 			var ue = UE.getEditor("verify-code-ipt",{
 				autoHeightEnabled: false,
 				toolbars:[['insertcode', //代码语言
@@ -263,7 +256,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				           'insertunorderedlist', //无序列表
 				           ]]
 			});
-			</script>
+			</script>  
 			<textarea id="verify-code-ipt"  placeholder="请输入讨论内容..." style="height:116px;" name="content">
 			</textarea>
                         </div>

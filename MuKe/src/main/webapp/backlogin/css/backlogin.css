@@ -37,10 +37,14 @@ body{
 	float:left;
 }
 #mysub{
+	border:0px;
 	float:left;
-	width:120px;
-	height:50px;
+	width:100px;
+	height:40px;
 	margin-top:40px;
 	margin-left:70px;
 	cursor:pointer;
+	background: #00B33B;
+	color: white;
+	opacity:0.7;
 }

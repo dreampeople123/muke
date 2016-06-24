@@ -6,27 +6,38 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dream.muke.entity.Course;
+import com.dream.muke.entity.Users;
 import com.dream.muke.entity.UsersBean;
 import com.dream.muke.mapper.UsersMapper;
 import com.dream.muke.service.UsersService;
+
 @Service("usersService")
 public class UsersServiceImpl implements UsersService {
 	@Autowired
 	private UsersMapper usersMapper;
+
+	public List<Course> getTeacherCourse(String uNo) {
+		return usersMapper.getTeacherCourse(uNo);
+	}
+
 	/**
 	 * 查询users的信息到usersBean
 	 * @param usersBean
 	 * @return
 	 */
-	@Override
 	public List<UsersBean> findUsers(UsersBean usersBean) {
 		return usersMapper.findUsers(usersBean);
 	}
+	
+	public List<Users> findUsers(Users user, int page, int rows) {
+		return null;
+	}
+	
 	/**
 	 * 总记录数
 	 * @return
 	 */
-	@Override
 	public int total(Map<String,Object> map) {
 		return usersMapper.total(map);
 	}
@@ -35,7 +46,6 @@ public class UsersServiceImpl implements UsersService {
 	 * @param uNos
 	 * @return
 	 */
-	@Override
 	public int delUsers(String[] uNos) {
 		return usersMapper.delUsers(uNos);
 	}
@@ -44,7 +54,6 @@ public class UsersServiceImpl implements UsersService {
 	 * @param usersBean
 	 * @return
 	 */
-	@Override
 	public int updateUsers(UsersBean usersBean) {
 		return usersMapper.updateUsers(usersBean);
 	}
@@ -52,7 +61,6 @@ public class UsersServiceImpl implements UsersService {
 	 * 用户注册
 	 * @return
 	 */
-	@Override
 	public UsersBean addUsreInfo(UsersBean usersBean) {
 		int res=usersMapper.addUsreInfo(usersBean);
 		if(res>0){
@@ -60,5 +68,4 @@ public class UsersServiceImpl implements UsersService {
 		}
 		return null;
 	}
-
 }

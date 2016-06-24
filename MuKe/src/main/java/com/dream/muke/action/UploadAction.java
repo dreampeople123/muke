@@ -6,16 +6,14 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.struts2.ServletActionContext;
-import org.springframework.stereotype.Controller;
 
 import com.dream.muke.utils.DateUtil;
 
 /**
- * 文件上传
+ * 文件上传(用于继承)
  * @author Administrator
  *
  */
-@Controller("uploadAction")
 public class UploadAction {
 	//处理文件上传的三个属性
 	private File[] upload; //上传文件
@@ -48,7 +46,7 @@ public class UploadAction {
 		for(int i=0;i<upload.length;i++){
 			try {
 				//FileUtils.copyFile( upload[i],new File(path+"/"+uploadFileName[i])); //开始上传
-				String fileName=""+DateUtil.getFileName()+i; //以日期拼接i，避免上传的文件重名
+				String fileName=""+new DateUtil().getFileName()+i; //以日期拼接i，避免上传的文件重名  注意处理后缀这里没处理
 				FileUtils.copyFile( upload[i],new File(path+"/"+ fileName)); //开始上传
 				LogManager.getLogger().error("文件上传成功"+path);
 				

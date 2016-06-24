@@ -6,23 +6,24 @@ var hong=0;
 var commentno=new Array();//判断是否点过赞
 var guanzhu=false;//是否关注的标志
 //一进页面查信息
-//var uno="1044";
-//var chapterno="1000";
-//var cno="1000";
+var uno="1000";
+var chapterno="1000";
+var cno="1000";
 
 var  maxstrlen=1000;//评论出输入字数的最大数
 var dancanvas;//确定好的图片
 
-//$.post("../courseServlet?d="+new Date(),{op:"getshipinDataInfo",uno:uno,cno:cno,chapterno:chapterno},function(data){
-//		if(parseInt($.trim(data))==1){
-//		}else{
-//			console.info("errorasdf");
-//		}
-//});
+$.post("courses_getshipinDataInfo",{uno:uno,cno:cno,chapterno:chapterno},function(data){
+	console.info("看"+data);
+		if(parseInt($.trim(data))==1){
+		}else{
+			console.info("errorasdf");
+		}
+});
 
 //点击章节是互相跳转
 function tiaozhuan(tchapterno){
-	chapterno=tchapterno;
+	chapterno=tchapterno;//chNo
 	location.href="VideoMiddle.jsp?d="+new Date()+"&op=tiaozhuanVideo&chapterno="+chapterno;
 	
 }
@@ -38,7 +39,7 @@ function createXMLHttpRequest(){
 //点击精华查询信息
 function jinhua(){
 //	location.href="VideoHref.jsp?op=getJinhuaAskInfo&cno="+cno;
-	$.post("../courseServlet?d="+new Date(),{op:"getJinhuaAskInfo"},function(data){
+	$.post("courses_getJinhuaAskInfo",function(data){
 		if(parseInt($.trim(data))==1){
 			console.info("asdfasdf");
 		}else{
@@ -67,7 +68,7 @@ function handleStateChange() {
 }
 //点击全部查询问答信息
 function quanbu(){
-	$.post("../courseServlet?d="+new Date(),{op:"getAllAskInfo"},function(data){
+	$.post("courses_getAllAskInfo",function(data){
 		if(parseInt($.trim(data))==1){
 			console.info("asdfasdf");
 		}else{
@@ -80,7 +81,7 @@ function quanbu(){
 }
 //点击最新查询评论信息
 function zuixin(){
-	$.post("../courseServlet?d="+new Date(),{op:"getLastComInfo"},function(data){
+	$.post("courses_getLastComInfo",function(data){
 		if(parseInt($.trim(data))==1){
 			console.info("asdfasdf");
 		}else{
@@ -109,7 +110,7 @@ function handleStateChanges() {
 }
 //点击点赞查询评论信息
 function ddian(){
-	$.post("../courseServlet?d="+new Date(),{op:"getComInfoBydian"},function(data){
+	$.post("courses_getComInfoBydian",function(data){
 		if(parseInt($.trim(data))==1){
 			console.info("asdfasdf");
 		}else{
@@ -292,9 +293,7 @@ function checkWord(c){
 	document.getElementById("js-note-input-fake").className="textarea-wrap ipt-fake-focus space-fake-focus";
 	len=maxstrlen;
 	var str =c.value;
-	console.info("前"+str);
 		myLen=getStrleng(str);
-		console.info("长度是"+myLen);
 		if(myLen>len){
 			for(var i=0;i<str.length;i++){
 				str=str.replace(' ','');
@@ -331,7 +330,8 @@ function savePin(){
 	if(r==2){
 		ctx.drawImage(video, 0, 0, width, height);
 		 var images = canvas.toDataURL('image/png');
-	      $.post("../courseServlet?d="+new Date(),{op:"shengcheng",images:images,commentcontent:commentcontent},function(data){
+	      $.post("comment_shengcheng",{coPic:images,coContent:commentcontent},function(data){
+	    	  						console.info("评论+"+$.trim(data));
 									if(parseInt($.trim(data))==1){
 										zuixin();
 										noclose("note-publist");
@@ -340,7 +340,7 @@ function savePin(){
 									}
 								});
 		}else{
-			 $.post("../courseServlet?d="+new Date(),{op:"shengcheng",commentcontent:commentcontent},function(data){
+			 $.post("comment_shengcheng",{coContent:commentcontent},function(data){
 				 if(parseInt($.trim(data))==1){
 					 zuixin();
 						noclose("note-publist");
@@ -354,13 +354,11 @@ function savePin(){
 function submitQuestion(){
 	var title=$('#js-qa-title').val();
 	var content=ue.getContent();
-	var ctypeno = '<%=session.getAttribute("dancourse.cname")%>';
-	$.post("../askServlet",{op:"addAsks",title:title,content:content,ctypeno:ctypeno},function(data){
+	$.post("ask_addAsks",{aTitle:title,aContent:content},function(data){
 		data=parseInt(data);
 		if(data>0){
 			quanbu();
 			noclose("discus-publish");
-			
 		}
 	});
 }

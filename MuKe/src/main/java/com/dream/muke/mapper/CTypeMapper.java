@@ -20,6 +20,19 @@ public interface CTypeMapper {
 	 */
 	public List<CType> findAllCourseType();
 
+	/**
+	 * 找到所有的方向
+	 * @return
+	 */
+	public List<CType> findAllDir();
+
+	/**
+	 * 根据方向找到所有的类别
+	 * @param key
+	 * @return
+	 */
+	public List<CType> findTypeByDir(String key);
+	
 	//删除课程类别信息
 	public int delCourseTypeInfo(Map<String, Object> map);
 

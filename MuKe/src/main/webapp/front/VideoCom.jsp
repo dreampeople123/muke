@@ -1,20 +1,20 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-	<c:when test="${not empty comments}">
-		<c:forEach items="${comments}" var="item">
+	<c:when test="${not empty sessionScope.comments}">
+		<c:forEach items="${sessionScope.comments}" var="item">
 		<li>
 			<div class="notelist_headpic">
 				<a target="_blank" href="javascript:void(0)">
-					<img width="40" height="40" src="../../${item.pic}">
+					<img width="40" height="40" src="../${item.user.uPic}">
 				</a>
 			</div>
 			<div class="notelist_content">
 				<div class="u_name">
-					<a target="_blank" href="javascript:void(0)">${item.uname}</a>
+					<a target="_blank" href="javascript:void(0)">${item.user.uName}</a>
 				</div>
 				<div class="js-notelist-content notelist-content mynote">
-					<p>${item.commentcontent}</p>
+					<p>${item.coContent}</p>
 					<div class="notelist-content-more">
 						<a class="js-toggle-content" href="javascript:;"></a>
 					</div>
@@ -23,15 +23,15 @@
 					<!--  <a class="sava_btn" href="javascript:void(0);" style="diplay:none;">保存</a>-->
 				</div>
 				<div class="answercon notelist">
-					<c:if test="${not empty item.yuliu1}">
-					<div class="js-toggle-notelist answerImg">
-						<img width="156" height="88" data-src="" src="../../${item.yuliu1}">
+					<c:if test="${not empty item.coPic}">
+					<div class="js-toggle-notelist answerImg">`
+						<img width="156" height="88" data-src="" src="../../${item.coPic}">
 						<!--  <i class="had-ptime">00:44</i>-->
 						  <div class="hover-area">
 							<!--  <a class="js-catch-pic slider-door catch-pic" href="javascript:;"">
 								<span>看截图</span>
 							</a>-->
-							<a class="slider-door catch-video" target="_blank" onclick="showpics('${item.yuliu1}')">
+							<a class="slider-door catch-video" target="_blank" onclick="showpics('${item.coPic}')">
 								<span>看截图</span>
 							</a>
 						</div>
@@ -39,7 +39,7 @@
 					</c:if>
 				</div>
 				<div class="notelist-bottom clearfix">
-					<span class="l timeago" title="1447731431">${item.commenttime}</span>
+					<span class="l timeago" title="1447731431">${item.coTime}</span>
 					<div class="notelist-actions">
 						<!--  <textarea style="display:none;">视频课程好</textarea>-->
 						<!--<a class="Jcollect list-praise on" data-id="599080|105648" href="javascript:;" title="已采集">
@@ -47,8 +47,8 @@
 							<i>已采集</i>
 							<em>1</em>
 						</a>-->
-						<a class="Jpraise list-praise" data-id="599080" id="${item.commentno}" href="javascript:dianzan('${item.commentno}_${item.dianzannum}');" title="赞">
-							<p>${item.dianzannum}</p>
+						<a class="Jpraise list-praise" data-id="599080" id="${item.coNo}" href="javascript:dianzan('${item.coNo}_${item.coDianzannum}');" title="赞">
+							<p>${item.coDianzannum}</p>
 						</a>
 					</div>
 				</div>

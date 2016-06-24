@@ -1,8 +1,11 @@
 package com.dream.muke.service;
 
 import java.util.List;
+import java.util.Map;
 
+import com.dream.muke.entity.Ask;
 import com.dream.muke.entity.BackAskBean;
+import com.dream.muke.entity.frontAsk;
 
 public interface AskService {
 	/**
@@ -30,5 +33,22 @@ public interface AskService {
 	 * @return
 	 */
 	public int getAskTotal(BackAskBean backAskBean);
-
+	/**
+	 * 查询视频界面的全部问答信息
+	 * @param cno
+	 * @return
+	 */
+	public List<frontAsk> findForntAsk(Map<String, Object> maps);
+	/**
+	 * 查询视频界面的精华问答信息
+	 * @param cno
+	 * @return
+	 */
+	public List<frontAsk> findJinAskByCtype(Map<String, Object> maps);
+	/**
+	 * 视频界面添加问答信息
+	 * @param ask
+	 * @return
+	 */
+	public int addAsk(Ask ask);
 }

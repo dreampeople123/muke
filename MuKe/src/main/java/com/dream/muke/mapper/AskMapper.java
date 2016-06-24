@@ -1,10 +1,13 @@
 package com.dream.muke.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.dream.muke.entity.Ask;
 import com.dream.muke.entity.BackAskBean;
+import com.dream.muke.entity.frontAsk;
 
 /**
  * 回答表映射接口
@@ -38,4 +41,20 @@ public interface AskMapper {
 	 * @return
 	 */
 	public int getAskTotal(BackAskBean backAskBean);
+	/**
+	 * 查询视频界面的全部问答信息
+	 * @return
+	 */
+	public List<frontAsk> findForntAsk(Map<String, Object> maps);
+	/**
+	 * 查询视频界面的精华问答信息
+	 * @return
+	 */
+	public List<frontAsk> findJinAskByCtype(Map<String, Object> maps);
+	/**
+	 * 视频界面添加问答信息
+	 * @param ask
+	 * @return
+	 */
+	public int addAsk(Ask ask);
 }

@@ -9,15 +9,15 @@ import java.util.Date;
  *
  */
 public class DateUtil {
-	private static Date d=new Date();
-	private static SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd HH:mm");
-	private static SimpleDateFormat fn=new SimpleDateFormat("yyyyMMddHHmmssSS");
+	private Date d=new Date();
+	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd HH:mm");
+	private SimpleDateFormat fn=new SimpleDateFormat("yyyyMMddHHmmssSS");
 	
 	/**
 	 * 获取当前时间
 	 * @return
 	 */
-	public static String getDate(){
+	public String getDate(){
 		String date = "";
 		date=sdf.format(d);
 		return date;
@@ -27,7 +27,7 @@ public class DateUtil {
 	 * 取文件名
 	 * @return
 	 */
-	public static String getFileName(){
+	public String getFileName(){
 		String date = "";
 		date=fn.format(d);
 		return date;

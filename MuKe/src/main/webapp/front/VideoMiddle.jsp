@@ -13,7 +13,8 @@ $(function start(){
 	});
 	
 	function tiaozhuanVideo(){
-		$.post("../courseServlet?d="+new Date(),{op:"getshipinDataInfoss",chapterno:chapterno},function(data){
+		console.info("看chapterno"+chapterno)//courses_getshipinDataInfo
+		$.post("courses_getshipinBychapter",{chapterno:chapterno},function(data){
 		if(parseInt($.trim(data))==1){
 			location.href="shipin.jsp";
 		}else{

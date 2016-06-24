@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dream.muke.mapper.CourseMapper" >
+	<!-- 添加新课程 -->
+	<insert id="addNewCourse" parameterType="NewCourseUploadBean">
+		insert into course values(seq_course_cNo.Nextval,#{cName},#{dNo},#{ctNo},#{cUpdatetime},1,#{picPath},#{cProfiles},'','',2)
+		<selectKey keyProperty="cno" keyColumn="cno" order="AFTER" resultType="string">
+			select max(cNo) as cno from course
+		</selectKey>
+	</insert>
+	
     <select id="getCourseNameAndId" resultType="Course">
 		select cname,cno from course
     </select>
@@ -67,5 +75,9 @@
         select * from (select d.*,rownum rn from (select a.cNo,ct.ctNo,cName,cPic,dName,ctDirname,ctName,cUpdatetime,cUpstatus,a.cStatus
 		from(select dName,cNo,cName,cPic,ctNo,cUpdatetime,cUpstatus,c.cStatus from deeply e,course c where e.dNo=c.dNo)a,
 		ctype ct where ct.ctNo=a.ctNo)d where cStatus!=0 and rownum<![CDATA[<]]>=10)b where dName=#{dName}
+    </select>
+    <!-- 根据cNo查找课程 -->
+    <select id="findBycno" parameterType="String" resultType="CourseBean">
+    	select * from course where cNo=#{cNo} and cStatus<![CDATA[>]]>1
     </select>
 </mapper>

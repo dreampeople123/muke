@@ -19,6 +19,14 @@ public class CTypeServiceImpl implements CTypeService {
 		return cTypeMapper.findAllCourseType();
 	}
 
+	public List<CType> findAllDir() {
+		return cTypeMapper.findAllDir();
+	}
+
+	public List<CType> findTypeByDir(String key) {
+		return cTypeMapper.findTypeByDir(key);
+	}
+	
 	//删除课程类别信息
 	@Override
 	public int delCourseTypeInfo(Map<String, Object> map) {

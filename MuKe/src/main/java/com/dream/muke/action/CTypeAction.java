@@ -24,6 +24,9 @@ public class CTypeAction implements ModelDriven<CType>,SessionAware{
 	private int status;
 	Map<String,Object> map;
 	List<CourseBean> courses;
+	private List<CType> cTypes; //课程类别json
+	
+	private String key;
 	
 	public List<CourseBean> getCourses() {
 		return courses;
@@ -39,11 +42,14 @@ public class CTypeAction implements ModelDriven<CType>,SessionAware{
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	private List<CType> cTypes; //课程类别
 	private Map<String, Object> session;
 	
 	public List<CType> getcTypes() {
 		return cTypes;
+	}
+	
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 	/**
@@ -53,6 +59,20 @@ public class CTypeAction implements ModelDriven<CType>,SessionAware{
 	public String findAllCourseType(){
 		cTypes = cTypeService.findAllCourseType();
 		return "findAllCourseType";
+	}
+	
+	/**
+	 * 找到所有的方向
+	 * @return
+	 */
+	public String findAllDir(){
+		cTypes=cTypeService.findAllDir();
+		return "findAllDir";
+	}
+	
+	public String findTypeByDir(){
+		cTypes=cTypeService.findTypeByDir(key);
+		return "findTypeByDir";
 	}
 
 	//删除课程类别信息

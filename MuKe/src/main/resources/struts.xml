@@ -6,7 +6,7 @@
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<constant name="struts.devMode" value="true" />
 	<!-- 设置上传文件的大小 -->
-	<constant name="struts.multipart.maxSize" value="104857600" />
+	<constant name="struts.multipart.maxSize" value="1048576000" />
 	<!-- 把struts的action对象交给spring容器管理 -->
 	<constant name="struts.objectFactory " value="spring" />
 
@@ -37,8 +37,14 @@
 			<result name="showCourseByDname" type="json">
 			    <param name="root">courses</param>
 			</result>
+			<!-- 查询视频界面的课程信息 -->
+			<result name="shipinInfo" type="json">
+			    <param name="root">status</param>
+			</result>
 		</action>
-		
+	</package>
+	<package name="default" namespace="/" extends="json-default">
+
 		<action name="myFileUpload" class="uploadAction" method="upload">
 			<!-- 文件上传的拦截器 -->
 			<interceptor-ref name="fileUpload">
@@ -50,10 +56,48 @@
 			<!-- 基本拦截器 -->
 			<interceptor-ref name="basicStack"/>
 		</action>
-	</package>
-	
-	<package name="mukeJson" namespace="/back" extends="json-default">
+		
 		<action name="*_*" class="{1}Action" method="{2}">
+		    <result>/front/login.jsp</result>
+		    <!-- 管理员登录(重定向解决路径问题) -->
+		    <result name="adminLogin" type="redirect">/back/index.jsp</result>
+		    <!-- 用户登录 -->
+		    <result name="login_result">/front/zhuye.jsp</result>
+		    
+		    <!-- 删改用户返回的json（int :1或0） -->
+			<result name="users_result" type="json">
+				<param name="root">users_result</param>
+			</result>
+
+			<result>/front/login.jsp</result>
+		    <result type="redirect" name="adminLogin">/back/index.jsp</result><!-- 管理员登录 -->
+
+		    <!-- upload.jsp获取所有的方向名 -->
+		    <result name="{2}" type="json">
+		    	<param name="root">cTypes</param>
+		    </result>
+		    <!-- upload.jsp获取课程类别 -->
+		    <result name="findTypeByDir" type="json">
+		    	<param name="root">cTypes</param>
+		    </result>
+		    <!-- upload.jsp获取所有的难易度 -->
+		    <result name="getDeeply" type="json">
+		    	<param name="root">uoloadDeeplys</param>
+		    </result>
+		    <!-- upload.jsp获取该教师维护的所有课程  -->
+		    <result name="getTeacherCourse" type="json">
+		    	<param name="root">couerses</param>
+		    </result>
+		    <!-- upload.jsp上传新的课程 -->
+		    <result name="uploadCourse" type="json">
+		    	<param name="root">result</param>
+		    </result>
+		    <!-- upload.jsp上传新的章节 -->
+		    <result name="uploadChapter" type="json">
+		    	<param name="root">result</param>
+		    </result>
+		    
+		
 			<!-- 删除评论信息 -->
 			<result name="delComments" type="json">
 				<param name="root">result</param>
@@ -69,7 +113,7 @@
 			</result>
 			
 			<!-- 获取所有的章节 -->
-			<result name="getAllChapter" type="json">
+			<result name="findAllChapters" type="json">
 				<param name="root">chapters</param>
 			</result>
 			
@@ -196,9 +240,14 @@
 				<param name="root">status</param>
 			</result>
 			
-			
+			<!-- 查询视频界面的课程信息 -->
+			<!-- <result name="shipinInfo" type="json">
+			    <param name="root">status</param>
+			</result> -->
+			<!-- 查询视频界面保存评论返回的课程信息 -->
+			<result name="shipin" type="json">
+			    <param name="root">result</param>
+			</result>
 		</action>
     </package>
-    
-
 </struts>

@@ -99,7 +99,7 @@
 	        </ul>
 	        
 	        <div class="icourse-footer">
-	            <a href="course.jsp">全部课程</a>
+	            <a href="courses_findAllTypes.action">全部课程</a>
 	        </div><!--icourse-footer结束-->
 	        
 	    </div><!--incourse-wrap-->

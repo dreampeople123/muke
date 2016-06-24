@@ -1,6 +1,9 @@
 package com.dream.muke.mapper;
 
 import java.util.List;
+
+import com.dream.muke.entity.Course;
+import com.dream.muke.entity.UploadChapterBean;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -15,7 +18,20 @@ import com.dream.muke.entity.UsersBean;
 @Repository("usersMapper")
 public interface UsersMapper {
 	/**
-	 * 查询users的信息到usersBean
+	 * 获取该教师维护的所有的课程
+	 * @param uNo
+	 * @return
+	 */
+	public List<Course> getTeacherCourse(String uNo);
+
+	/**
+	 * 添加教师维护课程信息
+	 * @param chapter
+	 * @return
+	 */
+	public int addTeacherCourse(UploadChapterBean chapter);
+
+	/** 查询users的信息到usersBean
 	 * @param usersBean
 	 * @return
 	 */
@@ -42,5 +58,4 @@ public interface UsersMapper {
 	 * @return
 	 */
 	public int addUsreInfo(UsersBean usersBean);
-
 }

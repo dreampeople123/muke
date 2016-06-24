@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 管理员登录 -->
 	<select id="adminLogin" parameterType="Admin" resultType="Admin">
-		select* from admin where aName=#{aName} and aPwd=#{aPwd} and aStatus<![CDATA[>]]>1
+		select* from admin where aName=#{aName} and aPwd=#{aPwd} and aStatus=2
 	</select>
 	<!-- 查询所有的管理员信息 -->
 	<select id="findAllAdmin" parameterType="Map"
@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from (select a.*,rownum rn from (select * from admin where
 		aStatus<![CDATA[>]]>1 order by aId) a where rownum<![CDATA[<]]>=(${page}*${rows}))
 		b where rn<![CDATA[
->]]>((${page}-1)*${rows})
+		>]]>((${page}-1)*${rows})
 	</select>
 	<!-- 添加管理员信息 -->
 	<insert id="addAdmin" parameterType="Admin">

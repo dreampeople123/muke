@@ -9,6 +9,12 @@ import com.dream.muke.entity.Chapter;
 import com.dream.muke.entity.ChapterBean;
 @Repository
 public interface ChapterService {
+	
+	/**
+	 * 获取所有的章节信息
+	 */
+	public List<ChapterBean> findAllChapters();
+	
 	public List<ChapterBean> findAllChapter(int page,int rows);
 
 	public List<ChapterBean> findChapterBycNoOrchName(Map<String, Object> map);

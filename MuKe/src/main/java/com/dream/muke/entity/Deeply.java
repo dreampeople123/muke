@@ -9,7 +9,6 @@ public class Deeply {
     private String dNo;
     private String dName;
     private int dStatus;
-    
 	public String getdNo() {
 		return dNo;
 	}
@@ -28,9 +27,20 @@ public class Deeply {
 	public void setdStatus(int dStatus) {
 		this.dStatus = dStatus;
 	}
-	
+	@Override
 	public String toString() {
 		return "Deeply [dNo=" + dNo + ", dName=" + dName + ", dStatus="
 				+ dStatus + "]";
 	}
+	public Deeply(String dNo, String dName, int dStatus) {
+		super();
+		this.dNo = dNo;
+		this.dName = dName;
+		this.dStatus = dStatus;
+	}
+	public Deeply() {
+		super();
+	}
+    
+    
 }
