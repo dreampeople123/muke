@@ -3,7 +3,7 @@
 <center>
 	<div id="bg" hidden="hidden">
 	</div>
-	<div id="div"  hidden="hidden">
+	<div id="div" hidden="hidden">
 		<div id="div_header">
 			<span class="btn active1" id="lo" onclick="showLogin()">登录</span>
 			<span class="btn" id="re" onclick="showReg()">注册</span>
