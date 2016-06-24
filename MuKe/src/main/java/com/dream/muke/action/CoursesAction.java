@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -23,7 +21,6 @@ import com.dream.muke.entity.UCourseBean;
 import com.dream.muke.entity.UsersBean;
 import com.dream.muke.entity.frontAsk;
 import com.dream.muke.service.AskService;
-import com.dream.muke.service.ChapterService;
 import com.dream.muke.service.CommentService;
 import com.dream.muke.service.CourseService;
 import com.dream.muke.service.DeeplyService;

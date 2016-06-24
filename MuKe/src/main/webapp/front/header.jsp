@@ -8,13 +8,8 @@
     <div id="choose">
         <a href="#" class="menu-ctrl"><i class="icon-menu"></i></a>
         <ul>
-<<<<<<< HEAD
-            <li><a href="courses_findAllTypes.action" target="_self">课程</a></li>
-            <li><a href="Middle.jsp?op=community" target="_self">社区</a></li>
-=======
             <li><a href="course.jsp" target="_self">课程</a></li>
             <li><a href="Community.jsp" target="_self">社区</a></li>
->>>>>>> branch 'master' of ssh://git@github.com/dreampeople123/muke.git
         </ul>
     </div>
     <div id="login">
