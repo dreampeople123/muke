@@ -25,7 +25,12 @@ public class UserAction implements SessionAware, ModelDriven<UsersBean> {
 	private Map<String,Object> session;
 	
 	private Map<String,Object> couerses=new HashMap<String, Object>();
-	
+	private String ycode;//需要验证的验证码
+
+
+	public void setYcode(String ycode) {
+		this.ycode = ycode;
+	}
 
 
 	public int getUsers_result() {
@@ -198,6 +203,21 @@ public class UserAction implements SessionAware, ModelDriven<UsersBean> {
 		return "users_result";
 		
 	} 
+	/**
+	 * 注册时的验证码
+	 * @return
+	 */
+	public String checkCode(){
+		System.out.println("传过来验证"+ycode);
+		String danyz=(String) session.get("rand");//当前的验证码
+		if(danyz.equals(ycode)){
+			users_result=1;
+			return "users_result";
+		}else{
+			users_result=0;
+			return "users_result";
+		}
+	}
 	@Override
 	public UsersBean getModel() {
 		usersBean=new UsersBean();
