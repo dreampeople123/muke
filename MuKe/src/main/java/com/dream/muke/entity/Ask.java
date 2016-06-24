@@ -13,7 +13,14 @@ public class Ask {
     private String aTime;
     private int aStatus;
     private String aContent;
+    private String aPic;
 
+	public String getaPic() {
+		return aPic;
+	}
+	public void setaPic(String aPic) {
+		this.aPic = aPic;
+	}
 	public String getaNo() {
 		return aNo;
 	}
@@ -60,6 +67,6 @@ public class Ask {
 	public String toString() {
 		return "Ask [aNo=" + aNo + ", ctNo=" + ctNo + ", uNo=" + uNo
 				+ ", aTitle=" + aTitle + ", aTime=" + aTime + ", aStatus="
-				+ aStatus + ", aContent=" + aContent + "]";
+				+ aStatus + ", aContent=" + aContent + ", aPic=" + aPic + "]";
 	}
 }

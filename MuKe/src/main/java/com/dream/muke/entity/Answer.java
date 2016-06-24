@@ -13,6 +13,8 @@ public class Answer {
     private int anStatus;
     private String anContent;
     
+    private String anPic;
+    
 	public String getAnNo() {
 		return anNo;
 	}
@@ -49,10 +51,16 @@ public class Answer {
 	public void setAnContent(String anContent) {
 		this.anContent = anContent;
 	}
+	public String getAnPic() {
+		return anPic;
+	}
+	public void setAnPic(String anPic) {
+		this.anPic = anPic;
+	}
 	
 	public String toString() {
 		return "Answer [anNo=" + anNo + ", aNo=" + aNo + ", uNo=" + uNo
 				+ ", anTime=" + anTime + ", anStatus=" + anStatus
-				+ ", anContent=" + anContent + "]";
+				+ ", anContent=" + anContent + ", anPic=" + anPic + "]";
 	}
 }

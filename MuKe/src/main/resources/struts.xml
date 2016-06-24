@@ -71,9 +71,14 @@
 
 			<result>/front/login.jsp</result>
 		    <result type="redirect" name="adminLogin">/back/index.jsp</result><!-- 管理员登录 -->
+		    
+		    <!-- 社区界面获取信息 -->
+		    <result name="findCommunityInfo">/front/Community.jsp</result>
+		    <!-- 社区点击问题详情页面跳转 -->
+		    <result name="gotoQuestion">/front/Question.jsp</result>
 
 		    <!-- upload.jsp获取所有的方向名 -->
-		    <result name="{2}" type="json">
+		    <result name="findAllDir" type="json">
 		    	<param name="root">cTypes</param>
 		    </result>
 		    <!-- upload.jsp获取课程类别 -->

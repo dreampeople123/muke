@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="/struts-tags" prefix="s"%>
 <!doctype html>
 <html>
 <head>
@@ -10,30 +11,26 @@
 <link rel="stylesheet" href="css/header.css" type="text/css" />
 <link rel="stylesheet" href="css/footer.css" type="text/css" />
 <link rel="stylesheet" href="css/login.css" type="text/css" />
+
 <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="js/header.js"></script>
 <script type="text/javascript" src="js/login.js"></script>
+
 <script type="text/javascript">
-	var uno="${loginUser.uno}";
-	var size="${param.size}";
-	$(function(){
-		var ask='${communityAsks}';
-		var course="${hotCourses}";
-		var askList="${hotAsk}";
-		var users="${users}";
-		if(ask!=null && ask!="" && course!=null && course!="" && askList!=null && askList!="" && users!=null && users!=""){
-			//console.info("${users}");
-		} else{
-			location.href="Middle.jsp?op=community";
-		}
-	});
+	var uNo="${loginUser.uNo}";
 </script>
 <script type="text/javascript" src="js/Community.js"></script>
 </head>
 	
 <body>
 <%@include file="header.jsp" %>
+
 <div id="main">
+<!-- 进入页面后获取需要的信息 -->
+<s:action name="ask_findCommunityInfo" namespace="/" >
+	<s:param name="page">1</s:param>
+</s:action>
+
 <div class="wenda clearfix">
 	<div class="js-layout-change">
   		<div class="l wenda-sidebar">
@@ -47,35 +44,40 @@
 					<c:forEach items="${communityAsks }" var="item">              	
 	                    <div class="wenda-listcon clearfix">
 	                        <div class="headslider">
-	                            <img src="${item.pic }" width="40" height="40">
-	                            <span class="wenda-nickname">${item.uname }</span>
+	                            <img src="${item.user.uPic }" alt="暂无图片" width="40" height="40">
+	                            <span class="wenda-nickname">${item.user.uName }</span>
 	                        </div>
 	                        <div class="wendaslider">
 	                            <a href="javascript:void(0)" class="replynumber hasanswernum" target="_blank">
 	                                <div class="ys">
 	                                    <div class="number">
-	                                        <span>${item.total }</span>
+	                                        <span>${item.answerNum }</span>
 	                                    </div>
-	                                    <div>回答</div>
+	                                    <div>回答</div> 
 	                                </div>
 	                            </a>
 	                            <h4 class="wendaquetitle">
 	                                <i class="icon-ad"><img src="images/mu_2.jpg" style="float:left; padding-right:10px;"></i>
 	                                <div class="wendatitlecon">
-	                                    <a href="javascript:gotoQuestion(${item.askno })" class="wendatitle">${item.asktitle }</a>
+	                                    <a href="ask_gotoQuestion.action?askNos=${item.ask.aNo }" class="wendatitle">${item.ask.aTitle }</a>
 	                                </div>
 	                            </h4>
 	                            <div class="replycont clearfix">
 	                                <i class="icon-msg-revert" style="position:absolute; margin-top:5px;"><img src="images/answer.jpg"></i>
 	                                <div class="l replydes">
 	                                    <span class="replysign praise">[最新回答]</span>
-	                                    <span class="replydet">${item.firstAnswer }</span>
+	                                    <c:if test="${not empty item.answer.anContent }">
+	                                    	<span class="replydet">${item.answer.anContent }</span>
+	                                    </c:if>
+	                                    <c:if test="${empty item.answer.anContent }">
+	                                    	<span class="replydet">暂无回答</span>
+	                                    </c:if>
 	                                </div>
 	                            </div>
 	                            <div class="replymegfooter clearfix">
-	                                <div class="wenda-time l">提问时间：${item.askTimes }</div>
+	                                <div class="wenda-time l">提问时间：${item.ask.aTime }</div>
 	                                <div class="keyword-list l">
-	                                  <a class="list-tag">${item.cdirname }</a>
+	                                  <a class="list-tag">${item.cTname }</a>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -107,20 +109,20 @@
       			<!-- 关注度最高的课程 -->
       			<div class="panel-body">
         			<ol class="recom-list common-unit">
-        				<c:forEach items="${hotCourses }" var="item">
+        				<c:forEach items="${communityHotCourse }" var="item">
 	                    	<li>
 	                  			<div class="recom-ihd clearfix">
-	                    			<a href="../courseServlet?op=showCoursesByCno&cno=${item.cno }" class="tag-img l" target="_blank">
-	                      				<img src="${item.cpic }" title="${item.cname }" width="32" hight="32">
+	                    			<a href="../courseServlet?op=showCoursesByCno&cno=${item.course.cNo }" class="tag-img l" target="_blank">
+	                      				<img src="../../upload/${item.course.cPic }" title="${item.course.cName }" alt="图片暂无" width="32px" height="32px">
 	                    			</a>
 	                    			<div class="tag-detail l">
-	                      				<a href="../courseServlet?op=showCoursesByCno&cno=${item.cno }" target="_blank">${item.cname }</a>
+	                      				<a href="../courseServlet?op=showCoursesByCno&cno=${item.course.cNo }" target="_blank">${item.course.cName }</a>
 	                      				<i>关注：${item.attNum }</i>
 	                    			</div>
-	                            	<a class="tag-will-fol at-tag" href="javascript:AttentionCourse('${loginUser.uno }','${item.cno }')">关注</a>
+	                            	<a class="tag-will-fol at-tag" href="courses_showCoursesByCno.action?cNo=${item.course.cNo }">学习</a>
 	                            </div>
 	                  			<div class="recom-ibd">
-	                    			<p>${item.cintro }</p>
+	                    			<p>${item.course.cProfiles }</p>
 	                  			</div>
 	                		</li>
                 		</c:forEach>
@@ -135,14 +137,14 @@
       			<!-- 根据回答的人数降序排列 -->
       			<div class="panel-body clearfix">
                     <ul class="weekly-hot">
-                    	<c:forEach items="${hotAsk }" var="item" begin="0" varStatus="status">
+                    	<c:forEach items="${communityHotAsk }" var="item" begin="0" varStatus="status">
 	                        <li class="padtop">
 	                            <em class="hoticon hot${status.index}">热</em>
-	                            <a href="javascript:gotoQuestion(${item.askno })" target="_blank" class="hottalk">${item.asktitle }</a>
+	                            <a href="ask_gotoQuestion.action?askNos=${item.ask.aNo }" target="_blank" class="hottalk">${item.ask.aTitle }</a>
 	                            <div class="hot-bd">
-	                                <a href="javascript:void(0)" target="_blank" class="list-tag">${item.cdirname }</a>
+	                                <a href="javascript:void(0)" target="_blank" class="list-tag">${item.cTname }</a>
 	                                <div class="answer-follow r">
-	                                    <span class="hot-answer">${item.answernum} 回答</span>
+	                                    <span class="hot-answer">${item.answerNum} 回答</span>
 	                                </div>
 	                            </div>
 	                        </li>
@@ -160,12 +162,12 @@
     			<!-- 根据回答问题数排列的用户 -->
     			<div class="wenda-mkclasscon clearfix">
         			<ul>
-        				<c:forEach items="${users }" var="item">
+        				<c:forEach items="${communityHotUser }" var="item">
 	                   		<li class="padtop">
-	            				<a href="javascript:void(0)" class="l roll-head" target="_blank" title="${item.uname }"><img src="${item.pic }"></a>
-	            				<a href="javascript:void(0)" target="_blank" title="${item.uname }" class="rankingnickname">${item.uname }</a>
-	            				<em class="archieve">${item.usign }</em>
-	            				<i class="adopt rankingnum">${item.anum }<br>回答</i>
+	            				<a href="javascript:void(0)" class="l roll-head" target="_blank" title="${item.user.uName }"><img src="${item.user.uPic }"></a>
+	            				<a href="javascript:void(0)" target="_blank" title="${item.user.uName }" class="rankingnickname">${item.user.uName }</a>
+	            				<em class="archieve">${item.user.uUsign }</em>
+	            				<i class="adopt rankingnum">${item.answerNum }<br>回答</i>
 	         				</li>
          				</c:forEach>
                  	</ul>

@@ -52,8 +52,12 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 	@Autowired
 	private AskService askService;
 	private Map<String,Object> map;
-	
+
 	private List<CourseBean> courses;
+
+	//增修返回值
+	private int status;
+	private Map<String, Object> session;
 	
 	public List<CourseBean> getCourses() {
 		return courses;
@@ -61,20 +65,25 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 	public void setCourses(List<CourseBean> courses) {
 		this.courses = courses;
 	}
-	//增修返回值
-	private int status;
-	private Map<String, Object> session;
-	
-	
+
+
 	//在点击查看视频界面中穿过来的值
 	private String uno;//用户编号
 	private String chapterno;//章节编号
-	private String cno;//课程编号c
+	private String cno;//课程编号
+	
+	
 	public void setUno(String uno) {
 		this.uno = uno;
 	}
 	public void setChapterno(String chapterno) {
 		this.chapterno = chapterno;
+	}
+	public void setSession(Map<String, Object> session) {//获得session
+		this.session=session;
+	}
+	public void setCno(String cno) {
+		this.cno = cno;
 	}
 	public int getStatus() {
 		return status;
@@ -100,14 +109,11 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 	public void setCoursesInfo(List<CourseBean> coursesInfo) {
 		this.coursesInfo = coursesInfo;
 	}
-	public void setCno(String cno) {
-		this.cno = cno;
-	}
 	/**
 	 * 后台部分
 	 * @return
 	 */
-	
+
 	//查找所有课程信息
 	public String findCourseInfo(){
 		map = new HashMap<String, Object>();
@@ -116,7 +122,7 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 		coursesInfo = courseService.findCourseInfo(map);
 		return "findCourseInfo";
 	}
-	
+
 	//按照课程名或课程类别编号查找课程信息
 	public String findCourseByInfo(){
 		map = new HashMap<String, Object>();
@@ -124,13 +130,13 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 		map.put("rows", rows);
 		map.put("cName", courseBean.getcName());
 		map.put("ctNo", Integer.parseInt(courseBean.getCtNo()));
-		
+
 		System.out.println(courseBean.getcName()+"传过来的类别名");
 		System.out.println(Integer.parseInt(courseBean.getCtNo())+"闯过来的类别id");
 		coursesInfo = courseService.findCourseByInfo(map);
 		return "findCourseByInfo";
 	}
-	
+
 	//修改课程信息
 	public String updateCourseInfo(){
 		map = new HashMap<String, Object>();
@@ -138,11 +144,11 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 		map.put("cName", courseBean.getcName());
 		map.put("cUpstatus", courseBean.getcUpstatus());
 		map.put("cStatus", courseBean.getcStatus());
-		
+
 		status = courseService.updateCourseInfo(map);
 		return "updateCourseInfo";
 	}
-	
+
 	/**
 	 * 前台部分
 	 */
@@ -152,7 +158,7 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 		map.put("page", page);
 		map.put("rows", rows);
 		map.put("cName", courseBean.getcName());
-		
+
 		System.out.println(courseBean.getcName()+"传过来的课程名");
 		coursesInfo = courseService.findCourseByCname(map);
 		session.put("courseBean", coursesInfo);
@@ -163,7 +169,7 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 		}
 		return "findCourseByCname";
 	}
-	
+
 	//点击课程的时候,链接到course.jsp,显示所有的课程方向,类别,难易,和课程显示
 	public String findAllTypes(){
 		List<CType> cTypes = cTypeService.findAllCourseType();
@@ -179,8 +185,8 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 		System.out.println("课程类别"+cTypes+"课程难易"+deeply);
 		return "findAllTypes";
 	}
-	
-	
+
+
 	public String showCoursesByCno(){
 		map = new HashMap<String, Object>();
 		map.put("cNo", courseBean.getcNo());
@@ -200,7 +206,7 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 		session.put("riuno", uno);
 		session.put("richapterno", chapterno);
 		session.put("ricno", cno);
-		
+
 		//调用函数查找章节信息，同学信息有关课程
 		getChapterTong( cno, uno, chapterno);
 		//调用函数查找评论信息
@@ -235,7 +241,7 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 		ucur.setRows("10");
 		System.out.println("阿三"+ucur);
 		UCourseBean daucourse=ucourseService.findUcourse(ucur).get(0);
-	//	System.out.println("用户课程"+daucourse+"用户课程水电费水电费");
+		//	System.out.println("用户课程"+daucourse+"用户课程水电费水电费");
 		session.put("daucourse", daucourse);//uno 和cno对应的用户课程
 		ChapterBean danchapter=new ChapterBean();
 		map = new HashMap<String, Object>();
@@ -348,16 +354,11 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 		List<CommentBean> comments=commentService.findCommentByDian(com); //获得评论信息
 		session.put("comments", comments);
 		return chapterno;
-		
 	}
+
 	@Override
 	public CourseBean getModel() {
 		courseBean = new CourseBean();
 		return courseBean;
-	}
-	@Override
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
-		
 	}
 }

@@ -1,58 +1,9 @@
-$.post("../askServlet",{op:"getAskAnswer",askno:askno},function(data){
-	var obj=$("#answerul");
-	var opt="";
-	$.each(data.answers,function(index,item){
-		opt="<li><img class='userImg' src="+item.pic+" />"+item.answercontent+"<span>"+item.answertime+"</span></li>";
-		obj.append($(opt));
-	});
-},"json");
-
-function getLikeCoutse(){
-	$.post("../questionServlet",{op:"likeQuestion",ctypeno:ctypeno},function(data){
-		var obj=$("#likeAsk");
-		var opt="";
-		$.each(data.asks,function(index,item){
-			opt="<li><a href='javascript:gotoQuestion("+item.askno+")'>"+item.asktitle+"</a></li>";
-			obj.append($(opt));
-		});
-	},"json");
-}
-
-setTimeout("getLikeCoutse()",800);
-
-function submitAnswer(){
-	var content=ue.getContent();
-	console.info(uno);
-	if(uno=="" || uno==null || uno.length<1){
-		alert("请先登录!!!");
-	} else{
-		$.post("../answerServlet",{op:"addAnswer",uno:uno,askno:askno,content:content},function(data){
-			data=parseInt(data);
-			if(data==1){
-				location.reload(true);   
-			}else{
-				alert("内容不能为空!!!");
-			}
-		});
-	}
-	
-}
-
-function gotoQuestion(askno){
-	$.post("../questionServlet",{op:"gotoQuestionHTML",askno:askno},function(data){
-		data=parseInt(data);
-		if(data==1){
-			location.href="Question.jsp";
-		}
-	});
-}
-
 function hidediv() {
     document.getElementById("bgImg").style.display ='none';
     document.getElementById("show").style.display ='none';
 }
 
-setTimeout("add()",100);
+//setTimeout("add()",100);
 
 function add(){
 	var obj=$("#yulian");
@@ -70,6 +21,51 @@ function add(){
 	    document.getElementById("bgImg").style.display ="block";
 	    document.getElementById("show").style.display ="block";
 	});
+}
+
+//遮罩的js
+function openMask(op,path){ //显示遮罩
+	$("#mask").css({
+		"height":$(document).height(),
+		"width":$(document).width()
+	}).show(); 
+	
+	if(op==1){
+		$("#bigimg").show();
+		$($("#bigimg").children()[0]).attr("src",path);
+	} else if(op==2){
+		$("#bigimgYulan").show();
+	}
+	
+	$(document.body).css({ //禁用滚动条
+		"overflow-x":"hidden",
+		"overflow-y":"hidden"
+	});
+}
+
+function closeMask(){ //隐藏遮罩
+	$("#bigimgYulan").hide();
+	$("#bigimg").hide(); 
+	$("#mask").hide(); 
+	
+	$(document.body).css({ //启动滚动条
+		"overflow-x":"auto",
+		"overflow-y":"auto"
+	});
+}
+
+function openfile(){ //打开文件上传
+	$("#answerImg").click();
+}
+
+function showYulan(){ //显示预览
+	$("#uploadImg").hide();
+	$("#yulan").show();
+	
+	//并且换显示图片的路径
+    var img = document.getElementById('answerImg');
+    var imgSrc = URL.createObjectURL(img.files[0]);
+    $($("#bigimgYulan").children()[0]).attr("src",imgSrc);
 }
 
 

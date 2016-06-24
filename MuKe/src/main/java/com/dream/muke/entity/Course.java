@@ -14,7 +14,15 @@ public class Course {
     private int cUpstatus;
     private String cPic;
     private int cStatus;
+    private String cProfiles;
     
+    
+	public String getcProfiles() {
+		return cProfiles;
+	}
+	public void setcProfiles(String cProfiles) {
+		this.cProfiles = cProfiles;
+	}
 	public String getcNo() {
 		return cNo;
 	}
@@ -68,6 +76,6 @@ public class Course {
 		return "Course [cNo=" + cNo + ", cName=" + cName + ", dNo=" + dNo
 				+ ", ctNo=" + ctNo + ", cUpdatetime=" + cUpdatetime
 				+ ", cUpstatus=" + cUpstatus + ", cPic=" + cPic + ", cStatus="
-				+ cStatus + "]";
+				+ cStatus + ", cProfiles=" + cProfiles + "]";
 	}
 }

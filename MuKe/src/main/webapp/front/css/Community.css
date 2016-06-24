@@ -134,7 +134,7 @@
 
 .wendaslider{
 	width:720px;
-	height:100%;
+	height:auto;
 	margin-left:120px;
 }
 
@@ -544,6 +544,8 @@
 	font-size:14px;
 	padding:0 10px 0 10px;
 	float:left;
+	min-width: 34px;
+	text-align: center;
 }
 
 .list-tag:hover{

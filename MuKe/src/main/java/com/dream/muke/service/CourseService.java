@@ -1,11 +1,11 @@
 package com.dream.muke.service;
 
+import com.dream.muke.entity.CommunityHotCourseBean;
 import com.dream.muke.entity.NewCourseUploadBean;
 import com.dream.muke.entity.UploadChapterBean;
+
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.stereotype.Repository;
 
 import com.dream.muke.entity.Course;
 import com.dream.muke.entity.CourseBean;
@@ -33,6 +33,11 @@ public interface CourseService {
 	 * @return
 	 */
 	public int uploadChapter(UploadChapterBean chapter);
+	
+	/**
+	 * 获取热门课程
+	 */
+	public List<CommunityHotCourseBean> findCommunityHotCourse();
 
 	List<Course> findCourseNameAndId();
 

@@ -88,7 +88,7 @@ public class BackAskBean {
 	}
 	
 	public String toString() {
-		return "BackAskBean [aNo=" + aNo + ", cType=" + cType + ", user="
+		return "\nBackAskBean [aNo=" + aNo + ", cType=" + cType + ", user="
 				+ user + ", aTitle=" + aTitle + ", aTime=" + aTime
 				+ ", aStatus=" + aStatus + ", aContent=" + aContent + "]";
 	}

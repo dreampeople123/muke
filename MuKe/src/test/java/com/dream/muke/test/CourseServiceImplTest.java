@@ -2,6 +2,7 @@ package com.dream.muke.test;
 
 import static org.junit.Assert.*;
 
+import org.apache.logging.log4j.LogManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,10 @@ public class CourseServiceImplTest {
 		UploadChapterBean chapter=new UploadChapterBean("test","1000","dd",0,"1020");
 		int result=courseService.uploadChapter(chapter);
 		assertEquals("操作失败",1,result);
+	}
+	
+	@Test
+	public void testFindCommunityHotCourse(){
+		LogManager.getLogger().debug(courseService.findCommunityHotCourse());
 	}
 }

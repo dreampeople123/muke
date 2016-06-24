@@ -21,13 +21,12 @@
 }
 
 /*问题相关*/
-.question-body ul{
-	margin-top:20px;
+.bodyul{
 	list-style:none;
 }
 
-.question-body ul li{
-	display:inline-block;
+.bodyli{
+ 	display:inline-block;
 	height:auto;
 	height:40px;
 	line-height:40px;
@@ -35,7 +34,7 @@
 	text-align:left;
 	color:#787d82;
 	font-size:14px;
-	margin-bottom:34px;
+	margin-top: 20px;
 }
 
 /*分类*/
@@ -61,10 +60,14 @@
 	margin-left:43px;
 }
 
-/*内容*/
-#special{
-	height:291px;
+#bodytext-hint{
+	margin-top: 20px;
 }
+
+/*内容*/
+/* #special{
+	height:291px;
+} */
 
 .neirong{
 	float:left;
@@ -72,17 +75,10 @@
 
 .question-mainbody{
 	width:796px;
-	height:280px;
+	height:340px;
 	margin-left:43px;
 }
-.question-mainbody-title{
-	width:100%;
-	height:34px;
-	background:#0F0;
-}
-#content{
-	height: 200px;
-}
+
 /*
 #container{
 	display:inline-block;
@@ -102,11 +98,15 @@
 
 .labels{
 	background:#EDF1F2;
-	padding:5px 5px 5px 5px;
+	padding:0px 5px 0px 5px;
 	font-size:14px;
 	cursor:pointer;
 	text-decoration:none;
+	text-align:center;
 	color:#787d82;
+	margin-right: 6px;
+	display:inline-block;
+	min-width: 40px;
 }
 .labels:hover{
 	background:#D0D6D9;
@@ -146,6 +146,8 @@
 	color:white;
 	line-height:40px;
 	text-align:center;
+	border: 0px;
+	cursor: pointer;
 }
 
 .issue:hover{
@@ -195,4 +197,24 @@
 
 .labels-div{
 	margin-top:20px;
+}
+
+#mask { /*遮罩背景*/
+	position:absolute;
+	top:0px;
+	filter:alpha(opacity=60);
+	background-color: #B2B2B2; 
+	z-index: 999;
+	left: 0px; 
+	opacity:0.5;
+	-moz-opacity:0.5; 
+}
+
+#bigimgYulan{ /*内容*/
+	display:none;
+	text-align:center;
+	z-index:1000;
+	position:fixed;
+	top:20%;
+	left: 28%;
 }

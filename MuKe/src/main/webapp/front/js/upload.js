@@ -63,8 +63,7 @@ function changeUpload(num){ //点击切换上传的内容
 		newCourse.hide();
 		newVideo.show();
 		
-		//TODO uNo修改 
-		$.post("user_getTeacherCourse",{uNo:1020},function(data){ //获取该教师维护的课程
+		$.post("user_getTeacherCourse",{uNo:uno},function(data){ //获取该教师维护的课程
 			var obj=$("#myCourse");
 			var opt="<option>--请选择课程--</option>";
 			obj.html($(opt));

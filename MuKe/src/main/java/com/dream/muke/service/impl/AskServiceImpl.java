@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dream.muke.entity.Ask;
 import com.dream.muke.entity.BackAskBean;
+
+import com.dream.muke.entity.CommunityAskBean;
+
 import com.dream.muke.entity.frontAsk;
 import com.dream.muke.mapper.AnswerMapper;
 import com.dream.muke.mapper.AskMapper;
@@ -39,7 +42,7 @@ public class AskServiceImpl implements AskService {
 			delAskInfoByNo(a);
 		}
 	}
-	
+
 	/**
 	 * 根据编号删除ask信息
 	 * @param aNo
@@ -48,7 +51,7 @@ public class AskServiceImpl implements AskService {
 	public void delAskInfoByNo(String aNo){
 		askMapper.delAskInfoByNo(aNo);
 	}
-	
+
 	/**
 	 * 根据问题编号删除问题下的回答信息
 	 * @param aNo
@@ -61,6 +64,33 @@ public class AskServiceImpl implements AskService {
 	public int getAskTotal(BackAskBean backAskBean) {
 		return askMapper.getAskTotal(backAskBean);
 	}
+
+	public List<CommunityAskBean> findCommunityAsks(BackAskBean backAskBean) {
+		List<CommunityAskBean> asks=askMapper.findCommunityAsks(backAskBean);
+		for (CommunityAskBean a : asks) {
+			if(a.getAnswerNum()!=0){
+				a.setAnswer(answerMapper.findNewAnswerByAno(a.getAsk().getaNo()));
+			}
+		}
+		return asks;
+	}
+
+	public List<CommunityAskBean> findCommunityHotAsk() {
+		return askMapper.findCommunityHotAsk();
+	}
+
+	public List<CommunityAskBean> findCommunityHotUser() {
+		return askMapper.findCommunityHotUser();
+	}
+
+	public CommunityAskBean findAskBeanByNo(String aNo) {
+		return askMapper.findAskBeanByNo(aNo);
+	}
+
+	public int addAsk(Map<String, Object> params) {
+		return askMapper.addCommunityAsk(params);
+	}
+
 	/**
 	 * 根据cno查询视频界面的问答信息
 	 * @param cno
@@ -87,5 +117,5 @@ public class AskServiceImpl implements AskService {
 	@Override
 	public int addAsk(Ask ask) {
 		return askMapper.addAsk(ask);
-		}
+	}
 }

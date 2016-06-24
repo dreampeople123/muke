@@ -3,12 +3,12 @@
 <mapper namespace="com.dream.muke.mapper.UsersMapper" >
 	<!-- 找到该教师维护的所有的课程 -->
 	<select id="getTeacherCourse" parameterType="string" resultType="Course">
-		select c.* from ucourse uc,course c where uc.uno=#{uNo} and uc.cno=c.cno
+		select c.* from ucourse uc,course c where uc.uno=#{uNo} and uc.cno=c.cno and uc.ucStatus=3
 	</select>
 	
 	<!-- 添加教师维护课程的信息 -->
 	<insert id="addTeacherCourse" parameterType="UploadChapterBean">
-		insert into ucourse values(#{uno},#{cNo},2,2,0,'','','',2)
+		insert into ucourse values(#{uno},#{cNo},2,2,0,'','','',3)
 	</insert>
 
 	<!-- 查询users信息到usersBean -->

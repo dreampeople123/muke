@@ -12,10 +12,12 @@ import com.dream.muke.entity.CType;
 import com.dream.muke.entity.CourseBean;
 import com.dream.muke.service.CTypeService;
 import com.dream.muke.service.CourseService;
+import com.dream.muke.utils.SessionKey;
 import com.opensymphony.xwork2.ModelDriven;
 
 @Controller("cTypeAction")
 public class CTypeAction implements ModelDriven<CType>,SessionAware{
+	private Map<String, Object> session;
 	private CType cType;
 	@Autowired
 	private CTypeService cTypeService;
@@ -27,6 +29,11 @@ public class CTypeAction implements ModelDriven<CType>,SessionAware{
 	private List<CType> cTypes; //课程类别json
 	
 	private String key;
+	
+
+	public void setSession(Map<String, Object> session) {
+		this.session=session;
+	}
 	
 	public List<CourseBean> getCourses() {
 		return courses;
@@ -42,7 +49,6 @@ public class CTypeAction implements ModelDriven<CType>,SessionAware{
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	private Map<String, Object> session;
 	
 	public List<CType> getcTypes() {
 		return cTypes;
@@ -58,6 +64,7 @@ public class CTypeAction implements ModelDriven<CType>,SessionAware{
 	 */
 	public String findAllCourseType(){
 		cTypes = cTypeService.findAllCourseType();
+		session.put(SessionKey.ALLTYPES, cTypes);
 		return "findAllCourseType";
 	}
 	
@@ -138,15 +145,9 @@ public class CTypeAction implements ModelDriven<CType>,SessionAware{
 		return "showCourseByCtypename";
 	}
 	
-	@Override
 	public CType getModel() {
 		cType = new CType();
 		return cType;
 	}
 
-	@Override
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
-		
-	}
 }

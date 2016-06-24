@@ -9,10 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-
-import com.dream.muke.entity.Course;
-import com.dream.muke.entity.Users;
-
 import com.dream.muke.entity.UsersBean;
 import com.dream.muke.service.UsersService;
 import com.opensymphony.xwork2.ModelDriven;

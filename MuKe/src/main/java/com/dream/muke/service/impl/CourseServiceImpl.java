@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dream.muke.entity.CommunityHotCourseBean;
 import com.dream.muke.entity.NewCourseUploadBean;
 import com.dream.muke.entity.UploadChapterBean;
 import com.dream.muke.mapper.ChapterMapper;
 import com.dream.muke.mapper.CourseMapper;
 import com.dream.muke.mapper.UsersMapper;
 import com.dream.muke.service.CourseService;
+
 import java.util.List;
 import java.util.Map;
 
@@ -69,12 +71,15 @@ public class CourseServiceImpl implements CourseService {
 	public int addTeacherCourse(UploadChapterBean chapter){
 		return usersMapper.addTeacherCourse(chapter);
 	}
+	
+	public List<CommunityHotCourseBean> findCommunityHotCourse() {
+		return courseMapper.findCommunityHotCourse();
+	}
 
 	public int uploadChapter(UploadChapterBean chapter) {
 		return chapterMapper.addNewChapter(chapter);
 	}
-
-
+	
 	@Override
 	public List<Course> findCourseNameAndId() {
 		return courseMapper.getCourseNameAndId();

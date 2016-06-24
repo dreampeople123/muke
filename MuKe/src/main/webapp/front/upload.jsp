@@ -10,35 +10,14 @@
 
 <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="js/header.js"></script>
+<script type="text/javascript">
+	var uno="${loginUser.uNo}";
+</script>
 <script type="text/javascript" src="js/upload.js"></script>
 </head>
 
 <body>
-	<div id="header">
-		<div id="logo">
-			<a href="zhuye.html" target="_self" class="hide-text">慕课网</a>
-		</div>
-		<div id="choose">
-			<a href="#" class="menu-ctrl"><i class="icon-menu"></i></a>
-			<ul>
-				<li><a href="coursein.html" target="_self">课程</a></li>
-				<li><a href="Community.html" target="_self">社区</a></li>
-			</ul>
-		</div>
-		<div id="login">
-			<ul class="header-unlogin clearfix">
-				<li class="header-signin"><a href="#" id="js-signin-btn">登录</a></li>
-				<li class="header-signup"><a href="#" id="js-signup-btn">注册</a></li>
-			</ul>
-		</div>
-		<div id="search_out" data-search="top-banner">
-			<input id="search-input-out" data-suggest-trigger="suggest-trigger"
-				placeholder="请输入想搜索的内容..." autocomplete="off" type="text"
-				onFocus="change2White(this)" onBlur="change2Gray(this)">
-			<ul class="search-area-result" data-suggest-result="suggest-result"></ul>
-			<input id="search_btn_out" data-search-btn="search-btn" type="button">
-		</div>
-	</div>
+<%@include file="header.jsp" %>
 
 	<!-- 遮罩 -->
 	<div id="mask" class="mask">

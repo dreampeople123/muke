@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import com.dream.muke.entity.Ask;
 import com.dream.muke.entity.BackAskBean;
+
+import com.dream.muke.entity.CommunityAskBean;
+
 import com.dream.muke.entity.frontAsk;
 
 /**
@@ -41,6 +44,41 @@ public interface AskMapper {
 	 * @return
 	 */
 	public int getAskTotal(BackAskBean backAskBean);
+
+
+	/**
+	 * 获取社区的问答信息
+	 * @param backAskBean
+	 * @return
+	 */
+	public List<CommunityAskBean> findCommunityAsks(BackAskBean backAskBean);
+
+	/**
+	 * 获取社区的热门问答(前三)
+	 * @return
+	 */
+	public List<CommunityAskBean> findCommunityHotAsk();
+
+	/**
+	 * 获取社区回答雷锋榜(前三)
+	 * @return
+	 */
+	public List<CommunityAskBean> findCommunityHotUser();
+
+	/**
+	 * 根据编号找到问题详情
+	 * @param aNo
+	 * @return
+	 */
+	public CommunityAskBean findAskBeanByNo(String aNo);
+
+	/**
+	 * 添加回答信息
+	 * @param params
+	 * @return
+	 */
+	public int addCommunityAsk(Map<String, Object> params);
+
 	/**
 	 * 查询视频界面的全部问答信息
 	 * @return

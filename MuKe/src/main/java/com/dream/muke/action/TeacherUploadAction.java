@@ -68,20 +68,22 @@ public class TeacherUploadAction implements ModelDriven<NewCourseUploadBean>{
 	 * @return
 	 */
 	public String uploadCourse(){
-		//String path="F:/tomcat/apache-tomcat-7.0.47/webapps/upload";
-		String path=ServletActionContext.getServletContext().getRealPath("upload/");
-		String videoPath =path+"/"+new DateUtil().getFileName()+"1"+videoFileName;
-		String cPicPath =path+"/"+new DateUtil().getFileName()+"2"+cPicFileName;
+		//String path=ServletActionContext.getServletContext().getRealPath("upload/");
+		String path="F:/tomcat/apache-tomcat-7.0.47/webapps/upload";
+		
+		String videoName = new DateUtil().getFileName()+videoFileName;
+		String cPicName = new DateUtil().getFileName()+cPicFileName;
+		
 		try {
-			FileUtils.copyFile( video,new File(videoPath)); //上传video
-			LogManager.getLogger().error("文件上传成功"+videoPath);
+			FileUtils.copyFile( video,new File(path+"/"+videoName)); //上传video
+			LogManager.getLogger().error("文件上传成功"+path);
 			
-			FileUtils.copyFile( cPic,new File(cPicPath)); //上传cPic
-			LogManager.getLogger().error("文件上传成功"+cPicPath);
+			FileUtils.copyFile( cPic,new File(path+"/"+cPicName)); //上传cPic
+			LogManager.getLogger().error("文件上传成功"+path);
 			
-			course.setPicPath(cPicPath);
+			course.setPicPath(cPicName);
 			
-			result=courseService.uploadCourse(course,videoPath,chName,uno);
+			result=courseService.uploadCourse(course,videoName,chName,uno);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -93,13 +95,13 @@ public class TeacherUploadAction implements ModelDriven<NewCourseUploadBean>{
 	 * @return
 	 */
 	public String uploadChapter(){
-		String path=ServletActionContext.getServletContext().getRealPath("upload/");
-		String videoPath = path+"/"+new DateUtil().getFileName()+videoFileName;
-		UploadChapterBean chapter=new UploadChapterBean(chName,course.getCno(),videoPath,0,uno);
-		
+		//String path=ServletActionContext.getServletContext().getRealPath("upload/");
+		String path="F:/tomcat/apache-tomcat-7.0.47/webapps/upload";
+		String fileName=new DateUtil().getFileName()+videoFileName;
+		UploadChapterBean chapter=new UploadChapterBean(chName,course.getCno(),fileName,0,uno);
 		try {
-			FileUtils.copyFile(video, new File(videoPath));  //上传video
-			LogManager.getLogger().debug("上传成功:"+videoPath);
+			FileUtils.copyFile(video, new File(path+"/"+fileName));  //上传video
+			LogManager.getLogger().debug("上传成功:"+path);
 			result=courseService.uploadChapter(chapter);
 		} catch (IOException e) {
 			e.printStackTrace();
