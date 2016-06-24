@@ -45,5 +45,10 @@ public interface CTypeMapper {
 	/**
 	 * 前台部分
 	 */
-	
+	/**
+	 * 根据用户是否关注，学习情况查找所学的课程的课程类型
+	 * @param map
+	 * @return
+	 */
+	public List<CType> findByMap(Map<String, Object> map);
 }

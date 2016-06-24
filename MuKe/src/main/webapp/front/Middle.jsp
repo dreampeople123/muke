@@ -5,13 +5,14 @@
 var uno="${loginUser.uNo}";
 var nowPage="${param.nowPage}";
 var op="${param.op}";
+var coNo="${param.coNo}";
 $(function(){
 	if(nowPage==null || nowPage==""){
 		nowPage=1;
 	}
 	
 	if(op=="ask"){
-		loadHTMLAsk();
+		loadHTMLAsk(nowPage);
 	} else if(op=="community"){
 		loadHTMLCommunity(nowPage);
 	} else if(op=="showCourseDetail"){
@@ -26,10 +27,24 @@ $(function(){
 		loadHTMLNewQuestion();
 	}  else if(op=="currentCourse"){//在主页的课程显示
 		currentCourse();
-	}  else{
+	}  else if(op=="comment"){//在我的课程界面点击我的评论
 		loadHTMLComment(nowPage);
-	} 
+	} else if(op="delCom"){
+		delCom();//在我的评论界面删除评论
+	}
 });
+/**
+ * 在我的评论界面删除评论
+ */
+function delCom(){
+	console.info("要删除的com"+coNo);
+	$.post("comment_delComments",{coNos:coNo},function(data){
+		if(data==1){
+			nowPage=1;
+			loadHTMLComment(nowPage);
+		}
+	});
+}
 /**
  * 在主页的课程显示
  */
@@ -59,17 +74,20 @@ function loadHTMLNewQuestion(){
 	});
 }
 
-
+/**
+ * 在我的课程界面点击我的评论
+ */
 function loadHTMLComment(now){ //nowPage要查询的页面
-	$.post("../commentsServlet",{op:"getCommentByUno",uno:uno,nowPage:now},function(data){
+	console.info("dang当前页"+now);
+	$.post("comment_getCommentByUno",{page:now},function(data){
 		if(data==1){
 			location.href="MyComment.jsp";
 		}
 	});
 }
 
-function loadHTMLAsk(){
-	$.post("../communityServlet",{op:"getMyAsk",uno:uno},function(data){
+function loadHTMLAsk(now){
+	$.post("ask_getMyAsk",{page:now},function(data){
 		if(data==1){
 			location.href="MyAsk.jsp";
 		}

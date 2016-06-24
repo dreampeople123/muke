@@ -12,7 +12,8 @@
 <link rel="stylesheet" href="css/footer2.css" type="text/css" />
 <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
 <script type="text/javascript">
-	var uno="${loginUser.uno}";
+	 var uno="${loginUser.uNo}"; 
+	
 </script>
 <script type="text/javascript" src="js/header.js"></script>
 <script type="text/javascript" src="js/MyCourse.js"></script>
@@ -25,10 +26,10 @@
     <div class="main-body">
 	    <div class="sider">
 	        <div class="user-info">
-	            <span class="user-pic"><img src="images/55aef90d0001f2a502400180.jpg" title=""></span>
+	            <span class="user-pic"><img src="../${loginUser.uPic }" title=""></span>
 	            <ul class="user-lay">
-	                <li class="mynick-name"><span class="user-name">${loginUser.uname }</span></li>
-	                <li><span class="user-site">${loginUser.posname}</span></li>
+	                <li class="mynick-name"><span class="user-name">${loginUser.uName }</span></li>
+	                <li><span class="user-site"></span></li>
 	                <li><a href="#" class="user-setup">设置</a></li>
 	            </ul>
 	        </div>
@@ -36,7 +37,7 @@
 	            <div class="sign-wrap">
 	                <p style="cursor:default" id="signed" class="signed" onClick="setDesc()">
                         <c:if test="${not empty  loginUser}">
-                           	<span>${loginUser.usign}</span>
+                           	<span>${loginUser.uUsign}</span>
                        	</c:if>
                        	<c:if test="${empty  loginUser}">
                        		<span>这位同学很懒，什么也没留下~~~</span>
@@ -44,7 +45,7 @@
 	                    <img src="images/edit.jpg" />
 	                </p>
                         <c:if test="${not empty  loginUser}">
-                          	<textarea class="sign-editor" id="js-sign-editor" onBlur="setDesc2()">${loginUser.usign}</textarea>
+                          	<textarea class="sign-editor" id="js-sign-editor" onBlur="setDesc2()">${loginUser.uUsign}</textarea>
                       	</c:if>
                       	<c:if test="${empty  loginUser}">
                       		<textarea class="sign-editor" id="js-sign-editor" onBlur="setDesc2()">这位同学很懒，什么也没留下~~~</textarea>
@@ -54,15 +55,18 @@
 	        <ul class="mp-clearfix">
 	            <li class="l-mp-item">
 	                <span class="mp-atag">
-	                    <strong><p class="mp-num">${loginUser.address_prov }</p></strong>
-	                    <p class="mp-title">${loginUser.address_city }&nbsp;${loginUser.address_county }</p>
+	                    <strong><p class="mp-num">${loginUser.uAddress_prov }</p></strong>
+	                    <p class="mp-title">${loginUser.uAddress_city }&nbsp;${loginUser.uAddress_county }</p>
 	                </span>
 	            </li>
 	        </ul>
 	        <ul class="nav">
 	            <li><a class="js-count-course active" href="#"><i class="icon-nav1-out" style="background:url(images/myCourse-red.jpg) no-repeat left center"></i>我的课程</a></li>
-	            <li><a class="js-count-note" href="Middle.jsp?op=comment"><i class="icon-nav3-out"></i>我的评论</a></li>
-	            <li><a class="js-count-code" href="Middle.jsp?op=ask"><i class="icon-nav4-out"></i>我的问答</a></li>
+	            <li><a class="js-count-note" href="Middle.jsp?op=comment&nowPage=1"><i class="icon-nav3-out"></i>我的评论</a></li>
+	            <li><a class="js-count-code" href="Middle.jsp?op=ask&nowPage=1"><i class="icon-nav4-out"></i>我的问答</a></li>
+	            <c:if test="${loginUser.uIsTeacher eq 1}">
+	            <li><a class="js-count-code" href="upload.jsp"><i class="icon-nav4-out"></i>上传视频</a></li>
+	            </c:if>
 	            <li class="rd-dissu">
 	                <a class="read-mine" href="Community.jsp">查看我的社区</a>
 	                <p class="read-notice">看看里面有什么好玩的事情吧～～</p>
@@ -95,15 +99,15 @@
                     <span class="total-num">
                       	 共<b id="mytotal">0</b>个课程
                     </span>
-                    <span class="tool-pager">
+                   <!--  <span class="tool-pager">
                         <span class="pager-num">
                             <b class="pager-cur" style="color:red;">1</b>/<b class="pager-total">1</b>
                         </span>
                         <a href="javascript:void(0)" class="pager-up"><div id="up"><img src="images/up_out.jpg" onMouseOver="changeUpOver(this)" onMouseOut="changeUpOut(this)"/></div></a>
                         <a href="javascript:void(0)" class="ppager-next"><div id="next"><img src="images/next_out.jpg" onMouseOver="changeNextOver(this)" onMouseOut="changeNextOut(this)"/></div></a>
-                    </span>
+                    </span> -->
                     <div class="tool-remove" data-edit="0" style="float:right; padding-top:10px;">
-                        <img id="delimg" src="images/del_out.jpg" style="cursor:pointer" />
+                       <!--  <img id="delimg" src="images/del_out.jpg" style="cursor:pointer" /> -->
                         <span id="delspan" hidden="hidden">完成</span>
                     </div>
     			</div>

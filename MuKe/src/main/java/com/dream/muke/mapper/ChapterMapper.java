@@ -50,4 +50,10 @@ public interface ChapterMapper {
 	 */
 	//根据课程编号查询章节信息
 	List<Chapter> getAllChpaterByCno(Map<String, Object> map);
+	/**
+	 * 查询章节信息（cno,ucNowChNo）
+	 * @param map
+	 * @return
+	 */
+	public ChapterBean findChapter(Map<String, Object> map);
 }

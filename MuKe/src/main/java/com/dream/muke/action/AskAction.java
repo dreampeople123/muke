@@ -7,13 +7,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import com.dream.muke.entity.Ask;
 import com.dream.muke.entity.BackAskBean;
+import com.dream.muke.entity.UsersBean;
 import com.dream.muke.service.AnswerService;
 import com.dream.muke.entity.CourseBean;
 import com.dream.muke.service.AskService;
@@ -32,7 +35,7 @@ public class AskAction implements ModelDriven<BackAskBean>,SessionAware{
 	private CourseService courseService;
 	@Autowired
 	private AnswerService answerService;
-	
+	private Map<String,Object> map;
 	private Map<String,Object> asks=new HashMap<String, Object>(); //传到后台的json信息
 	private int result; //传到后台的数据更新结果
 	private String askNos; //问题编号
@@ -223,4 +226,20 @@ public class AskAction implements ModelDriven<BackAskBean>,SessionAware{
 		 System.out.println("结果是"+result);
 		return "shipin";
 	}
+	/**
+	 * 在我的课程界面点击我的问答
+	 * @return
+	 */
+	public String getMyAsk(){
+		map=new HashMap<String, Object>();
+		UsersBean use=(UsersBean) session.get("loginUser");
+		backAskBean.setRows(5);
+		System.out.println("点击我的问答"+backAskBean);
+		map.put("uNo", use.getuNo());
+		session.put("asks", askService.findForntAsk(map));
+		result=1;
+		return "delAskInfo";//使用之前标识传递json
+		
+		}
+
 }

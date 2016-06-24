@@ -13,11 +13,12 @@
 <link rel="stylesheet" href="css/MyComment.css" type="text/css" />
 <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
 <script type="text/javascript">
-	var uno="${loginUser.uno}";
+	var uno="${loginUser.uNo}";
+	console.info("loginUser.uNo"+uno);
 	$(function(){
 		var comments="${comments}";
 		if(comments==null || comments==""){
-			location.href="Middle.jsp?op=comment"
+			location.href="Middle.jsp?op=comment&nowPage=1";
 		}else{
 		}
 	})
@@ -26,7 +27,7 @@
 <script type="text/javascript" src="js/header.js"></script>
 <script type="text/javascript" src="js/MyComment.js"></script>
 </head>
-
+  
 <body>
 <%@include file="header.jsp" %>
 <div id="main">
@@ -34,10 +35,10 @@
         <div class="l">
             <div class="sider">
                 <div class="user-info">
-                    <span class="user-pic"><img src="images/55aef90d0001f2a502400180.jpg" title=""></span>
+                    <span class="user-pic"><img src="../${loginUser.uPic }" title=""></span>
                     <ul class="user-lay">
-                        <li class="mynick-name"><span class="user-name">${loginUser.uname }</span></li>
-                        <li><span class="user-site">${loginUser.posname} </span></li>
+                        <li class="mynick-name"><span class="user-name">${loginUser.uName }</span></li>
+                        <li><span class="user-site">meiyou </span></li>
                         <li><a href="#" class="user-setup">设置</a></li>
                     </ul>
                 </div>
@@ -45,7 +46,7 @@
                     <div class="sign-wrap">
                         <p style="cursor:default" id="signed" class="signed" onClick="setDesc()">
                         	<c:if test="${not empty  loginUser}">
-                            	<span>${loginUser.usign}</span>
+                            	<span>${loginUser.uUsign}</span>
                         	</c:if>
                         	<c:if test="${empty  loginUser}">
                         		<span>这位同学很懒，什么也没留下~~~</span>
@@ -53,7 +54,7 @@
                             <img src="images/edit.jpg" />
                         </p>
                         <c:if test="${not empty  loginUser}">
-                          	<textarea class="sign-editor" id="js-sign-editor" onBlur="setDesc2()">${loginUser.usign}</textarea>
+                          	<textarea class="sign-editor" id="js-sign-editor" onBlur="setDesc2()">${loginUser.uUsign}</textarea>
                       	</c:if>
                       	<c:if test="${empty  loginUser}">
                       		<textarea class="sign-editor" id="js-sign-editor" onBlur="setDesc2()">这位同学很懒，什么也没留下~~~</textarea>
@@ -63,16 +64,19 @@
                 <ul class="mp-clearfix">
                     <li class="l-mp-item">
                         <span class="mp-atag">
-                            <strong><p class="mp-num">${loginUser.address_prov }</p></strong>
-	                    	<p class="mp-title">${loginUser.address_city }&nbsp;${loginUser.address_county }</p>
+                            <strong><p class="mp-num">${loginUser.uAddress_prov }</p></strong>
+	                    	<p class="mp-title">${loginUser.uAddress_city }&nbsp;${loginUser.uAddress_county }</p>
                         </span>
                     </li>
                 </ul>
-                <h1>${key }</h1>
+                <h1>${key }key</h1>
                 <ul class="nav">
                     <li><a class="js-count-course" href="MyCourse.jsp"><i class="icon-nav1-out"></i>我的课程</a></li>
                     <li><a class="js-count-note active" href="#"><i class="icon-nav3-out" style="background:url(images/myNote-red.jpg) no-repeat left center"></i>我的评论</a></li>
-                    <li><a class="js-count-code" href="Middle.jsp?op=ask"><i class="icon-nav4-out"></i>我的问答</a></li>
+                    <li><a class="js-count-code" href="Middle.jsp?op=ask&nowPage=1"><i class="icon-nav4-out"></i>我的问答</a></li>
+                    <c:if test="${loginUser.uIsTeacher eq 1}">
+	            <li><a class="js-count-code" href="upload.jsp"><i class="icon-nav4-out"></i>上传视频</a></li>
+	            </c:if>
                     <li class="rd-dissu">
                         <a class="read-mine" href="Community.jsp">查看我的社区</a>
                         <p class="read-notice">看看里面有什么好玩的事情吧～～</p>
@@ -87,7 +91,7 @@
             
     		<div class="course-tool-bar-note">
 				<span id="commentTotal">共<span>${myCommentTotal }</span>条</span>
-				<span id="nowPage">1</span>/<span id="totalPage">1</span>
+				<!-- <span id="nowPage">1</span>/<span id="totalPage">1</span> -->
   			</div>
   			<c:if test="${empty comments}">
 	            <center>
@@ -102,20 +106,20 @@
 	                <c:forEach items="${comments }" var="item">
 	                <div class="discuss" courseid="85" noteid="600367">
 	                	<div class="detailmeg">
-	                        <a class="detailcom practice" href="javascript:gotoCha(${item.chapterno })" target="_blank">
-	                        	<i><img src="images/lxt.jpg" /></i>${item.cname }<i class="thin"> ${item.chaptername }</i>
+	                        <a class="detailcom practice" href="javascript:gotoCha(${item.chapter.chNo},${item.chapter.course.cNo },${item.user.uNo })" >
+	                        	<i><img src="images/lxt.jpg" /></i>${item.chapter.course.cName }<i class="thin"> ${item.chapter.chName}</i>
 	                        </a>
 	                        <div class="report clearfix">
 	                            <div class="js-notelist-content notelist-content mynote">
-	                                <p>${item.commentcontent }</p>
+	                                <p>${item.coContent}</p>
 	                            </div>
 	                        </div>
 	                        <div class="anal-time">
-	                            <span class="finaltime">评论时间:${item.commenttime }</span>
+	                            <span class="finaltime">评论时间:${item.coTime }</span>
 	                        </div>
 	                    </div>
 	                    <div class="editordel" style="display:none;">
-	                        <a href="javascript:void(0)" class="delnote" data-cid="85" title="删除此条评论">
+	                        <a href="Middle.jsp?op=delCom&coNo=${item.coNo}" class="delnote" data-cid="85" title="删除此条评论">
 	                            <i class="icon sns-delete"><img id="del-img" src="images/del-gray.jpg" /></i>
 	                            <em id="del-text">删除</em>
 	                        </a>

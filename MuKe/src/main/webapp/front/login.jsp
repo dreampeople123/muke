@@ -39,7 +39,25 @@
 						as=0;
 					}
 				}
-				
+				/* 点击改变验证码 */
+				function changeCode(obj){
+					obj.src="valiCodeImg.jsp?d="+new Date();
+				}
+				/* 失去焦点验证验证码 */
+				function checkCode(){
+					var ycode=$("#yzz").val();
+					$.post("user_checkCode",{ycode:ycode},function(data){
+						if(parseInt($.trim(data))){ //验证码正确
+							$("#yztishi").html("验证码正确...").css("color", "#0F0");
+							$("#yztishi").hide();
+							$("#zhuc").attr("disabled",false);
+						}else{
+							$("#yztishi").html("验证码错误...").css("color", "#F00");
+							$("#yztishi").show();
+							$("#zhuc").attr("disabled",true);
+						}
+					});
+				}
 			</script>
 			<form hidden="hidden" id="regform"  method="post"return false;target="_blank";>
 				<input style="width:300px;height:40px;color:#000000;"  type="text" placeholder="请输入正确的电话号码" name="uTel" id="zctel" onblur="ch_tel()"><br/>
@@ -48,9 +66,14 @@
 				<label id="pwtishi" hidden="hidden" style="color: red;margin-left: 0px; font-size: 12px;">密码不规范</label><br/>
 				<input style="width:300px;height:40px;color:#000000;"    type="text" placeholder="昵称：为2-18位中英文数字及下划线"  id="zcname" onblur="ch_name()" name="uName"><br/>
 				<label id="natishi" hidden="hidden" style="color:red;margin-left: 0px; font-size: 12px;">昵称已存在</label><br/>
-				<input id="fas" value="发送验证码" onclick="javascript:faso()" type="button" name="fasong" style="background-color:red;width:100px;height:40px;font-size:14px;color:white;border:none; margin-right: 10px;"><input style="width:150px;height:40px;color:#000000;" placeholder="请输入验证码" id="y"   name="y"><br/>
+				<!-- <div style=" display: inline-block; width: 100px;height: 40px;margin-right: 10px;margin-top: 18px;"> -->
+<img src="valiCodeImg.jsp" onclick="changeCode(this)"  style="width: 100px;height: 40px;margin-right: 10px;margin-bottom: -14px;"/>
+<!-- </div> -->
+				<!-- <input id="fas" value="发送验证码" onclick="javascript:faso()" type="button" name="fasong" style="background-color:red;width:100px;height:40px;font-size:14px;color:white;border:none; margin-right: 10px;"> -->
+				<input style="width:150px;height:40px;color:#000000;" placeholder="请输入验证码" onblur="checkCode()" id="yzz"   name="yzz"><br/>
+				
 				<label id="yztishi" hidden="hidden" style="color: red;margin-left: 0px; font-size: 12px;">验证码错误</label><br/>
-				<input value="注册"  onclick="user_addUsreInfo()" type="button" name="sou" style="background-color:red;width:300px;height:50px;font-size:20px;color:white;border:none;">
+				<input value="注册"  onclick="user_addUsreInfo()" id="zhuc" type="button" name="sou" style="background-color:red;width:300px;height:50px;font-size:20px;color:white;border:none;">
 			</form>
 		</div>
 	</div>

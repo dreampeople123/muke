@@ -188,7 +188,16 @@ public class UserAction implements SessionAware, ModelDriven<UsersBean> {
 			return "users_result";
 		}
 	}
-	
+	/**
+	 * 我的课程界面更新用户信息
+	 * @return
+	 */
+	public String updateUser(){
+		System.out.println("wod更新用"+usersBean);
+		users_result=usersService.updateUsers(usersBean);
+		return "users_result";
+		
+	} 
 	@Override
 	public UsersBean getModel() {
 		usersBean=new UsersBean();

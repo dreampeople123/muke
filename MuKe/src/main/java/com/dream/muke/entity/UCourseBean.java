@@ -26,7 +26,15 @@ public class UCourseBean {
 	private int page;//进行分页的page
 	private int rows;//进行分页的rows
 
-	
+    private String ctNo;//课程类别信息
+
+
+	public String getCtNo() {
+		return ctNo;
+	}
+	public void setCtNo(String ctNo) {
+		this.ctNo = ctNo;
+	}
 	public String getcName() {
 		return cName;
 	}
@@ -114,8 +122,10 @@ public class UCourseBean {
 				+ ", ucNowChNo=" + ucNowChNo + ", ucStatus=" + ucStatus
 				+ ", cName=" + cName + ", cUpdatetime=" + cUpdatetime
 				+ ", cPic=" + cPic + ", uName=" + uName + ", maxChapter="
-				+ maxChapter + ", page=" + page + ", rows=" + rows + "]";
+				+ maxChapter + ", page=" + page + ", rows=" + rows + ", ctNo="
+				+ ctNo + "]";
 	}
+	
 
 
 

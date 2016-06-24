@@ -6,18 +6,20 @@ $(function(){
 
 function attention(){ //点击关注
 	active(0);
-	loadHTMLAttention(1,0,1,'全部');
+	loadHTMLAttention(1,null,2,'全部');
 
-	//全部下拉框那里的赋值(已关注)
-	$.post("../courseServlet",{op:"getUserCourseDir",uno:uno,attention:1},function(data){
+//全部下拉框那里的赋值(已关注)
+	$.post("ucourse_getUserCourseDir",{uNo:uno,ucAttention:2},function(data){
 		var obj=$("#js-columbd"); //下拉框
-		var opt='<li><a data-id="0" href="javascript:loadHTMLAttention(1,0,1,\'全部\')">全部</a></li>';
+		var opt='<li><a data-id="0" href="javascript:loadHTMLAttention(1,null,2,\'全部\')">全部</a></li>';
 		obj.html('');
 		obj.append($(opt));
-		$.each(data.types,function(index,item){
-			opt='<li><a data-id='+item.ctypeno+' href="javascript:loadHTMLAttention(1,'+item.ctypeno+',1,\''+item.ctypename+'\')">'+item.ctypename+'</a></li>';
-			obj.append($(opt));
-		});
+		if( data!=null){
+			$.each(data,function(index,item){
+				opt='<li><a data-id='+item.ctNo+' href="javascript:loadHTMLAttention(1,'+item.ctNo+',2,\''+item.ctName+'\')">'+item.ctName+'</a></li>';
+				obj.append($(opt));
+			});
+		}
 	},"json");
 }
 function loadHTMLAttention(nowPage,ctypeNo,attention,ctypename){ //nowPage要查询的页面 ctypeNo所要获取的课程的种类
@@ -26,27 +28,27 @@ function loadHTMLAttention(nowPage,ctypeNo,attention,ctypename){ //nowPage要查
 	var opt;
 	var update=$(".span-new");
 	$("#js-columall").children("span").html(ctypename);
-	$.post("../userCourseServlet",{op:"getUserCourse",uno:uno,nowPage:nowPage,ctypeNo:ctypeNo,attention:attention},function(data){
-		if(data.mytotal!=0 && data.ucourses!=null){
+	$.post("ucourse_getUserCourse",{uNo:uno,page:nowPage,ctNo:ctypeNo,ucAttention:attention},function(data){
+		if( data.ucourss!=null){
 			total.html(data.mytotal);
 			list.html('');
 			open_ul();
 			$('#js-columbd').css('display','none');
-			$.each(data.ucourses,function(index,item){
+			$.each(data.ucourss,function(index,item){
 				update.html('');
 				opt='<div class="follow-list">';
 				opt+='<div class="box-left">';
-				opt+='<a href="javascript:gotoCourse('+item.cno+','+item.uno+','+item.nowChapterNum+')" title='+item.cname+' target="_blank">'; //去往课程学习界面
-				opt+='<div class="course-list-img">';
-				opt+='<img src='+item.cpic+' width="220" height="123" alt='+item.cname+'>';
+				opt+='<a href="javascript:gotoCourse('+item.cNo+','+item.uNo+','+item.ucNowChNo+')" title='+item.cName+' >'; //去往课程学习界面
+				opt+='<div class="course-list-img">'; 
+				opt+='<img src=../'+item.cPic+' width="220" height="123" alt='+item.cName+'>';
 				opt+='</div></a></div>';
 				opt+='<div class="box-right"><h4 class="box-hd">';
-				opt+='<span>'+item.cname+'</span>';
-				opt+='<span data-id='+item.cno+' class="span-new">'+item.updatetimes+'更新至第'+item.maxChapter+'章</span></h4>';
+				opt+='<span>'+item.cName+'</span>';
+				opt+='<span data-id='+item.cNo+' class="span-new">'+item.cUpdatetime+'更新至第'+item.maxChapter+'章</span></h4>';
 				opt+='<div class="study-points">';
-				opt+='<span class="span-left span-common">已学习至：第'+item.nowChapterNum+'章</span></div>';
+				opt+='<span class="span-left span-common">已学习至：第'+item.ucNowChNo+'章</span></div>';
 				opt+='<div class="study-btm">'
-				opt+='<a href="javascript:gotoCourse('+item.cno+','+item.uno+','+item.nowChapterNum+')" class="beginstudy" target="_blank">开始学习</a></div></div></div>';
+				opt+='<a href="javascript:gotoCourse('+item.cNo+','+item.uNo+','+item.ucNowChNo+')" class="beginstudy" >开始学习</a></div></div></div>';
 				list.append($(opt));
 			});
 		} else{
@@ -58,18 +60,20 @@ function loadHTMLAttention(nowPage,ctypeNo,attention,ctypename){ //nowPage要查
 
 function study(){ //点击学习
 	active(1);
-	loadHTMLStudy(1,1,0,'全部');
+	loadHTMLStudy(1,2,null,'全部');
 	
 	//全部下拉框那里的赋值(已学习)
-	$.post("../courseServlet",{op:"getUserCourseDir",uno:uno,learnstatus:1},function(data){
+	$.post("ucourse_getUserCourseDir",{uNo:uno,ucAttention:2},function(data){
 		var obj=$("#js-columbd"); //下拉框
-		var opt='<li><a data-id="0" href="javascript:loadHTMLStudy(1,1,0,\'全部\')">全部</a></li>';
+		var opt='<li><a data-id="0" href="javascript:loadHTMLStudy(1,2,null,\'全部\')">全部</a></li>';
 		obj.html('');
 		obj.append($(opt));
-		$.each(data.types,function(index,item){
-			opt='<li><a data-id='+item.ctypeno+' href="javascript:loadHTMLStudy(1,1,'+item.ctypeno+',\''+item.ctypename+'\')">'+item.ctypename+'</a></li>';
-			obj.append($(opt));
-		});
+		if( data!=null){ 
+			$.each(data,function(index,item){
+				opt='<li><a data-id='+item.ctNo+' href="javascript:loadHTMLStudy(1,2,'+item.ctNo+',\''+item.ctName+'\')">'+item.ctName+'</a></li>';
+				obj.append($(opt));
+			});
+		}
 	},"json");
 }
 function loadHTMLStudy(nowPage,learnstatus,ctypeNo,ctypename){
@@ -77,16 +81,16 @@ function loadHTMLStudy(nowPage,learnstatus,ctypeNo,ctypename){
 	var total=$("#mytotal");
 	$("#js-columall").children("span").html(ctypename);
 	$('#js-columbd').css('display','none');
-	$.post("../userCourseServlet",{op:"getUserCourse",uno:uno,nowPage:nowPage,learnstatus:learnstatus,ctypeNo:ctypeNo},function(data){
-		if(data.mytotal!=0 && data.ucourses!=null){
+	$.post("ucourse_getUserCourse",{uNo:uno,page:nowPage,ucLearnstatus:learnstatus,ctNo:ctypeNo},function(data){
+		if( data.ucourss!=null){
 			total.html(data.mytotal);
 			list.html('');
 			var opt='<ul class="studyClass">';;
-			$.each(data.ucourses,function(index,item){
-				opt+='<li onmouseover="showSpan(this)" onmouseout="hideSpan()" class="studyClassLi" data-id="461"><a href="javascript:gotoCourse('+item.cno+','+item.uno+','+item.nowChapterNum+')">'; //去用户当前学的章节
-				opt+='<div class="course-list-img"><img width="240" height="135" src='+item.cpic+'></div>';
-				opt+='<h5 id="title-name"><span>'+item.cname+'</span></h5>';
-				opt+='<div class="tips"><p class="text-ellipsis">'+item.yuliu+'这里写简介</p><span class="dateandnum ">'+item.updatetimes+'更新</span></div>';
+			$.each(data.ucourss,function(index,item){
+				opt+='<li onmouseover="showSpan(this)" onmouseout="hideSpan()" class="studyClassLi" data-id="461"><a href="javascript:gotoCourse('+item.cNo+','+item.uNo+','+item.ucNowChNo+')">'; //去用户当前学的章节
+				opt+='<div class="course-list-img"><img width="240" height="135" src=../'+item.cPic+'></div>';
+				opt+='<h5 id="title-name"><span>'+item.cName+'</span></h5>';
+				opt+='<div class="tips"><p class="text-ellipsis">'+item.cProfiles+'这里写简介</p><span class="dateandnum ">'+item.cUpdatetime+'更新</span></div>';
 				opt+='<span class="time-label">已更新至:第'+item.maxChapter+'章</span></a></li>';
 			});
 			opt+='</ul>';
@@ -100,18 +104,20 @@ function loadHTMLStudy(nowPage,learnstatus,ctypeNo,ctypename){
 
 function studyOver(){
 	active(2);
-	loadHTMLStudy(1,0,0,'全部');
+	loadHTMLStudy(1,1,null,'全部');
 	
 	//全部下拉框那里的赋值(已学习)
-	$.post("../courseServlet",{op:"getUserCourseDir",uno:uno,learnstatus:0},function(data){
+	$.post("ucourse_getUserCourseDir",{uNo:uno,ucLearnstatus:1},function(data){
 		var obj=$("#js-columbd"); //下拉框
-		var opt='<li><a data-id="0" href="javascript:loadHTMLStudy(1,0,0,\'全部\')">全部</a></li>';
+		var opt='<li><a data-id="0" href="javascript:loadHTMLStudy(1,1,null,\'全部\')">全部</a></li>';
 		obj.html('');
 		obj.append($(opt));
-		$.each(data.types,function(index,item){
-			opt='<li><a data-id='+item.ctypeno+' href="javascript:loadHTMLStudy(1,0,'+item.ctypeno+',\''+item.ctypename+'\')">'+item.ctypename+'</a></li>';
-			obj.append($(opt));
-		});
+		if( data!=null){
+			$.each(data,function(index,item){
+				opt='<li><a data-id='+item.ctNo+' href="javascript:loadHTMLStudy(1,1,'+item.ctNo+',\''+item.ctName+'\')">'+item.ctName+'</a></li>';
+				obj.append($(opt));
+			});
+		}
 	},"json");
 }
 
@@ -156,7 +162,7 @@ function setDesc2(){ //编辑框的失焦事件，即完成编辑
 	var p=$('#signed');
 	var area=$('#js-sign-editor');
 	var info=$('#signed span');
-	$.post("../userServlet",{op:"updateUser",usign:area.val(),uno:uno},function(data){
+	$.post("user_updateUser",{uUsign:area.val(),uNo:uno},function(data){
 		if(parseInt(data)==1){
 			info.text(area.val());
 			alert("信息修改成功");
@@ -328,10 +334,10 @@ function gotoQuestion(askno){
 }
 
 function gotoCourse(cno,uno,nowChapterNum){
-	$.post("../courseServlet",{op:"gotoChapter",cno:cno,uno:uno,nowChapterNum:nowChapterNum},function(data){
+	$.post("courses_gotoChapter",{cno:cno,uno:uno,ucnowChNo:nowChapterNum},function(data){
 		data=parseInt(data);
 		if(data==1){
-			location.href="shipin.jsp";
+			window.open("shipin.jsp");
 		}
 	});
 }

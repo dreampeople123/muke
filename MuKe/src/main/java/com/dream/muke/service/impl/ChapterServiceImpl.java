@@ -57,5 +57,13 @@ public class ChapterServiceImpl implements ChapterService {
 	public List<Chapter> findAllChapterByCno(Map<String, Object> map) {
 		return chapterMapper.getAllChpaterByCno(map);
 	}
-
+	/**
+	 * 查询章节信息（cno,ucNowChNo）
+	 * @param map
+	 * @return
+	 */
+	@Override
+	public ChapterBean findChapter(Map<String, Object> map) {
+		return chapterMapper.findChapter(map);
+	}
 }

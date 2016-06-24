@@ -68,8 +68,11 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 	private String uno;//用户编号
 	private String chapterno;//章节编号
 	private String cno;//课程编号
+	private String ucnowChNo;//现在学习到的章节数
 	
-	
+	public void setUcnowChNo(String ucnowChNo) {
+		this.ucnowChNo = ucnowChNo;
+	}
 	public void setUno(String uno) {
 		this.uno = uno;
 	}
@@ -352,7 +355,49 @@ public class CoursesAction implements ModelDriven<CourseBean>,SessionAware{
 		session.put("comments", comments);
 		return chapterno;
 	}
-
+	/**
+	 * 在我的界面点击跳到视频查看界面
+	 * @return
+	 */
+	public String gotoChapter(){
+		System.out.println("ke跳视频"+uno+cno+ucnowChNo);
+		map=new HashMap<String, Object>();
+		map.put("cNo", cno);
+		map.put("chOrder", ucnowChNo);
+		ChapterBean techapter=chapterService.findChapter(map);//根据（cNo，ucNowChNo）查出相应信息
+		String temchapterno=techapter.getChNo();
+		session.put("riuno", uno);
+		session.put("richapterno", temchapterno);
+		session.put("ricno", cno);
+		//调用函数查找章节信息，同学信息有关课程
+		getChapterTong( cno, uno, temchapterno);
+		//调用函数查找评论信息
+		getCommentBean(temchapterno);
+		//问答信息
+		getaskin(cno);
+		status = 1;//表示信息查到成功
+		return "shipinInfo";//借用上面参数返回1
+		
+	}
+	/**
+	 * 在我的评论点击跳到视频查看界面
+	 * @return
+	 */
+	public String gotoCha(){
+		System.out.println("ke跳视频"+uno+cno+chapterno);
+		session.put("riuno", uno);
+		session.put("richapterno", chapterno);
+		session.put("ricno", cno);
+		//调用函数查找章节信息，同学信息有关课程
+		getChapterTong( cno, uno, chapterno);
+		//调用函数查找评论信息
+		getCommentBean(chapterno);
+		//问答信息
+		getaskin(cno);
+		status = 1;//表示信息查到成功
+		return "shipinInfo";//借用上面参数返回1
+		
+	}
 	@Override
 	public CourseBean getModel() {
 		courseBean = new CourseBean();

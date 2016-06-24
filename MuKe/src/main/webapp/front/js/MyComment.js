@@ -23,10 +23,12 @@ $(function(){
 
 });
 
-function gotoCha(no){
-	$.post("../courseServlet",{op:"gotoCha",chapterno:no,uno:uno},function(data){
+function gotoCha(chNo,cNo,uNo){
+	$.post("courses_gotoCha",{cno:cNo,uno:uNo,chapterno:chNo},function(data){
+		data=parseInt(data);
 		if(data==1){
-			location.href="shipin.jsp";
+			window.open("shipin.jsp");
 		}
 	});
+	
 }

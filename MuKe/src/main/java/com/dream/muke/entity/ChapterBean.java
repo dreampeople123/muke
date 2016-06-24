@@ -8,11 +8,17 @@ package com.dream.muke.entity;
 public class ChapterBean {
     private String chNo;
     private String chName;
-    private Course course;
+    private CourseBean course;
     private String chContent;
     private int chOrder;
     private int chStatus;
 	
+	public CourseBean getCourse() {
+		return course;
+	}
+	public void setCourse(CourseBean course) {
+		this.course = course;
+	}
 	public String getChNo() {
 		return chNo;
 	}
@@ -52,10 +58,12 @@ public class ChapterBean {
 	public String getInfo(){ //课程名-章节名
 		return course.getcName()+"-"+chName;
 	}
-	
+	@Override
 	public String toString() {
 		return "ChapterBean [chNo=" + chNo + ", chName=" + chName + ", course="
 				+ course + ", chContent=" + chContent + ", chOrder=" + chOrder
 				+ ", chStatus=" + chStatus + "]";
 	}
+	
+
 }

@@ -17,6 +17,8 @@ import sun.misc.BASE64Decoder;
 
 import com.dream.muke.entity.CommentBean;
 import com.dream.muke.entity.Comments;
+import com.dream.muke.entity.Users;
+import com.dream.muke.entity.UsersBean;
 import com.dream.muke.service.CommentService;
 import com.opensymphony.xwork2.ModelDriven;
 @Controller("commentAction")
@@ -125,7 +127,24 @@ public class CommentAction implements ModelDriven<CommentBean>,SessionAware{
 			return "shipin";
 		}
 	}
+	/**
+	 * 在我的课程界面点击我的评论
+	 * @return
+	 */
+	public String getCommentByUno(){
+		UsersBean use=(UsersBean) session.get("loginUser");
+		Users uee=new Users();
+		uee.setuNo(use.getuNo());
+		commentBean.setUser(uee);
+		commentBean.setRows(10);
+		System.out.println("wodch我的评论"+commentBean);
+		session.put("comments", commentService.getAllComment(commentBean));
+		session.put("myCommentTotal", commentService.getCommentTotal(commentBean));
+		result=1;
+		return "delComments";//借用前转为json 1的字符串
 
+		
+	}
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session=session;

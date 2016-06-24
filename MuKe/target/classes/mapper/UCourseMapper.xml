@@ -18,8 +18,14 @@
 			<if test="cNo!=null">
 				and e.cNo=#{cNo} 
 			</if>
+			<if test="ctNo!=null and ctNo!=''">
+				and d.ctNo=#{ctNo}
+			</if>
 			<if test="ucAttention>0">
-				and ucAttention=#{ucAttention} 
+				and ucAttention=#{ucAttention}
+			</if>
+			<if test="ucLearnstatus>0">
+				and ucLearnstatus=#{ucLearnstatus}
 			</if>
 		</where>
 		order by e.uNo asc) a where rownum<![CDATA[<]]>=(${page}*${rows})) b where rn<![CDATA[>]]>((${page}-1)*${rows})
@@ -37,6 +43,18 @@
 			</if>
 			<if test="ucAttention">
 				and ucAttention=#{ucAttention}  
+			</if>
+			<if test="uNo!=null">
+				and e.uNo=#{uNo}
+			</if>
+			<if test="cNo!=null">
+				and e.cNo=#{cNo}
+			</if>
+			<if test="ctNo!=null  and ctNo!=''">
+				and d.ctNo=#{ctNo}
+			</if>
+				<if test="ucLearnstatus>0">
+				and ucLearnstatus=#{ucLearnstatus}
 			</if>
 		</where>
 	 order by e.uNo)

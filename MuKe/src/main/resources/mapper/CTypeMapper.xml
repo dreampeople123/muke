@@ -32,4 +32,17 @@
 	</insert>
 	
 	<!-- 前台部分 -->
+	<!--根据用户是否关注，学习情况查找所学的课程的课程类型  -->
+	<select id="findByMap" resultType="CType" parameterType="map">
+	select distinct t.ctNo,t.ctName,t.ctDirname  from ucourse u,course c,ctype t 
+	<where>
+			u.cNo=c.cNo and c.ctNo=t.ctNo and u.ucStatus<![CDATA[>]]>1 and u.uNo=#{uNo}
+			<if test="ucAttention>=0">
+				and ucAttention=#{ucAttention}
+			</if>
+			<if test="ucLearnstatus>=0">
+				and ucLearnstatus=#{ucLearnstatus}
+			</if>
+		</where>
+	</select>
 </mapper>

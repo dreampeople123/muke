@@ -8,7 +8,7 @@ package com.dream.muke.entity;
 public class CommentBean {
     private String coNo;
     private Users user;
-    private Chapter chapter;
+    private ChapterBean chapter;
     private String coTime;
     private int coDianzannum;
     private String coPic;
@@ -46,10 +46,11 @@ public class CommentBean {
 	public void setUser(Users user) {
 		this.user = user;
 	}
-	public Chapter getChapter() {
+
+	public ChapterBean getChapter() {
 		return chapter;
 	}
-	public void setChapter(Chapter chapter) {
+	public void setChapter(ChapterBean chapter) {
 		this.chapter = chapter;
 	}
 	public String getCoTime() {

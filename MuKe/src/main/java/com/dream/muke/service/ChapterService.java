@@ -32,4 +32,10 @@ public interface ChapterService {
 	 */
 	//根据课程编号查找章节信息
 	public List<Chapter> findAllChapterByCno(Map<String, Object> map);
+	/**
+	 * 查询章节信息（cno,ucNowChNo）
+	 * @param map
+	 * @return
+	 */
+	public ChapterBean findChapter(Map<String, Object> map);
 }
